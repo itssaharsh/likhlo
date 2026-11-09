@@ -1,5 +1,7 @@
 # Likhlo: what did the doctor write, and is there a cheaper same medicine?
 
+[![CI](https://github.com/itssaharsh/likhlo/actions/workflows/ci.yml/badge.svg)](https://github.com/itssaharsh/likhlo/actions/workflows/ci.yml)
+
 **ডাক্তার কী লিখলো?** Snap a Bangladeshi prescription. Likhlo's agent reads every handwritten line, tells you what each medicine is for and when to take it, warns you when two medicines clash, and finds the same medicine for less among 21,714 Bangladeshi brands.
 
 **Live:** https://likhlo-bd.vercel.app · **Code:** this repository · **Video:** a 2-minute walkthrough is on the Devpost entry
@@ -80,6 +82,7 @@ Devin built these pull requests on top of the existing app:
 - **Verdict animation:** the lowest total in the verdict counts down from the prescribed total with `@number-flow/react` when a reading finishes, and stays still with reduced motion.
 - **Search any medicine (no AI call):** `src/lib/search.ts` (`searchWithPrices`, brand search with price, number of same-medicine brands and the three cheapest), `GET /api/search?q=` (2 to 60 characters, cached for an hour) and `src/components/MedicineSearch.tsx`, a band between the first screen and "Your day" with a 200 ms debounced input, expandable rows listing every same-medicine brand by price, and idle, loading, no-result and error states. Tests in `src/lib/search.test.ts`.
 - **Reminders on the phone (no AI call):** `src/lib/reminders.ts` (`remindersIcs`, a pure function from the `RunState` to an RFC 5545 calendar file: one daily reminder per medicine and part of the day at 08:00, 14:00 or 21:00 local time, for the prescribed days or 30 days when the line says continue, with "when needed" lines left out). The "Add reminders to my phone" button under "Your day" downloads `likhlo-reminders.ics` and names the lines it left out. Tests in `src/lib/reminders.test.ts`.
+- **End-to-end tests and CI:** `e2e/golden-path.spec.ts` (Playwright, Chromium) runs against `next build && next start` on the recorded samples: the first screen's total, a sample replay, the Seclo sheet, the pharmacy slip, and the medicine search and phone reminders when those are on the branch. Any call to `/api/read` or `/api/speak` fails the test. `.github/workflows/ci.yml` runs `npm ci`, `npm test`, `next build`, `tsc`, `eslint` and the Playwright test on every push and pull request, with no secrets.
 
 ## What's real
 
