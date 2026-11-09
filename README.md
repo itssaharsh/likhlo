@@ -1,5 +1,7 @@
 # Likhlo: what did the doctor write, and is there a cheaper same medicine?
 
+[![CI](https://github.com/itssaharsh/likhlo/actions/workflows/ci.yml/badge.svg)](https://github.com/itssaharsh/likhlo/actions/workflows/ci.yml)
+
 **ডাক্তার কী লিখলো?** Snap a Bangladeshi prescription. Likhlo's agent reads every handwritten line, tells you what each medicine is for and when to take it, warns you when two medicines clash, and finds the same medicine for less among 21,714 Bangladeshi brands.
 
 **Live:** https://likhlo-bd.vercel.app · **Code:** this repository · **Video:** a 2-minute walkthrough is on the Devpost entry
@@ -73,10 +75,11 @@ npm run dev                  # http://localhost:3000
 
 ## How Devin was used
 
-Devin built one pull request on top of the existing app:
+Devin built these pull requests on top of the existing app:
 
 - **Save for the pharmacy slip:** `src/lib/slip.ts` (`slipFromRun`, a pure function from the `RunState` to the slip's rows, totals and warnings) and `src/components/PharmacySlip.tsx` (a 1080x1350 card in English or Bangla, shared as a PNG on phones, downloaded otherwise, or printed with a print-only stylesheet). Buttons sit in the summary actions and under "Your day". Tests in `src/lib/slip.test.ts`.
 - **Verdict animation:** the lowest total in the verdict counts down from the prescribed total with `@number-flow/react` when a reading finishes, and stays still with reduced motion.
+- **End-to-end tests and CI:** `e2e/golden-path.spec.ts` (Playwright, Chromium) runs against `next build && next start` on the recorded samples: the first screen's total, a sample replay, the Seclo sheet, the pharmacy slip, and the medicine search and phone reminders when those are on the branch. Any call to `/api/read` or `/api/speak` fails the test. `.github/workflows/ci.yml` runs `npm ci`, `npm test`, `next build`, `tsc`, `eslint` and the Playwright test on every push and pull request, with no secrets.
 
 ## What's real
 
