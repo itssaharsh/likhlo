@@ -465,7 +465,9 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
               {canRemind && (
                 <button type="button" className="btn btn-quiet" onClick={addReminders}>
                   <BellIcon />
-                  Add reminders to my phone · <span lang="bn">ফোনে রিমাইন্ডার</span>
+                  <span>
+                    Add reminders to my phone · <span lang="bn">ফোনে রিমাইন্ডার</span>
+                  </span>
                 </button>
               )}
               <span>Each medicine, its dose, the lowest price and every warning on one card for the pharmacy counter or WhatsApp.</span>

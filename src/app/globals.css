@@ -500,6 +500,7 @@ dialog.slip-sheet { width: min(600px, calc(100vw - 24px)); max-height: calc(100d
 .plan-note { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
 .slip-print { display: none; }
 @media (max-width: 640px) {
+  .plan-actions .btn { width: 100%; justify-content: center; text-align: center; }
   .slip-sheet-body { padding: 12px 12px 4px; }
   .slip-actions { padding: 12px 12px 14px; }
   .slip-actions-go { width: 100%; }
