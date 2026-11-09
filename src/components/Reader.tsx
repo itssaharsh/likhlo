@@ -6,6 +6,7 @@ import { applyEvent, emptyRun, replayState, type RecordedRun, type RunEvent, typ
 import Stage from "./Stage";
 import Results, { Verdict } from "./Results";
 import DayPlan from "./DayPlan";
+import MedicineSearch from "./MedicineSearch";
 import StepLog from "./StepLog";
 import MedSheet from "./MedSheet";
 import { SlipIcon, SlipSheet } from "./PharmacySlip";
@@ -434,6 +435,16 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
           )}
         </div>
       </main>
+
+      <section id="search" className="band msearch-band" aria-labelledby="search-title">
+        <div className="section">
+          <h2 id="search-title">
+            Already know the medicine? · <span lang="bn">ওষুধের নাম জানেন?</span>
+            <small>Type the brand on the strip or the box to see its price and the same medicine for less.</small>
+          </h2>
+          <MedicineSearch lang={lang} />
+        </div>
+      </section>
 
       <section id="plan" className="band">
         <div className="section">

@@ -29,6 +29,7 @@ The same medicines cost **৳409 instead of ৳612** for the days written, and L
 3. Click **Read it live** on the photo caption, or **Read my prescription** to upload any prescription photo. That runs the agent live (about 15 to 25 seconds).
 4. Click any medicine to see every brand of the same medicine with its price. Switch **English / বাংলা**, and press **Listen in Bangla** for a spoken summary.
 5. Scroll to **Your day** (the medicines placed morning, noon and night) and **What the agent did** (every step, in order).
+6. Under **Already know the medicine?**, type a brand such as *Seclo 20* to see its price, how many brands make the same medicine and the cheapest one, with no photo and no AI call. Click a result for every brand of that medicine by price.
 
 ## How the agent works
 
@@ -73,10 +74,11 @@ npm run dev                  # http://localhost:3000
 
 ## How Devin was used
 
-Devin built one pull request on top of the existing app:
+Devin built these pull requests on top of the existing app:
 
 - **Save for the pharmacy slip:** `src/lib/slip.ts` (`slipFromRun`, a pure function from the `RunState` to the slip's rows, totals and warnings) and `src/components/PharmacySlip.tsx` (a 1080x1350 card in English or Bangla, shared as a PNG on phones, downloaded otherwise, or printed with a print-only stylesheet). Buttons sit in the summary actions and under "Your day". Tests in `src/lib/slip.test.ts`.
 - **Verdict animation:** the lowest total in the verdict counts down from the prescribed total with `@number-flow/react` when a reading finishes, and stays still with reduced motion.
+- **Search any medicine (no AI call):** `src/lib/search.ts` (`searchWithPrices`, brand search with price, number of same-medicine brands and the three cheapest), `GET /api/search?q=` (2 to 60 characters, cached for an hour) and `src/components/MedicineSearch.tsx`, a band between the first screen and "Your day" with a 200 ms debounced input, expandable rows listing every same-medicine brand by price, and idle, loading, no-result and error states. Tests in `src/lib/search.test.ts`.
 
 ## What's real
 
