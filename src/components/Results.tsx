@@ -227,7 +227,7 @@ export function Verdict({ run, lang, landed }: { run: RunState; lang: Lang; land
             <div className="sub">
               {lang === "bn"
                 ? "একই জেনেরিক, শক্তি ও ধরনের সবচেয়ে কম দামের ব্র্যান্ড · চলমান ওষুধ ৩০ দিন"
-                : "Lowest-priced brands of the same generic, strength and form · ongoing ones for 30 days"}
+                : "Cheaper brands of the same generic, strength and form · ongoing ones for 30 days"}
             </div>
             <div className="fine">
               {lang === "bn" ? "ব্র্যান্ড বদলানোর আগে ফার্মাসিস্টকে জিজ্ঞেস করুন।" : "Ask your pharmacist before switching brands."}

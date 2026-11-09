@@ -2,7 +2,7 @@
 
 **ডাক্তার কী লিখলো?** Snap a Bangladeshi prescription. Likhlo's agent reads every handwritten line, tells you what each medicine is for and when to take it, warns you when two medicines clash, and finds the same medicine for less among 21,714 Bangladeshi brands.
 
-**Live:** https://likhlo-bd.vercel.app · **Code:** this repository
+**Live:** https://likhlo-bd.vercel.app · **Code:** this repository · **Video:** a 2-minute walkthrough is on the Devpost entry
 
 ![Likhlo reading Rahima Khatun's prescription: five lines marked up on the photo, a double dose of paracetamol caught, and the same medicines for ৳409 instead of ৳612](public/og.png)
 
@@ -22,7 +22,7 @@ Take **Rahima Khatun's prescription** (a made-up sample, written the way Dhaka c
 
 The same medicines cost **৳409 instead of ৳612** for the days written, and Likhlo flags the double paracetamol and the clopidogrel leaflet warning for the family to show their doctor. For Abdul Karim's monthly diabetes and blood-pressure list, it is **৳798 instead of ৳1,675 every month**.
 
-## For judges (one minute)
+## Try it (for judges, one minute)
 
 1. Open https://likhlo-bd.vercel.app. It opens on Rahima's prescription, already read: the lines marked on the photo, the clash arcs, the price per line and the total.
 2. Click **Diabetes and BP, monthly** or **A child's cough syrups** under *Try*. Each replays a recorded real run so you can watch the agent work.
@@ -51,7 +51,7 @@ Doses, prices and totals are computed in code from the dataset, never by the mod
 | Quality and completeness of the working product | Upload any photo; replay, live run, medicine detail, day plan, Bangla audio, phone layout |
 | Creativity and strength of the AI/agentic workflow | The marked-up photo and *What the agent did*: read, search, choose, check, explain |
 | Technical execution and demo quality | Streaming agent events, recorded runs replayed through the same code, golden tests on every recorded run |
-| Potential impact for real users | 21,714 real brands and prices; ৳877 a month saved on one chronic patient's list |
+| Potential impact for real users | 21,714 real brands and prices; ৳877 a month saved on one chronic patient's list; ৳456 instead of ৳865 on a prescription it had never seen |
 
 ## Run it yourself
 
@@ -67,7 +67,7 @@ npm run dev                  # http://localhost:3000
 
 - **Medicines:** [Medicine Dataset of Bangladesh](https://huggingface.co/datasets/ArnobBot/Medicine-Dataset-of-Bangladesh) (MIT), derived from [MedEx](https://medex.com.bd) via [bd-medicine-scraper](https://github.com/ahmedshahriar/bd-medicine-scraper): 21,714 brands with generic, strength, form, maker and price, and 1,570 generic leaflets. Prices are as listed in that dataset.
 - **Models:** Google Gemini (vision and tool calling; Gemini TTS for the Bangla audio), through the Vercel AI SDK, with Vercel AI Gateway as the last fallback.
-- **Built with:** Next.js, Vercel AI SDK, zod, vitest; fonts Anek Bangla, Hind Siliguri and Caveat. Coding was done with Claude Code.
+- **Built with:** Next.js, Vercel AI SDK, zod, vitest; fonts Anek Bangla, Hind Siliguri and Caveat. The coding agent for this build was Claude Code; Devin, the event's sponsor, was not used.
 - Built during the Agentic Hackathon submission period (1 to 10 November 2026).
 
 ## What's real
