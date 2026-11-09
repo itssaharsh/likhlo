@@ -456,6 +456,8 @@ dialog.sheet::backdrop { background: oklch(25% 0.03 190 / 0.35); backdrop-filter
 .slip-marks small { font-size: 0.7em; color: var(--muted); line-height: 1.1; }
 .slip-marks .on small { color: var(--ink); font-weight: 600; }
 .slip-prn { display: inline-block; font-weight: 600; color: var(--accent-ink); background: var(--accent-soft); border-radius: 999px; padding: 0.3em 0.75em 0.25em; font-size: 0.92em; margin-top: 0.15em; }
+.slip-amount { display: block; font-size: 0.86em; color: var(--ink); margin-top: 0.3em; }
+.slip-amount b { font-weight: 700; }
 .slip-when { display: block; font-size: 0.8em; color: var(--ink-2); margin-top: 0.3em; }
 .slip-alt b { display: block; font-weight: 600; font-size: 1.04em; line-height: 1.2; }
 .slip-alt span { display: block; font-size: 0.76em; color: var(--muted); line-height: 1.3; }

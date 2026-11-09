@@ -59,6 +59,7 @@ describe("pharmacy slip: syrups are priced per bottle", () => {
     const slip = slipFromRun(replayState(rec.events));
     expect(slip.rows).toHaveLength(4);
     expect(unitPriceText(slip.rows[0].cheaper!, "en")).toBe("৳20.63 per 60 ml bottle");
+    expect(slip.rows.map((r) => r.amount)).toEqual(["২ চামচ", "১ চামচ", "১ চামচ", "১ চামচ"]);
     expect(slip.warnings).toHaveLength(0);
     expect(slip.readAt).toBeUndefined();
   });
@@ -73,5 +74,6 @@ describe("pharmacy slip: lines without a match", () => {
     expect(r.found).toBe(false);
     expect(r.name).toContain("20mg");
     expect(r.cheaper).toBeNull();
+    expect(r.amount).toBeNull();
   });
 });

@@ -18,6 +18,7 @@ const T = {
     when: "When to take",
     lowest: "Same medicine, lowest price",
     whenNeeded: "when needed",
+    amount: "each time",
     notFound: "not found in the list",
     already: "Already the lowest price",
     total: "Same medicines at the lowest price",
@@ -35,6 +36,7 @@ const T = {
     when: "কখন খাবেন",
     lowest: "একই ওষুধ, সবচেয়ে কম দামে",
     whenNeeded: "দরকার হলে",
+    amount: "প্রতিবার",
     notFound: "তালিকায় পাওয়া যায়নি",
     already: "এটিই সবচেয়ে কম দাম",
     total: "একই ওষুধ, সবচেয়ে কম দামে",
@@ -160,6 +162,13 @@ export default function PharmacySlip({ slip, lang, ref }: { slip: SlipData; lang
                     </span>
                   ))}
                 </span>
+              )}
+              {r.amount && (
+                <small className="slip-amount">
+                  {lang === "bn" ? `${t.amount} ` : ""}
+                  <b lang="bn">{r.amount}</b>
+                  {lang === "en" ? ` ${t.amount}` : ""}
+                </small>
               )}
               {whenText(r, lang) && <small className="slip-when">{whenText(r, lang)}</small>}
             </div>

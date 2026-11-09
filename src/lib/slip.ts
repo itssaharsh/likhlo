@@ -17,6 +17,8 @@ export interface SlipRow {
   found: boolean;
   slots: Slots;
   asNeeded: boolean;
+  /** The amount per dose as written, for liquids (e.g. "২ চামচ"). */
+  amount: string | null;
   timing: Timing;
   days: number | null;
   continuing: boolean;
@@ -35,6 +37,8 @@ export interface SlipData {
   totals: { prescribed: number; cheapest: number; basis: string } | null;
   warnings: Clash[];
 }
+
+const AMOUNT = /[\d০-৯]+(?:[./][\d০-৯]+)?\s*(?:চামচ|ফোঁটা|মিলি|ml|tsp|spoons?|drops?)/i;
 
 function writtenName(l: RxLine): string {
   const strength = l.strength && !l.name.replace(/\s/g, "").includes(l.strength.replace(/\s/g, "")) ? l.strength : "";
@@ -59,6 +63,7 @@ export function slipFromRun(run: RunState, readAt?: string): SlipData {
       found: !!med,
       slots: l.slots,
       asNeeded: l.asNeeded,
+      amount: l.doseText.match(AMOUNT)?.[0].trim() ?? null,
       timing: l.timing,
       days: l.days,
       continuing: l.continuing,
