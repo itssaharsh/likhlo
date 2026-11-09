@@ -63,3 +63,15 @@ describe("pharmacy slip: syrups are priced per bottle", () => {
     expect(slip.readAt).toBeUndefined();
   });
 });
+
+describe("pharmacy slip: lines without a match", () => {
+  it("keep the strength as written", () => {
+    const run = replayState(load("rahima").events);
+    const n = run.lines[2].n;
+    const unmatched = { ...run, matches: { ...run.matches, [n]: { line: n, med: null } } };
+    const r = slipFromRun(unmatched).rows[2];
+    expect(r.found).toBe(false);
+    expect(r.name).toContain("20mg");
+    expect(r.cheaper).toBeNull();
+  });
+});

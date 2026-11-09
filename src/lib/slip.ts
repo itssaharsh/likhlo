@@ -1,6 +1,6 @@
 // The "For the pharmacy" slip: everything on it is taken from the RunState, nothing is added.
 import { bnDigits, timingText, daysText, type Lang } from "../components/format";
-import type { Clash, RunState, Slots, Timing } from "./run-types";
+import type { Clash, RunState, RxLine, Slots, Timing } from "./run-types";
 
 export interface SlipAlt {
   brand: string;
@@ -36,6 +36,11 @@ export interface SlipData {
   warnings: Clash[];
 }
 
+function writtenName(l: RxLine): string {
+  const strength = l.strength && !l.name.replace(/\s/g, "").includes(l.strength.replace(/\s/g, "")) ? l.strength : "";
+  return [l.form, l.name, strength].filter(Boolean).join(" ").trim();
+}
+
 export function slipFromRun(run: RunState, readAt?: string): SlipData {
   const rows = run.lines.map((l): SlipRow => {
     const m = run.matches[l.n];
@@ -49,7 +54,7 @@ export function slipFromRun(run: RunState, readAt?: string): SlipData {
       : null;
     return {
       n: l.n,
-      name: med ? `${med.brand} ${med.strength}`.trim() : [l.form, l.name].filter(Boolean).join(" ").trim(),
+      name: med ? `${med.brand} ${med.strength}`.trim() : writtenName(l),
       generic: med?.generic ?? null,
       found: !!med,
       slots: l.slots,
