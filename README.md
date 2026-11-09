@@ -67,8 +67,16 @@ npm run dev                  # http://localhost:3000
 
 - **Medicines:** [Medicine Dataset of Bangladesh](https://huggingface.co/datasets/ArnobBot/Medicine-Dataset-of-Bangladesh) (MIT), derived from [MedEx](https://medex.com.bd) via [bd-medicine-scraper](https://github.com/ahmedshahriar/bd-medicine-scraper): 21,714 brands with generic, strength, form, maker and price, and 1,570 generic leaflets. Prices are as listed in that dataset.
 - **Models:** Google Gemini (vision and tool calling; Gemini TTS for the Bangla audio), through the Vercel AI SDK, with Vercel AI Gateway as the last fallback.
-- **Built with:** Next.js, Vercel AI SDK, zod, vitest; fonts Anek Bangla, Hind Siliguri and Caveat. The coding agent for this build was Claude Code; Devin, the event's sponsor, was not used.
+- **Built with:** Next.js, Vercel AI SDK, zod, vitest; fonts Anek Bangla, Hind Siliguri and Caveat. The coding agent for this build was Claude Code; Devin built the pharmacy slip and the verdict animation (see How Devin was used).
 - Built during the Agentic Hackathon submission period (1 to 10 November 2026).
+- Slip and number animation adapted from RecallIndia (github.com/itssaharsh/recallindia), the builder's earlier project.
+
+## How Devin was used
+
+Devin built one pull request on top of the existing app:
+
+- **Save for the pharmacy slip:** `src/lib/slip.ts` (`slipFromRun`, a pure function from the `RunState` to the slip's rows, totals and warnings) and `src/components/PharmacySlip.tsx` (a 1080x1350 card in English or Bangla, shared as a PNG on phones, downloaded otherwise, or printed with a print-only stylesheet). Buttons sit in the summary actions and under "Your day". Tests in `src/lib/slip.test.ts`.
+- **Verdict animation:** the lowest total in the verdict counts down from the prescribed total with `@number-flow/react` when a reading finishes, and stays still with reduced motion.
 
 ## What's real
 

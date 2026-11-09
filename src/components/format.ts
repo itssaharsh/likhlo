@@ -20,7 +20,7 @@ export const timingText = (t: Timing, lang: Lang) =>
     unspecified: "",
   })[t];
 
-export function daysText(l: RxLine, lang: Lang) {
+export function daysText(l: Pick<RxLine, "days" | "continuing">, lang: Lang) {
   if (l.continuing && l.days === null) return lang === "bn" ? "চলবে" : "continue";
   if (l.days === null) return "";
   return lang === "bn" ? `${bnDigits(l.days)} দিন` : `${l.days} day${l.days === 1 ? "" : "s"}`;

@@ -1,6 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import NumberFlow, { usePrefersReducedMotion } from "@number-flow/react";
 import type { RunState } from "@/lib/run-types";
+import { SlipIcon } from "./PharmacySlip";
 import { bnDigits, daysText, SLOT_NAMES, taka, timingText, type Lang } from "./format";
 
 interface Props {
@@ -12,6 +15,7 @@ interface Props {
   onOpenLine: (n: number) => void;
   onListen?: () => void;
   listening?: boolean;
+  onSlip?: () => void;
 }
 
 const WarnIcon = () => (
@@ -27,7 +31,7 @@ const LeafletIcon = () => (
   </svg>
 );
 
-export default function Results({ run, lang, setLang, focusLine, onFocusLine, onOpenLine, onListen, listening }: Props) {
+export default function Results({ run, lang, setLang, focusLine, onFocusLine, onOpenLine, onListen, listening, onSlip }: Props) {
   const working = run.status === "reading" || run.status === "working";
   const dupLines = new Set(run.clashes.filter((c) => c.kind === "duplicate").flatMap((c) => c.lines));
   const intLines = new Set(run.clashes.filter((c) => c.kind === "interaction").flatMap((c) => c.lines));
@@ -187,14 +191,22 @@ export default function Results({ run, lang, setLang, focusLine, onFocusLine, on
                 ? "AI-এর লেখা সারাংশ। Likhlo একই উপাদান আর লিফলেটের সতর্কতা মিলিয়ে দেখে; এটি পূর্ণ নিরাপত্তা পরীক্ষা নয়।"
                 : "Written by the AI from the leaflets. Likhlo checks shared ingredients and leaflet warnings; it is not a full safety check."}
             </span>
-            {onListen && (
+            {(onListen || onSlip) && (
               <div className="summary-actions">
-                <button type="button" className="btn btn-quiet btn-sm" onClick={onListen} aria-pressed={listening}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                    {listening ? <path d="M8 5v14M16 5v14" /> : <><path d="M4 9v6h4l5 4V5L8 9H4Z" /><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" /></>}
-                  </svg>
-                  {listening ? "Pause" : "Listen in Bangla"}
-                </button>
+                {onListen && (
+                  <button type="button" className="btn btn-quiet btn-sm" onClick={onListen} aria-pressed={listening}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                      {listening ? <path d="M8 5v14M16 5v14" /> : <><path d="M4 9v6h4l5 4V5L8 9H4Z" /><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" /></>}
+                    </svg>
+                    {listening ? "Pause" : "Listen in Bangla"}
+                  </button>
+                )}
+                {onSlip && (
+                  <button type="button" className="btn btn-quiet btn-sm" onClick={onSlip}>
+                    <SlipIcon />
+                    Save for the pharmacy
+                  </button>
+                )}
               </div>
             )}
           </div>
@@ -206,9 +218,24 @@ export default function Results({ run, lang, setLang, focusLine, onFocusLine, on
 }
 
 /** The one result: the same medicines at the lowest price, and the clashes found. */
+const COUNT_TIMING = { duration: 900, easing: "cubic-bezier(0.22, 1, 0.36, 1)" };
+
 export function Verdict({ run, lang, landed }: { run: RunState; lang: Lang; landed: boolean }) {
   const working = run.status === "reading" || run.status === "working";
   const totals = run.totals;
+  const reduced = usePrefersReducedMotion();
+  // When a reading finishes, the number starts at the prescribed total and counts down to the lowest.
+  const [counting, setCounting] = useState(false);
+  const [wasLanded, setWasLanded] = useState(landed);
+  if (wasLanded !== landed) {
+    setWasLanded(landed);
+    setCounting(landed && !reduced && !!totals && Math.round(totals.prescribed) > Math.round(totals.cheapest));
+  }
+  useEffect(() => {
+    if (!counting) return;
+    const t = window.setTimeout(() => setCounting(false), 340);
+    return () => window.clearTimeout(t);
+  }, [counting]);
   const saved = totals ? totals.prescribed - totals.cheapest : 0;
   const pct = totals && totals.prescribed > 0 ? Math.round((saved / totals.prescribed) * 100) : 0;
   const dups = run.clashes.filter((c) => c.kind === "duplicate").length;
@@ -219,7 +246,21 @@ export function Verdict({ run, lang, landed }: { run: RunState; lang: Lang; land
         <div className={`verdict${landed ? " landed" : ""}`} role="status">
           <div>
             <div className="big num">
-              {lang === "bn" ? bnDigits(taka(totals.cheapest)) : taka(totals.cheapest)}
+              {lang === "bn" ? (
+                bnDigits(taka(totals.cheapest))
+              ) : (
+                <NumberFlow
+                  className="flow"
+                  value={Math.round(counting ? totals.prescribed : totals.cheapest)}
+                  prefix="৳"
+                  locales="en-US"
+                  format={{ maximumFractionDigits: 0 }}
+                  animated={!reduced}
+                  transformTiming={COUNT_TIMING}
+                  spinTiming={COUNT_TIMING}
+                  opacityTiming={{ duration: 180, easing: "ease-out" }}
+                />
+              )}
               <span className="was">
                 {lang === "bn" ? <><s>{bnDigits(taka(totals.prescribed))}</s>-এর বদলে</> : <>instead of <s>{taka(totals.prescribed)}</s></>}
               </span>
