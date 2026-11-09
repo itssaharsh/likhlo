@@ -9,7 +9,8 @@ import DayPlan from "./DayPlan";
 import StepLog from "./StepLog";
 import MedSheet from "./MedSheet";
 import { SlipIcon, SlipSheet } from "./PharmacySlip";
-import type { Lang } from "./format";
+import { bnDigits, type Lang } from "./format";
+import { SAMPLE_TITLES, t } from "./i18n";
 
 type Source =
   | { kind: "sample"; id: string; image: string; size: [number, number] }
@@ -298,8 +299,8 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
         <>
           <span className="live-dot" aria-hidden="true" />
           <span>
-            {run.status === "reading" ? "Reading the photo…" : run.steps.at(-1)?.title ?? "Working…"}
-            {mode === "replay" ? " · replay, sped up" : ""}
+            {run.status === "reading" ? t("readingPhoto", lang) : run.steps.at(-1)?.title ?? "Working…"}
+            {mode === "replay" ? t("sped", lang) : ""}
           </span>
           <button
             type="button"
@@ -309,7 +310,7 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
               setRun((r) => applyEvent(r, { t: "error", at: r.elapsed, code: "failed", message: "You stopped the reading. Lines read so far are shown." }));
             }}
           >
-            {mode === "replay" ? "Skip" : "Stop"}
+            {mode === "replay" ? t("skip", lang) : t("stop", lang)}
           </button>
         </>
       );
@@ -317,9 +318,11 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
       return (
         <>
           <span>
-            Recorded reading, {dateOf(sample.recordedAt)} · {run.steps.length} agent steps
+            {lang === "bn"
+              ? `রেকর্ড করা পড়া · এজেন্টের ${bnDigits(run.steps.length)}টি ধাপ`
+              : `Recorded reading, ${dateOf(sample.recordedAt)} · ${run.steps.length} agent steps`}
           </span>
-          <button type="button" onClick={runSampleLive}>Read it live</button>
+          <button type="button" onClick={runSampleLive}>{t("readLive", lang)}</button>
         </>
       );
     if (run.status === "done" && mode === "live")
@@ -348,9 +351,13 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
           <span lang="bn">লিখলো</span>
         </Link>
         <nav>
-          <a href="#plan" className="hide-sm">Your day</a>
-          <a href="#steps" className="hide-sm">What the agent did</a>
-          <a href="https://github.com/itssaharsh/likhlo" className="hide-sm">Code</a>
+          <a href="#plan" className="hide-sm" lang={lang}>{t("yourDay", lang)}</a>
+          <a href="#steps" className="hide-sm" lang={lang}>{t("agentSteps", lang)}</a>
+          <a href="https://github.com/itssaharsh/likhlo" className="hide-sm" lang={lang}>{t("code", lang)}</a>
+          <div className="lang lang-top" role="group" aria-label="Language">
+            <button type="button" aria-pressed={lang === "en"} onClick={() => setLang("en")}>English</button>
+            <button type="button" aria-pressed={lang === "bn"} onClick={() => setLang("bn")} lang="bn">বাংলা</button>
+          </div>
         </nav>
       </header>
 
@@ -381,17 +388,15 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
         <div className="side-head">
           <h1 className="q">
             <span className="q-bn" lang="bn">ডাক্তার কী লিখলো?</span>
-            <span className="q-en">What did the doctor write, and is there a cheaper same medicine?</span>
+            <span className="q-en" lang={lang}>{t("subline", lang)}</span>
           </h1>
-          <p className="lede">
-            Photo in: every medicine explained, double doses caught, the same medicine for less.
-          </p>
+          <p className="lede" lang={lang}>{t("lede", lang)}</p>
           <div className="actions">
-            <button type="button" className="btn btn-primary btn-lg" onClick={pick}>
+            <button type="button" className="btn btn-primary btn-lg" onClick={pick} lang={lang}>
               {ICON_CAMERA}
-              Read my prescription
+              {t("read", lang)}
             </button>
-            <span className="or">or try a sample</span>
+            <span className="or" lang={lang}>{t("orSample", lang)}</span>
           </div>
           <div className="try" role="group" aria-label="Try a sample prescription">
             {samples.map((s) => (
@@ -401,8 +406,9 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
                 className="btn btn-quiet"
                 aria-pressed={source.kind === "sample" && source.id === s.id}
                 onClick={() => replay(s)}
+                lang={lang}
               >
-                {s.title}
+                {SAMPLE_TITLES[s.id]?.[lang] ?? s.title}
               </button>
             ))}
           </div>
@@ -433,9 +439,9 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
         <div className="section">
           <h2>
             <span lang="bn">আপনার দিন</span> · Your day
-            <small>Every medicine, placed where it goes in the day. Show it to whoever gives the medicines.</small>
+            <small lang={lang}>{t("planSub", lang)}</small>
           </h2>
-          {run.lines.length ? <DayPlan run={run} lang={lang} /> : <p className="intro">Your plan appears after a reading.</p>}
+          {run.lines.length ? <DayPlan run={run} lang={lang} /> : <p className="intro" lang={lang}>{t("planEmpty", lang)}</p>}
           {canSlip && (
             <div className="plan-actions">
               <button type="button" className="btn btn-primary" onClick={openSlip}>
@@ -448,15 +454,14 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
         </div>
       </section>
 
-      <section id="steps" className="section">
-        <h2>
-          What the agent did
-          <small>
-            Gemini reads the photo and decides what to look up; every fact comes back from a tool over 21,714 Bangladeshi
-            medicine brands and their leaflets.
-          </small>
-        </h2>
-        <StepLog run={run} onFocusLine={setFocusLine} />
+      <section id="steps" className="hood">
+        <div className="section">
+          <h2>
+            <span lang={lang}>{t("agentSteps", lang)}</span>
+            <small lang={lang}>{t("stepsSub", lang)}</small>
+          </h2>
+          <StepLog run={run} onFocusLine={setFocusLine} />
+        </div>
       </section>
 
       <SlipSheet open={slipOpen} run={run} readAt={readAt} lang={lang} setLang={setLang} onClose={() => setSlipOpen(false)} />

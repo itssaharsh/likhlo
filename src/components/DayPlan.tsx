@@ -45,7 +45,7 @@ export default function DayPlan({ run, lang }: { run: RunState; lang: Lang }) {
       </div>
       {prn.length > 0 && (
         <div className="prn">
-          <b lang="bn">দরকার হলে · When needed:</b>
+          <span className="prn-k" lang="bn">দরকার হলে<small>When needed</small></span>
           {prn.map((l) => (
             <span className="pill" key={l.n} style={{ margin: 0 }}>
               <i style={{ background: PILL[(l.n - 1) % PILL.length] }} />

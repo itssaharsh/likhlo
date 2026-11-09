@@ -6,6 +6,16 @@ import arif from "../../public/runs/arif.json";
 
 const samples = [rahima, karim, arif] as unknown as RecordedRun[];
 
+// numbers for the impact band, computed from the recorded readings
+const doneOf = (r: RecordedRun) => r.events.find((e) => e.t === "done") as Extract<RecordedRun["events"][number], { t: "done" }>;
+const karimTotals = doneOf(samples[1]).totals;
+const karimYear = Math.round((karimTotals.prescribed - karimTotals.cheapest) * 12);
+const karimPct = Math.round(((karimTotals.prescribed - karimTotals.cheapest) / karimTotals.prescribed) * 100);
+const seclo = doneOf(samples[0]).matches.find((m) => m.med?.brand === "Seclo");
+const secloBrands = seclo?.equivalents ?? 0;
+const secloLow = seclo?.cheaper?.[0]?.unitPrice ?? seclo?.med?.unitPrice ?? 0;
+const secloHigh = seclo?.med?.unitPrice ?? 0;
+
 export default function Home() {
   return (
     <>
@@ -14,64 +24,57 @@ export default function Home() {
       <section className="band">
         <div className="section">
           <h2>
-            How Likhlo reads a prescription
-            <small>Three steps, all on the photo you took.</small>
+            What it adds up to
+            <small>Every number here comes from the medicine data and the readings above.</small>
           </h2>
-          <div className="how">
-            <figure>
-              <div style={{ background: "url(/samples/rahima.jpg) 62% 36% / 190% auto no-repeat" }} aria-hidden="true">
-                <span className="hl" style={{ top: "38%", left: "18%", width: "70%", height: "19%" }} />
-                <span className="pin done" style={{ top: "47%", left: "13%" }}>1</span>
-              </div>
-              <figcaption>
-                <b>1. It reads the handwriting</b>
-                <span>Gemini finds each medicine line, the 1+0+1 dose, before or after food, and how many days.</span>
-              </figcaption>
-            </figure>
-            <figure>
-              <div style={{ display: "grid", placeItems: "center", padding: 20 }} aria-hidden="true">
-                <div className="card" style={{ width: "100%", padding: "14px 16px" }}>
-                  <div style={{ fontWeight: 600 }}>Seclo 20 mg <span style={{ color: "var(--muted)", fontWeight: 400 }}>· Omeprazole</span></div>
-                  <div style={{ color: "var(--muted)", fontSize: 14 }}>123 brands make this same capsule</div>
-                  <div className="num" style={{ marginTop: 8 }}>
-                    <span style={{ textDecoration: "line-through", color: "var(--faint)" }}>৳6 each</span>{" "}
-                    <b style={{ color: "var(--accent-ink)" }}>৳3 each</b> · G-Omeprazole
-                  </div>
-                </div>
-              </div>
-              <figcaption>
-                <b>2. It finds the same medicine for less</b>
-                <span>Same generic, same strength, same form, from 21,714 Bangladeshi brands with their prices.</span>
-              </figcaption>
-            </figure>
-            <figure>
-              <div style={{ display: "grid", placeItems: "center", padding: 20 }} aria-hidden="true">
-                <div className="clash" style={{ width: "100%", animation: "none" }}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 3 2.5 20h19L12 3Z" /><path d="M12 10v4.5M12 17.5v.01" /></svg>
-                  <div>
-                    <b>Napa Extend and Ace Plus both contain paracetamol.</b>
-                    <small>Taking both can double the dose.</small>
-                  </div>
-                </div>
-              </div>
-              <figcaption>
-                <b>3. It warns you when medicines clash</b>
-                <span>Shared ingredients, and warnings quoted word for word from each medicine&apos;s leaflet.</span>
-              </figcaption>
-            </figure>
+          <div className="impact">
+            <div>
+              <span className="k">Abdul Karim&apos;s monthly list</span>
+              <span className="n num">৳{karimYear.toLocaleString("en-US")}<small> a year</small></span>
+              <span className="l">
+                saved on the same diabetes and blood-pressure medicines: {karimPct}% less, every month, with the same generic,
+                strength and form.
+              </span>
+            </div>
+            <div>
+              <span className="n num">21,714</span>
+              <span className="l">Bangladeshi medicine brands, each with its price</span>
+            </div>
+            <div>
+              <span className="n num">{secloBrands}</span>
+              <span className="l">brands make the same omeprazole 20 mg capsule as Seclo (৳{secloHigh} each); the lowest is ৳{secloLow}</span>
+            </div>
+            <div>
+              <span className="n num">1,570</span>
+              <span className="l">medicine leaflets read for double doses and warnings</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <footer className="foot">
-        <span>
-          Prices and leaflets come from a public list of 21,714 Bangladeshi medicines (MedEx-derived). The sample prescriptions
-          are made up. Likhlo explains; your doctor or pharmacist decides any change.
-        </span>
-        <span>
-          <a href="https://github.com/itssaharsh/likhlo">Code on GitHub</a> ·{" "}
-          <a href="https://huggingface.co/datasets/ArnobBot/Medicine-Dataset-of-Bangladesh">The medicine data</a>
-        </span>
+      <footer className="site-foot">
+        <div className="in">
+          <div>
+            <div className="brand">
+              <svg viewBox="0 0 48 48" role="img" aria-label="Likhlo">
+                <title>Likhlo</title>
+                <rect x="2" y="2" width="44" height="44" rx="12" fill="oklch(46% 0.1 172)" />
+                <path d="M24 12v24M12 24h24" stroke="#fff" strokeWidth="7" strokeLinecap="round" />
+                <path d="M31 33l7 7" stroke="oklch(85% 0.12 80)" strokeWidth="4" strokeLinecap="round" />
+              </svg>
+              <b>Likhlo</b>
+            </div>
+            <p>
+              Prices and leaflets come from a public list of 21,714 Bangladeshi medicines (MedEx-derived). The sample
+              prescriptions are made up. Likhlo explains a prescription; your doctor or pharmacist decides any change.
+            </p>
+          </div>
+          <ul>
+            <li><a href="https://github.com/itssaharsh/likhlo">Code on GitHub</a></li>
+            <li><a href="https://github.com/itssaharsh/likhlo#whats-real">What&apos;s real and what&apos;s simulated</a></li>
+            <li><a href="https://huggingface.co/datasets/ArnobBot/Medicine-Dataset-of-Bangladesh">The medicine data</a></li>
+          </ul>
+        </div>
       </footer>
     </>
   );

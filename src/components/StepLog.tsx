@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { RunState, Step } from "@/lib/run-types";
 
 type Phase = { key: string; steps: Step[] };
@@ -48,7 +49,10 @@ function headline(p: Phase, run: RunState): { title: string; sub: string } {
 }
 
 /** What the agent did, grouped into its phases. Hovering a row lights its line on the photo. */
+const SHOWN = 3;
+
 export default function StepLog({ run, onFocusLine }: { run: RunState; onFocusLine: (n: number | null) => void }) {
+  const [open, setOpen] = useState<Record<number, boolean>>({});
   if (!run.steps.length) return <p className="intro">The agent&apos;s steps appear here as it works.</p>;
   return (
     <ol className="phases" role="log" aria-label="The agent's steps">
@@ -69,7 +73,7 @@ export default function StepLog({ run, onFocusLine }: { run: RunState; onFocusLi
             </div>
             {items.length > 0 && (
               <ul className="phase-items">
-                {items.map((s) => (
+                {(open[i] ? items : items.slice(0, SHOWN)).map((s) => (
                   <li key={s.id} onMouseEnter={() => onFocusLine(s.lines[0] ?? null)} onMouseLeave={() => onFocusLine(null)}>
                     <span>
                       {p.key === "read" ? s.detail : p.key === "clashes" || p.key === "leaflet" ? s.detail : `${s.title} · ${s.detail}`}
@@ -77,6 +81,13 @@ export default function StepLog({ run, onFocusLine }: { run: RunState; onFocusLi
                     <span className="ms num">{s.ms > 0 ? `${s.ms} ms` : ""}</span>
                   </li>
                 ))}
+                {items.length > SHOWN && (
+                  <li className="more">
+                    <button type="button" onClick={() => setOpen((o) => ({ ...o, [i]: !o[i] }))} aria-expanded={!!open[i]}>
+                      {open[i] ? "Show fewer" : `Show all ${items.length}`}
+                    </button>
+                  </li>
+                )}
               </ul>
             )}
           </li>

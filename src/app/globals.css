@@ -514,3 +514,68 @@ dialog.slip-sheet { width: min(600px, calc(100vw - 24px)); max-height: calc(100d
 .slip-actions .lang { background: var(--surface); box-shadow: 0 0 0 1px var(--line); }
 .slip-sheet .sheet-head { padding-right: 64px; }
 .slip-sheet .sheet-head h3 small { display: block; margin: 4px 0 0; }
+
+/* ---------- polish: header language toggle ---------- */
+.lang-top { margin-left: 6px; }
+@media (max-width: 640px) { .top nav .lang-top { display: inline-flex; } }
+
+/* ---------- polish: the agent's steps, under the hood (the one dark band) ---------- */
+.hood {
+  --hood: oklch(24% 0.04 195);
+  background:
+    radial-gradient(90% 60% at 85% 0%, oklch(34% 0.07 172 / 0.55), transparent 60%),
+    radial-gradient(70% 50% at 0% 100%, oklch(30% 0.05 220 / 0.5), transparent 60%),
+    var(--hood);
+  color: oklch(94% 0.015 180);
+}
+.hood h2 { color: #fff; }
+.hood h2 small { color: oklch(80% 0.03 185); }
+.hood .phases { position: relative; gap: 12px; }
+.hood .phases::before { content: ""; position: absolute; left: 33px; top: 20px; bottom: 20px; width: 2px; background: linear-gradient(oklch(62% 0.11 172 / 0.7), oklch(62% 0.11 172 / 0.1)); }
+.hood .phase { background: oklch(29% 0.04 195 / 0.75); box-shadow: inset 0 1px 0 oklch(100% 0 0 / 0.06), 0 0 0 1px oklch(100% 0 0 / 0.07); backdrop-filter: blur(6px); position: relative; }
+.hood .phase-head b { color: #fff; }
+.hood .phase-head span { color: oklch(78% 0.03 185); }
+.hood .phase-head .k { background: oklch(55% 0.11 172); color: #fff; box-shadow: 0 0 0 4px oklch(24% 0.04 195); }
+.hood .phase.warn .phase-head .k { background: var(--warn); color: #fff; }
+.hood .phase-items li span:first-child { color: oklch(86% 0.02 185); }
+.hood .phase-items li:hover { background: oklch(100% 0 0 / 0.05); }
+.hood .phase-items li .ms, .hood .phase-head .num { color: oklch(68% 0.03 185) !important; }
+.phase-items li.more { grid-template-columns: 1fr; }
+.phase-items li.more button { border: 0; background: transparent; padding: 0; color: oklch(80% 0.1 172); font-weight: 600; font-size: 14px; text-align: left; }
+.phase-items li.more button:hover { text-decoration: underline; }
+
+/* ---------- polish: impact band and footer ---------- */
+.impact { display: grid; grid-template-columns: 1.2fr repeat(3, minmax(0, 1fr)); gap: 0; border-radius: 28px; overflow: hidden; background: var(--surface); box-shadow: var(--edge-top), 0 0 0 1px var(--line), var(--shadow-2); }
+.impact > div { padding: 28px 26px 26px; border-left: 1px solid var(--line); }
+.impact > div:first-child { border-left: 0; background: radial-gradient(120% 140% at 0% 0%, oklch(46% 0.1 168), var(--deep) 55%, var(--deep-2)); color: #fff; }
+.impact .n { display: block; font-family: var(--font-display-stack); font-weight: 780; font-stretch: 88%; font-size: clamp(40px, 4.4vw, 64px); line-height: 0.95; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.impact .l { display: block; margin-top: 10px; font-size: 15px; color: var(--muted); max-width: 26ch; }
+.impact > div:first-child .l { color: oklch(90% 0.03 175); max-width: 30ch; }
+.impact > div:first-child .k { display: inline-block; margin-bottom: 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; background: oklch(100% 0 0 / 0.14); border-radius: 999px; padding: 5px 11px; }
+.site-foot { border-top: 1px solid var(--line); background: var(--band); }
+.site-foot .in { max-width: 1440px; margin: 0 auto; padding: 32px 40px 44px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: start; }
+.site-foot .brand { display: flex; align-items: center; gap: 10px; }
+.site-foot .brand svg { width: 34px; height: 34px; }
+.site-foot .brand b { font-family: var(--font-display-stack); font-weight: 760; font-size: 26px; letter-spacing: -0.02em; }
+.site-foot p { color: var(--muted); font-size: 14.5px; max-width: 62ch; margin: 10px 0 0; }
+.site-foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; justify-items: start; }
+.site-foot ul a { color: var(--ink-2); font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--line-2); }
+.site-foot ul a:hover { color: var(--accent-ink); border-color: var(--accent); }
+@media (max-width: 1080px) {
+  .impact { grid-template-columns: 1fr 1fr; }
+  .impact > div:first-child { grid-column: 1 / -1; }
+  .impact > div:nth-child(2) { border-left: 0; }
+  .site-foot .in { grid-template-columns: 1fr; padding: 28px 20px 40px; }
+  .hood .phases::before { left: 27px; }
+}
+@media (max-width: 640px) {
+  .impact { grid-template-columns: 1fr; }
+  .impact > div { border-left: 0; border-top: 1px solid var(--line); }
+}
+
+/* ---------- polish: "when needed" shelf under the day plan ---------- */
+.prn { margin-top: 16px; padding: 12px 14px; border-radius: 22px; background: oklch(99% 0.008 172 / 0.8); box-shadow: var(--edge-top), 0 0 0 1px var(--line); display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.prn .prn-k { font-family: var(--font-display-stack); font-weight: 750; font-size: 22px; line-height: 1; padding: 0 6px; }
+.prn .prn-k small { display: block; font-family: var(--font-body-stack); font-weight: 500; font-size: 13px; color: var(--muted); margin-top: 4px; }
+.prn .pill { margin: 0; }
+.impact .n small { font-size: 0.42em; font-weight: 600; letter-spacing: -0.01em; opacity: 0.85; }

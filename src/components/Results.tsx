@@ -9,7 +9,8 @@ import { bnDigits, daysText, SLOT_NAMES, taka, timingText, type Lang } from "./f
 interface Props {
   run: RunState;
   lang: Lang;
-  setLang: (l: Lang) => void;
+  /** Kept for callers; the language toggle now lives in the page header. */
+  setLang?: (l: Lang) => void;
   focusLine: number | null;
   onFocusLine: (n: number | null) => void;
   onOpenLine: (n: number) => void;
@@ -31,7 +32,7 @@ const LeafletIcon = () => (
   </svg>
 );
 
-export default function Results({ run, lang, setLang, focusLine, onFocusLine, onOpenLine, onListen, listening, onSlip }: Props) {
+export default function Results({ run, lang, focusLine, onFocusLine, onOpenLine, onListen, listening, onSlip }: Props) {
   const working = run.status === "reading" || run.status === "working";
   const dupLines = new Set(run.clashes.filter((c) => c.kind === "duplicate").flatMap((c) => c.lines));
   const intLines = new Set(run.clashes.filter((c) => c.kind === "interaction").flatMap((c) => c.lines));
@@ -47,10 +48,7 @@ export default function Results({ run, lang, setLang, focusLine, onFocusLine, on
             <b>{run.patient || (working ? "Reading…" : "Your prescription")}</b>
             {run.doctor && <span> · {run.doctor}</span>}
           </div>
-          <div className="lang" role="group" aria-label="Language">
-            <button type="button" aria-pressed={lang === "en"} onClick={() => setLang("en")}>English</button>
-            <button type="button" aria-pressed={lang === "bn"} onClick={() => setLang("bn")} lang="bn">বাংলা</button>
-          </div>
+
         </div>
 
         {working && (
@@ -277,7 +275,7 @@ export function Verdict({ run, lang, landed }: { run: RunState; lang: Lang; land
           <div className="flags">
             {saved > 0 && (
               <span className="save num">
-                {lang === "bn" ? `${taka(saved)} কম · ${bnDigits(pct)}%` : `${taka(saved)} less · ${pct}%`}
+                {lang === "bn" ? `${bnDigits(taka(saved))} কম · ${bnDigits(pct)}%` : `${taka(saved)} less · ${pct}%`}
               </span>
             )}
             {dups > 0 && (
