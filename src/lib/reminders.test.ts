@@ -14,7 +14,7 @@ const field = (ev: string, name: string) => ev.split("\r\n").find((l) => l.start
 
 describe("phone reminders: Rahima's prescription from 10 November 2026", () => {
   const run = replayState(load("rahima").events);
-  const start = new Date(2026, 10, 10, 9, 30);
+  const start = new Date(2026, 10, 10, 7, 30);
   const ics = remindersIcs(run, { start, lang: "en" });
   const evs = events(ics);
   const find = (title: string) => evs.find((e) => field(e, "SUMMARY")?.startsWith(title));
@@ -63,6 +63,21 @@ describe("phone reminders: Rahima's prescription from 10 November 2026", () => {
     const uids = evs.map((e) => field(e, "UID"));
     expect(new Set(uids).size).toBe(6);
     expect(events(remindersIcs(run, { start, lang: "en" })).map((e) => field(e, "UID"))).toEqual(uids);
+  });
+
+  it("starts a part of the day tomorrow when its time has passed, keeping every dose", () => {
+    const late = events(remindersIcs(run, { start: new Date(2026, 10, 10, 15, 0), lang: "en" }));
+    const at = (title: string) => late.find((e) => field(e, "SUMMARY")?.startsWith(title))!;
+    expect(field(at("Morning medicine: Napa"), "DTSTART")).toBe("20261111T080000");
+    expect(field(at("Morning medicine: Napa"), "RRULE")).toBe("FREQ=DAILY;COUNT=5");
+    expect(field(at("Noon medicine: Clopid"), "DTSTART")).toBe("20261111T140000");
+    expect(field(at("Night medicine: Napa"), "DTSTART")).toBe("20261110T210000");
+  });
+
+  it("gives another patient's prescription different UIDs", () => {
+    const uids = evs.map((e) => field(e, "UID"));
+    const other = events(remindersIcs({ ...run, patient: "Someone else" }, { start, lang: "en" })).map((e) => field(e, "UID"));
+    expect(other.some((u) => uids.includes(u))).toBe(false);
   });
 
   it("writes the reminders in Bangla", () => {

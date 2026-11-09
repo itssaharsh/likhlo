@@ -6,10 +6,10 @@ import { slipFromRun, type SlipRow } from "./slip";
 
 type Slot = "morning" | "noon" | "night";
 
-const SLOTS: { slot: Slot; time: string; en: string; bn: string }[] = [
-  { slot: "morning", time: "080000", en: "Morning medicine", bn: "সকালের ওষুধ" },
-  { slot: "noon", time: "140000", en: "Noon medicine", bn: "দুপুরের ওষুধ" },
-  { slot: "night", time: "210000", en: "Night medicine", bn: "রাতের ওষুধ" },
+const SLOTS: { slot: Slot; hour: number; en: string; bn: string }[] = [
+  { slot: "morning", hour: 8, en: "Morning medicine", bn: "সকালের ওষুধ" },
+  { slot: "noon", hour: 14, en: "Noon medicine", bn: "দুপুরের ওষুধ" },
+  { slot: "night", hour: 21, en: "Night medicine", bn: "রাতের ওষুধ" },
 ];
 
 /** A line that says "continue" (or gives no days) repeats for this many days. */
@@ -65,6 +65,13 @@ const FROM = { en: "From Likhlo; follow your doctor's prescription.", bn: "Likhl
 export const reminderRows = (run: RunState): SlipRow[] =>
   slipFromRun(run).rows.filter((r) => !r.asNeeded && (r.days ?? CONTINUE_DAYS) >= 1 && SLOTS.some((s) => r.slots[s.slot] > 0));
 
+/** The first day of a slot: today, or tomorrow when today's time for it has already passed. */
+function firstDay(start: Date, hour: number): string {
+  const d = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+  if (start.getHours() * 60 + start.getMinutes() > hour * 60) d.setDate(d.getDate() + 1);
+  return ymd(d);
+}
+
 export function remindersIcs(run: RunState, opts: { start: Date; lang: Lang }): string {
   const { start, lang } = opts;
   const day = ymd(start);
@@ -86,9 +93,9 @@ export function remindersIcs(run: RunState, opts: { start: Date; lang: Lang }): 
       const title = `${lang === "bn" ? s.bn : s.en}: ${r.name}${when ? `, ${when}` : ""}`;
       lines.push(
         "BEGIN:VEVENT",
-        `UID:likhlo-${day}-${r.n}-${s.slot}-${hash(r.name)}@likhlo-bd.vercel.app`,
+        `UID:likhlo-${day}-${r.n}-${s.slot}-${hash([run.patient, run.doctor, r.name, count, dose, r.timing].join("|"))}@likhlo-bd.vercel.app`,
         `DTSTAMP:${stamp}`,
-        `DTSTART:${day}T${s.time}`,
+        `DTSTART:${firstDay(start, s.hour)}T${pad(s.hour)}0000`,
         "DURATION:PT15M",
         `RRULE:FREQ=DAILY;COUNT=${count}`,
         `SUMMARY:${esc(title)}`,
