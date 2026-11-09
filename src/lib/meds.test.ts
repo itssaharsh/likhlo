@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   courseCost, findCheaper, findDuplicates, findEquivalents, findInteractions, genericInfo,
-  ingredientsOf, normalize, parseDose, parseForm, searchBrands, type Medicine,
+  ingredientsOf, isNegatedMention, normalize, parseDose, parseForm, searchBrands, type Medicine,
 } from "./meds";
 
 const top = (q: string): Medicine => searchBrands(q)[0].med;
@@ -110,5 +110,23 @@ describe("parseDose / courseCost", () => {
   });
   it("computes course cost", () => {
     expect(courseCost(top("Napa Extend 665"), 2, 5)).toBe(20);
+  });
+});
+
+describe("interaction sentences that say there is no interaction", () => {
+  const top = (q: string) => searchBrands(q)[0].med;
+  it("does not warn for cetirizine with azithromycin or pseudoephedrine (leaflet says none found)", () => {
+    const hits = findInteractions([top("Alatrol 5mg/5ml syrup"), top("Zimax 200mg/5ml suspension"), top("Tusca")]);
+    expect(hits).toEqual([]);
+  });
+  it("still warns for clopidogrel with omeprazole, quoting the leaflet word for word", () => {
+    const hits = findInteractions([top("Clopid 75"), top("Cap. Seclo 20")]);
+    expect(hits.map((h) => h.snippet)).toContain(
+      "CYP2C19 inhibitors (omeprazole or esomeprazole): Avoid concomitant use of omeprazole or esomeprazole",
+    );
+  });
+  it("recognises negated mentions", () => {
+    expect(isNegatedMention("No clinically significant drug interactions have been found with Theophylline, Azithromycin.")).toBe(true);
+    expect(isNegatedMention("Avoid concomitant use of omeprazole or esomeprazole")).toBe(false);
   });
 });

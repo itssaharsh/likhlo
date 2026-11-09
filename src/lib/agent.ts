@@ -142,9 +142,9 @@ const lineSchema = z.object({
   name: z.string().describe("brand or generic name as written"),
   strength: z.string().describe("e.g. 20mg, or empty"),
   dose_text: z.string().describe("dose as written, e.g. 1+0+1, or '1 when in pain'"),
-  morning: z.number(),
-  noon: z.number(),
-  night: z.number(),
+  morning: z.number().describe("amount in the morning slot of a+b+c notation; 0 for as-needed lines"),
+  noon: z.number().describe("amount at noon; 0 for as-needed lines"),
+  night: z.number().describe("amount at night; 0 for as-needed lines"),
   days: z.number().nullable().describe("number of days, null if not written"),
   continuing: z.boolean().describe("true for চলবে / continue / long-term"),
   as_needed: z.boolean().describe("true for when needed / ব্যথা হলে / জ্বর হলে"),
@@ -261,8 +261,10 @@ async function runWith(modelId: string, { image, mediaType, apiKeys, emit, signa
           const parsed = /[+\-]/.test(l.dose_text) ? parseDose(l.dose_text.replace(/[^\d০-৯½¼¾+\-.\s]/g, "").trim()) : null;
           const slots = parsed
             ? { morning: parsed.morning, noon: parsed.noon, night: parsed.night + parsed.evening }
-            : { morning: l.morning, noon: l.noon, night: l.night };
-          const perDay = parsed ? parsed.perDay : l.morning + l.noon + l.night;
+            : l.as_needed
+              ? { morning: 0, noon: 0, night: 0 }
+              : { morning: l.morning, noon: l.noon, night: l.night };
+          const perDay = parsed ? parsed.perDay : l.as_needed ? 0 : l.morning + l.noon + l.night;
           const b = l.box_2d;
           return {
             n: l.n,
@@ -379,7 +381,12 @@ async function runWith(modelId: string, { image, mediaType, apiKeys, emit, signa
       description:
         "Re-run the clash check across every chosen medicine: shared ingredients (double dose) and interactions named in each generic's leaflet.",
       inputSchema: z.object({}),
-      execute: async () => ({ clashes: runClashes() }),
+      execute: async () => ({
+        clashes:
+          clashes === null
+            ? runClashes()
+            : clashes.map((c) => ({ kind: c.kind, lines: c.lines, what: c.en, leaflet_sentence: c.quote ?? null })),
+      }),
     }),
 
     read_leaflet: tool({

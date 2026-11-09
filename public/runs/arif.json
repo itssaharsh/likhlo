@@ -1,0 +1,1064 @@
+{
+ "id": "arif",
+ "title": "A child's cough and fever",
+ "recordedAt": "2026-11-09T00:21:49.807Z",
+ "model": "gemini-3.5-flash",
+ "image": "/samples/arif.jpg",
+ "imageSize": [
+  1200,
+  1600
+ ],
+ "events": [
+  {
+   "t": "status",
+   "at": 1,
+   "status": "reading",
+   "model": "gemini-3.5-flash"
+  },
+  {
+   "t": "lines",
+   "at": 7751,
+   "lines": [
+    {
+     "n": 1,
+     "raw": "1. Syp. Napa 120mg/5ml, ২ চামচ, জ্বর হলে - ৩ দিন",
+     "form": "Syp",
+     "name": "Napa",
+     "strength": "120mg/5ml",
+     "doseText": "2 tsp when needed for fever",
+     "slots": {
+      "morning": 0,
+      "noon": 0,
+      "night": 0
+     },
+     "perDay": 0,
+     "days": 3,
+     "continuing": false,
+     "asNeeded": true,
+     "timing": "unspecified",
+     "box": [
+      308,
+      410,
+      362,
+      796
+     ]
+    },
+    {
+     "n": 2,
+     "raw": "2. Susp. Zimax 200mg/5ml, ১ চামচ ১+০+০ (খাবার পর) — ৫ দিন",
+     "form": "Susp",
+     "name": "Zimax",
+     "strength": "200mg/5ml",
+     "doseText": "1+0+0",
+     "slots": {
+      "morning": 1,
+      "noon": 0,
+      "night": 0
+     },
+     "perDay": 1,
+     "days": 5,
+     "continuing": false,
+     "asNeeded": false,
+     "timing": "after_food",
+     "box": [
+      386,
+      411,
+      442,
+      835
+     ]
+    },
+    {
+     "n": 3,
+     "raw": "3. Syp. Tusca, ১ চামচ ১+১+১ — ৫ দিন",
+     "form": "Syp",
+     "name": "Tusca",
+     "strength": "",
+     "doseText": "1+1+1",
+     "slots": {
+      "morning": 1,
+      "noon": 1,
+      "night": 1
+     },
+     "perDay": 3,
+     "days": 5,
+     "continuing": false,
+     "asNeeded": false,
+     "timing": "unspecified",
+     "box": [
+      462,
+      411,
+      516,
+      693
+     ]
+    },
+    {
+     "n": 4,
+     "raw": "4. Syp. Alatrol 5mg/5ml, ১ চামচ ০+০+১ — ৭ দিন",
+     "form": "Syp",
+     "name": "Alatrol",
+     "strength": "5mg/5ml",
+     "doseText": "0+0+1",
+     "slots": {
+      "morning": 0,
+      "noon": 0,
+      "night": 1
+     },
+     "perDay": 1,
+     "days": 7,
+     "continuing": false,
+     "asNeeded": false,
+     "timing": "unspecified",
+     "box": [
+      537,
+      409,
+      588,
+      779
+     ]
+    }
+   ],
+   "patient": "Arif Hossain, Age: 6 y (18 kg)",
+   "doctor": "Dr. Mahmudul Hasan"
+  },
+  {
+   "t": "status",
+   "at": 7751,
+   "status": "working",
+   "model": "gemini-3.5-flash"
+  },
+  {
+   "t": "step",
+   "at": 7751,
+   "step": {
+    "id": 1,
+    "tool": "record_lines",
+    "title": "Read 4 medicine lines from the photo",
+    "detail": "1. 1. Syp. Napa 120mg/5ml, ২ চামচ, জ্বর হলে - ৩ দিন\n2. 2. Susp. Zimax 200mg/5ml, ১ চামচ ১+০+০ (খাবার পর) — ৫ দিন\n3. 3. Syp. Tusca, ১ চামচ ১+১+১ — ৫ দিন\n4. 4. Syp. Alatrol 5mg/5ml, ১ চামচ ০+০+১ — ৭ দিন",
+    "lines": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "step",
+   "at": 7851,
+   "step": {
+    "id": 2,
+    "tool": "search_medicine",
+    "title": "Searched “Napa 120mg/5ml”",
+    "detail": "6 candidates; closest: Napa 120 mg/5 ml (Syrup)",
+    "lines": [
+     1
+    ],
+    "ms": 100
+   }
+  },
+  {
+   "t": "step",
+   "at": 7851,
+   "step": {
+    "id": 3,
+    "tool": "search_medicine",
+    "title": "Searched “Zimax 200mg/5ml”",
+    "detail": "6 candidates; closest: Zimax 200 mg/5 ml (Powder for Suspension)",
+    "lines": [
+     2
+    ],
+    "ms": 70
+   }
+  },
+  {
+   "t": "step",
+   "at": 7851,
+   "step": {
+    "id": 4,
+    "tool": "search_medicine",
+    "title": "Searched “Tusca”",
+    "detail": "2 candidates; closest: Tusca (30 mg+100 mg+1.25 mg)/5 ml (Syrup)",
+    "lines": [
+     3
+    ],
+    "ms": 57
+   }
+  },
+  {
+   "t": "step",
+   "at": 7851,
+   "step": {
+    "id": 5,
+    "tool": "search_medicine",
+    "title": "Searched “Alatrol 5mg/5ml”",
+    "detail": "6 candidates; closest: Alatrol 5 mg/5 ml (Syrup)",
+    "lines": [
+     4
+    ],
+    "ms": 40
+   }
+  },
+  {
+   "t": "match",
+   "at": 12661,
+   "match": {
+    "line": 1,
+    "med": {
+     "id": 28439,
+     "brand": "Napa",
+     "form": "Syrup",
+     "generic": "Paracetamol",
+     "strength": "120 mg/5 ml",
+     "company": "Beximco Pharmaceuticals Ltd.",
+     "unitPrice": 35,
+     "unitLabel": "60 ml bottle"
+    },
+    "why": "Brand Napa 120mg/5ml syrup matches id 28439",
+    "drugClass": "Non opioid analgesics"
+   }
+  },
+  {
+   "t": "step",
+   "at": 12661,
+   "step": {
+    "id": 6,
+    "tool": "choose_medicine",
+    "title": "Line 1 is Napa 120 mg/5 ml",
+    "detail": "Paracetamol · Syrup · Beximco Pharmaceuticals Ltd.. Brand Napa 120mg/5ml syrup matches id 28439",
+    "lines": [
+     1
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "match",
+   "at": 12662,
+   "match": {
+    "line": 1,
+    "med": {
+     "id": 28439,
+     "brand": "Napa",
+     "form": "Syrup",
+     "generic": "Paracetamol",
+     "strength": "120 mg/5 ml",
+     "company": "Beximco Pharmaceuticals Ltd.",
+     "unitPrice": 35,
+     "unitLabel": "60 ml bottle"
+    },
+    "why": "Brand Napa 120mg/5ml syrup matches id 28439",
+    "drugClass": "Non opioid analgesics",
+    "equivalents": 6,
+    "cheaper": [
+     {
+      "id": 29192,
+      "brand": "Qcet",
+      "form": "Syrup",
+      "generic": "Paracetamol",
+      "strength": "120 mg/5 ml",
+      "company": "Opso Saline Ltd.",
+      "unitPrice": 20.63,
+      "unitLabel": "60 ml bottle"
+     },
+     {
+      "id": 28322,
+      "brand": "Renova",
+      "form": "Syrup",
+      "generic": "Paracetamol",
+      "strength": "120 mg/5 ml",
+      "company": "Opsonin Pharma Ltd.",
+      "unitPrice": 20.64,
+      "unitLabel": "60 ml bottle"
+     },
+     {
+      "id": 26799,
+      "brand": "Tamen",
+      "form": "Syrup",
+      "generic": "Paracetamol",
+      "strength": "120 mg/5 ml",
+      "company": "Eskayef Pharmaceuticals Ltd.",
+      "unitPrice": 20.68,
+      "unitLabel": "60 ml bottle"
+     },
+     {
+      "id": 29606,
+      "brand": "Ace",
+      "form": "Syrup",
+      "generic": "Paracetamol",
+      "strength": "120 mg/5 ml",
+      "company": "Square Pharmaceuticals Ltd.",
+      "unitPrice": 20.7,
+      "unitLabel": "60 ml bottle"
+     },
+     {
+      "id": 10542,
+      "brand": "Xcel",
+      "form": "Syrup",
+      "generic": "Paracetamol",
+      "strength": "120 mg/5 ml",
+      "company": "ACI Limited",
+      "unitPrice": 20.7,
+      "unitLabel": "60 ml bottle"
+     }
+    ],
+    "course": {
+     "units": 1,
+     "days": 3,
+     "prescribed": 35,
+     "cheapest": 20.63,
+     "basis": "one 60 ml bottle"
+    }
+   }
+  },
+  {
+   "t": "step",
+   "at": 12662,
+   "step": {
+    "id": 7,
+    "tool": "find_cheaper",
+    "title": "Compared 6 brands of Paracetamol 120 mg/5 ml",
+    "detail": "Napa ৳35 per 60 ml bottle; Qcet ৳20.63",
+    "lines": [
+     1
+    ],
+    "ms": 1
+   }
+  },
+  {
+   "t": "match",
+   "at": 12662,
+   "match": {
+    "line": 2,
+    "med": {
+     "id": 8723,
+     "brand": "Zimax",
+     "form": "Powder for Suspension",
+     "generic": "Azithromycin Dihydrate",
+     "strength": "200 mg/5 ml",
+     "company": "Square Pharmaceuticals Ltd.",
+     "unitPrice": 95,
+     "unitLabel": "15 ml bottle"
+    },
+    "why": "Brand Zimax 200mg/5ml suspension matches id 8723",
+    "drugClass": ""
+   }
+  },
+  {
+   "t": "step",
+   "at": 12662,
+   "step": {
+    "id": 8,
+    "tool": "choose_medicine",
+    "title": "Line 2 is Zimax 200 mg/5 ml",
+    "detail": "Azithromycin Dihydrate · Powder for Suspension · Square Pharmaceuticals Ltd.. Brand Zimax 200mg/5ml suspension matches id 8723",
+    "lines": [
+     2
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "match",
+   "at": 12663,
+   "match": {
+    "line": 2,
+    "med": {
+     "id": 8723,
+     "brand": "Zimax",
+     "form": "Powder for Suspension",
+     "generic": "Azithromycin Dihydrate",
+     "strength": "200 mg/5 ml",
+     "company": "Square Pharmaceuticals Ltd.",
+     "unitPrice": 95,
+     "unitLabel": "15 ml bottle"
+    },
+    "why": "Brand Zimax 200mg/5ml suspension matches id 8723",
+    "drugClass": "",
+    "equivalents": 66,
+    "cheaper": [
+     {
+      "id": 8633,
+      "brand": "Cinalid",
+      "form": "Powder for Suspension",
+      "generic": "Azithromycin Dihydrate",
+      "strength": "200 mg/5 ml",
+      "company": "Jayson Pharmaceuticals Ltd.",
+      "unitPrice": 75.5,
+      "unitLabel": "15 ml bottle"
+     },
+     {
+      "id": 25630,
+      "brand": "Novazith",
+      "form": "Powder for Suspension",
+      "generic": "Azithromycin Dihydrate",
+      "strength": "200 mg/5 ml",
+      "company": "Leon Pharmaceuticals Ltd.",
+      "unitPrice": 80,
+      "unitLabel": "15 ml bottle"
+     },
+     {
+      "id": 8714,
+      "brand": "Zenicin",
+      "form": "Powder for Suspension",
+      "generic": "Azithromycin Dihydrate",
+      "strength": "200 mg/5 ml",
+      "company": "Zenith Pharmaceuticals Ltd.",
+      "unitPrice": 80,
+      "unitLabel": "15 ml bottle"
+     },
+     {
+      "id": 8735,
+      "brand": "Zithrin",
+      "form": "Powder for Suspension",
+      "generic": "Azithromycin Dihydrate",
+      "strength": "200 mg/5 ml",
+      "company": "Renata Limited",
+      "unitPrice": 80.3,
+      "unitLabel": "15 ml bottle"
+     },
+     {
+      "id": 27380,
+      "brand": "Azitac",
+      "form": "Powder for Suspension",
+      "generic": "Azithromycin Dihydrate",
+      "strength": "200 mg/5 ml",
+      "company": "United Pharmaceuticals Ltd.",
+      "unitPrice": 80.55,
+      "unitLabel": "15 ml bottle"
+     }
+    ],
+    "course": {
+     "units": 1,
+     "days": 5,
+     "prescribed": 95,
+     "cheapest": 75.5,
+     "basis": "one 15 ml bottle"
+    }
+   }
+  },
+  {
+   "t": "step",
+   "at": 12663,
+   "step": {
+    "id": 9,
+    "tool": "find_cheaper",
+    "title": "Compared 66 brands of Azithromycin Dihydrate 200 mg/5 ml",
+    "detail": "Zimax ৳95 per 15 ml bottle; Cinalid ৳75.5",
+    "lines": [
+     2
+    ],
+    "ms": 1
+   }
+  },
+  {
+   "t": "match",
+   "at": 12663,
+   "match": {
+    "line": 3,
+    "med": {
+     "id": 4159,
+     "brand": "Tusca",
+     "form": "Syrup",
+     "generic": "Pseudoephedrine + Guaiphenasine + Triprolidine",
+     "strength": "(30 mg+100 mg+1.25 mg)/5 ml",
+     "company": "Square Pharmaceuticals Ltd.",
+     "unitPrice": 65,
+     "unitLabel": "100 ml bottle"
+    },
+    "why": "Brand Tusca syrup matches id 4159",
+    "drugClass": "Combined cough expectorants"
+   }
+  },
+  {
+   "t": "step",
+   "at": 12663,
+   "step": {
+    "id": 10,
+    "tool": "choose_medicine",
+    "title": "Line 3 is Tusca (30 mg+100 mg+1.25 mg)/5 ml",
+    "detail": "Pseudoephedrine + Guaiphenasine + Triprolidine · Syrup · Square Pharmaceuticals Ltd.. Brand Tusca syrup matches id 4159",
+    "lines": [
+     3
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "match",
+   "at": 12663,
+   "match": {
+    "line": 3,
+    "med": {
+     "id": 4159,
+     "brand": "Tusca",
+     "form": "Syrup",
+     "generic": "Pseudoephedrine + Guaiphenasine + Triprolidine",
+     "strength": "(30 mg+100 mg+1.25 mg)/5 ml",
+     "company": "Square Pharmaceuticals Ltd.",
+     "unitPrice": 65,
+     "unitLabel": "100 ml bottle"
+    },
+    "why": "Brand Tusca syrup matches id 4159",
+    "drugClass": "Combined cough expectorants",
+    "equivalents": 21,
+    "cheaper": [
+     {
+      "id": 30926,
+      "brand": "Tussy",
+      "form": "Syrup",
+      "generic": "Pseudoephedrine + Guaiphenasine + Triprolidine",
+      "strength": "(30 mg+100 mg+1.25 mg)/5 ml",
+      "company": "Somatec Pharmaceuticals Ltd.",
+      "unitPrice": 31.62,
+      "unitLabel": "100 ml bottle"
+     },
+     {
+      "id": 4155,
+      "brand": "Triex",
+      "form": "Syrup",
+      "generic": "Pseudoephedrine + Guaiphenasine + Triprolidine",
+      "strength": "(30 mg+100 mg+1.25 mg)/5 ml",
+      "company": "Supreme Pharmaceutical Ltd.",
+      "unitPrice": 32,
+      "unitLabel": "100 ml bottle"
+     },
+     {
+      "id": 4132,
+      "brand": "Abex",
+      "form": "Syrup",
+      "generic": "Pseudoephedrine + Guaiphenasine + Triprolidine",
+      "strength": "(30 mg+100 mg+1.25 mg)/5 ml",
+      "company": "Ibn Sina Pharmaceuticals Ltd.",
+      "unitPrice": 35,
+      "unitLabel": "100 ml bottle"
+     },
+     {
+      "id": 4152,
+      "brand": "Smile",
+      "form": "Syrup",
+      "generic": "Pseudoephedrine + Guaiphenasine + Triprolidine",
+      "strength": "(30 mg+100 mg+1.25 mg)/5 ml",
+      "company": "Nipa Pharmaceuticals Ltd.",
+      "unitPrice": 35,
+      "unitLabel": "100 ml bottle"
+     },
+     {
+      "id": 4145,
+      "brand": "Exitra",
+      "form": "Syrup",
+      "generic": "Pseudoephedrine + Guaiphenasine + Triprolidine",
+      "strength": "(30 mg+100 mg+1.25 mg)/5 ml",
+      "company": "Novo Healthcare and Pharma Ltd.",
+      "unitPrice": 40.13,
+      "unitLabel": "100 ml bottle"
+     }
+    ],
+    "course": {
+     "units": 1,
+     "days": 5,
+     "prescribed": 65,
+     "cheapest": 31.62,
+     "basis": "one 100 ml bottle"
+    }
+   }
+  },
+  {
+   "t": "step",
+   "at": 12663,
+   "step": {
+    "id": 11,
+    "tool": "find_cheaper",
+    "title": "Compared 21 brands of Pseudoephedrine + Guaiphenasine + Triprolidine (30 mg+100 mg+1.25 mg)/5 ml",
+    "detail": "Tusca ৳65 per 100 ml bottle; Tussy ৳31.62",
+    "lines": [
+     3
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "match",
+   "at": 12663,
+   "match": {
+    "line": 4,
+    "med": {
+     "id": 11915,
+     "brand": "Alatrol",
+     "form": "Syrup",
+     "generic": "Cetirizine Hydrochloride",
+     "strength": "5 mg/5 ml",
+     "company": "Square Pharmaceuticals Ltd.",
+     "unitPrice": 30.1,
+     "unitLabel": "60 ml bottle"
+    },
+    "why": "Brand Alatrol 5mg/5ml syrup matches id 11915",
+    "drugClass": "Sedating Anti-histamine"
+   }
+  },
+  {
+   "t": "step",
+   "at": 12663,
+   "step": {
+    "id": 12,
+    "tool": "choose_medicine",
+    "title": "Line 4 is Alatrol 5 mg/5 ml",
+    "detail": "Cetirizine Hydrochloride · Syrup · Square Pharmaceuticals Ltd.. Brand Alatrol 5mg/5ml syrup matches id 11915",
+    "lines": [
+     4
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "match",
+   "at": 12663,
+   "match": {
+    "line": 4,
+    "med": {
+     "id": 11915,
+     "brand": "Alatrol",
+     "form": "Syrup",
+     "generic": "Cetirizine Hydrochloride",
+     "strength": "5 mg/5 ml",
+     "company": "Square Pharmaceuticals Ltd.",
+     "unitPrice": 30.1,
+     "unitLabel": "60 ml bottle"
+    },
+    "why": "Brand Alatrol 5mg/5ml syrup matches id 11915",
+    "drugClass": "Sedating Anti-histamine",
+    "equivalents": 46,
+    "cheaper": [
+     {
+      "id": 12018,
+      "brand": "Allercet",
+      "form": "Syrup",
+      "generic": "Cetirizine Hydrochloride",
+      "strength": "5 mg/5 ml",
+      "company": "Marksman Pharmaceuticals Ltd.",
+      "unitPrice": 14.8,
+      "unitLabel": "60 ml bottle"
+     },
+     {
+      "id": 11954,
+      "brand": "Cizin",
+      "form": "Syrup",
+      "generic": "Cetirizine Hydrochloride",
+      "strength": "5 mg/5 ml",
+      "company": "Nipa Pharmaceuticals Ltd.",
+      "unitPrice": 15.17,
+      "unitLabel": "60 ml bottle"
+     },
+     {
+      "id": 11912,
+      "brand": "Actizen",
+      "form": "Syrup",
+      "generic": "Cetirizine Hydrochloride",
+      "strength": "5 mg/5 ml",
+      "company": "Ambee Pharmaceuticals Ltd.",
+      "unitPrice": 16,
+      "unitLabel": "60 ml bottle"
+     },
+     {
+      "id": 19159,
+      "brand": "Alermet",
+      "form": "Syrup",
+      "generic": "Cetirizine Hydrochloride",
+      "strength": "5 mg/5 ml",
+      "company": "Orbit Pharmaceuticals Ltd.",
+      "unitPrice": 16,
+      "unitLabel": "60 ml bottle"
+     },
+     {
+      "id": 11932,
+      "brand": "Cesil",
+      "form": "Syrup",
+      "generic": "Cetirizine Hydrochloride",
+      "strength": "5 mg/5 ml",
+      "company": "Silva Pharmaceuticals Ltd.",
+      "unitPrice": 16,
+      "unitLabel": "60 ml bottle"
+     }
+    ],
+    "course": {
+     "units": 1,
+     "days": 7,
+     "prescribed": 30.1,
+     "cheapest": 14.8,
+     "basis": "one 60 ml bottle"
+    }
+   }
+  },
+  {
+   "t": "step",
+   "at": 12663,
+   "step": {
+    "id": 13,
+    "tool": "find_cheaper",
+    "title": "Compared 46 brands of Cetirizine Hydrochloride 5 mg/5 ml",
+    "detail": "Alatrol ৳30.1 per 60 ml bottle; Allercet ৳14.8",
+    "lines": [
+     4
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "clashes",
+   "at": 12684,
+   "clashes": []
+  },
+  {
+   "t": "step",
+   "at": 12684,
+   "step": {
+    "id": 14,
+    "tool": "check_clashes",
+    "title": "Checked 6 pairs for clashes",
+    "detail": "No shared ingredients; no leaflet names another medicine here.",
+    "lines": [],
+    "ms": 20
+   }
+  },
+  {
+   "t": "step",
+   "at": 16792,
+   "step": {
+    "id": 15,
+    "tool": "finish",
+    "title": "Wrote the plan and the summary",
+    "detail": "This prescription is for treating fever, cough, runny nose, and respiratory infection. No harmful interactions were found between these medicines. Please ensure the full antibiotic course is completed as prescribed. The same medicines cost ৳143 at the lowest price instead of ৳225.",
+    "lines": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "done",
+   "at": 16792,
+   "matches": [
+    {
+     "line": 1,
+     "med": {
+      "id": 28439,
+      "brand": "Napa",
+      "form": "Syrup",
+      "generic": "Paracetamol",
+      "strength": "120 mg/5 ml",
+      "company": "Beximco Pharmaceuticals Ltd.",
+      "unitPrice": 35,
+      "unitLabel": "60 ml bottle"
+     },
+     "why": "Brand Napa 120mg/5ml syrup matches id 28439",
+     "drugClass": "Non opioid analgesics",
+     "equivalents": 6,
+     "cheaper": [
+      {
+       "id": 29192,
+       "brand": "Qcet",
+       "form": "Syrup",
+       "generic": "Paracetamol",
+       "strength": "120 mg/5 ml",
+       "company": "Opso Saline Ltd.",
+       "unitPrice": 20.63,
+       "unitLabel": "60 ml bottle"
+      },
+      {
+       "id": 28322,
+       "brand": "Renova",
+       "form": "Syrup",
+       "generic": "Paracetamol",
+       "strength": "120 mg/5 ml",
+       "company": "Opsonin Pharma Ltd.",
+       "unitPrice": 20.64,
+       "unitLabel": "60 ml bottle"
+      },
+      {
+       "id": 26799,
+       "brand": "Tamen",
+       "form": "Syrup",
+       "generic": "Paracetamol",
+       "strength": "120 mg/5 ml",
+       "company": "Eskayef Pharmaceuticals Ltd.",
+       "unitPrice": 20.68,
+       "unitLabel": "60 ml bottle"
+      },
+      {
+       "id": 29606,
+       "brand": "Ace",
+       "form": "Syrup",
+       "generic": "Paracetamol",
+       "strength": "120 mg/5 ml",
+       "company": "Square Pharmaceuticals Ltd.",
+       "unitPrice": 20.7,
+       "unitLabel": "60 ml bottle"
+      },
+      {
+       "id": 10542,
+       "brand": "Xcel",
+       "form": "Syrup",
+       "generic": "Paracetamol",
+       "strength": "120 mg/5 ml",
+       "company": "ACI Limited",
+       "unitPrice": 20.7,
+       "unitLabel": "60 ml bottle"
+      }
+     ],
+     "course": {
+      "units": 1,
+      "days": 3,
+      "prescribed": 35,
+      "cheapest": 20.63,
+      "basis": "one 60 ml bottle"
+     },
+     "forEn": "Used to treat fever and pain.",
+     "forBn": "জ্বর ও ব্যথা কমানোর জন্য ব্যবহার করা হয়।"
+    },
+    {
+     "line": 2,
+     "med": {
+      "id": 8723,
+      "brand": "Zimax",
+      "form": "Powder for Suspension",
+      "generic": "Azithromycin Dihydrate",
+      "strength": "200 mg/5 ml",
+      "company": "Square Pharmaceuticals Ltd.",
+      "unitPrice": 95,
+      "unitLabel": "15 ml bottle"
+     },
+     "why": "Brand Zimax 200mg/5ml suspension matches id 8723",
+     "drugClass": "",
+     "equivalents": 66,
+     "cheaper": [
+      {
+       "id": 8633,
+       "brand": "Cinalid",
+       "form": "Powder for Suspension",
+       "generic": "Azithromycin Dihydrate",
+       "strength": "200 mg/5 ml",
+       "company": "Jayson Pharmaceuticals Ltd.",
+       "unitPrice": 75.5,
+       "unitLabel": "15 ml bottle"
+      },
+      {
+       "id": 25630,
+       "brand": "Novazith",
+       "form": "Powder for Suspension",
+       "generic": "Azithromycin Dihydrate",
+       "strength": "200 mg/5 ml",
+       "company": "Leon Pharmaceuticals Ltd.",
+       "unitPrice": 80,
+       "unitLabel": "15 ml bottle"
+      },
+      {
+       "id": 8714,
+       "brand": "Zenicin",
+       "form": "Powder for Suspension",
+       "generic": "Azithromycin Dihydrate",
+       "strength": "200 mg/5 ml",
+       "company": "Zenith Pharmaceuticals Ltd.",
+       "unitPrice": 80,
+       "unitLabel": "15 ml bottle"
+      },
+      {
+       "id": 8735,
+       "brand": "Zithrin",
+       "form": "Powder for Suspension",
+       "generic": "Azithromycin Dihydrate",
+       "strength": "200 mg/5 ml",
+       "company": "Renata Limited",
+       "unitPrice": 80.3,
+       "unitLabel": "15 ml bottle"
+      },
+      {
+       "id": 27380,
+       "brand": "Azitac",
+       "form": "Powder for Suspension",
+       "generic": "Azithromycin Dihydrate",
+       "strength": "200 mg/5 ml",
+       "company": "United Pharmaceuticals Ltd.",
+       "unitPrice": 80.55,
+       "unitLabel": "15 ml bottle"
+      }
+     ],
+     "course": {
+      "units": 1,
+      "days": 5,
+      "prescribed": 95,
+      "cheapest": 75.5,
+      "basis": "one 15 ml bottle"
+     },
+     "forEn": "Antibiotic used to treat bacterial respiratory infections.",
+     "forBn": "শ্বাসতন্ত্রের ব্যাকটেরিয়াজনিত সংক্রমণের চিকিৎসায় ব্যবহৃত অ্যান্টিবায়োটিক।"
+    },
+    {
+     "line": 3,
+     "med": {
+      "id": 4159,
+      "brand": "Tusca",
+      "form": "Syrup",
+      "generic": "Pseudoephedrine + Guaiphenasine + Triprolidine",
+      "strength": "(30 mg+100 mg+1.25 mg)/5 ml",
+      "company": "Square Pharmaceuticals Ltd.",
+      "unitPrice": 65,
+      "unitLabel": "100 ml bottle"
+     },
+     "why": "Brand Tusca syrup matches id 4159",
+     "drugClass": "Combined cough expectorants",
+     "equivalents": 21,
+     "cheaper": [
+      {
+       "id": 30926,
+       "brand": "Tussy",
+       "form": "Syrup",
+       "generic": "Pseudoephedrine + Guaiphenasine + Triprolidine",
+       "strength": "(30 mg+100 mg+1.25 mg)/5 ml",
+       "company": "Somatec Pharmaceuticals Ltd.",
+       "unitPrice": 31.62,
+       "unitLabel": "100 ml bottle"
+      },
+      {
+       "id": 4155,
+       "brand": "Triex",
+       "form": "Syrup",
+       "generic": "Pseudoephedrine + Guaiphenasine + Triprolidine",
+       "strength": "(30 mg+100 mg+1.25 mg)/5 ml",
+       "company": "Supreme Pharmaceutical Ltd.",
+       "unitPrice": 32,
+       "unitLabel": "100 ml bottle"
+      },
+      {
+       "id": 4132,
+       "brand": "Abex",
+       "form": "Syrup",
+       "generic": "Pseudoephedrine + Guaiphenasine + Triprolidine",
+       "strength": "(30 mg+100 mg+1.25 mg)/5 ml",
+       "company": "Ibn Sina Pharmaceuticals Ltd.",
+       "unitPrice": 35,
+       "unitLabel": "100 ml bottle"
+      },
+      {
+       "id": 4152,
+       "brand": "Smile",
+       "form": "Syrup",
+       "generic": "Pseudoephedrine + Guaiphenasine + Triprolidine",
+       "strength": "(30 mg+100 mg+1.25 mg)/5 ml",
+       "company": "Nipa Pharmaceuticals Ltd.",
+       "unitPrice": 35,
+       "unitLabel": "100 ml bottle"
+      },
+      {
+       "id": 4145,
+       "brand": "Exitra",
+       "form": "Syrup",
+       "generic": "Pseudoephedrine + Guaiphenasine + Triprolidine",
+       "strength": "(30 mg+100 mg+1.25 mg)/5 ml",
+       "company": "Novo Healthcare and Pharma Ltd.",
+       "unitPrice": 40.13,
+       "unitLabel": "100 ml bottle"
+      }
+     ],
+     "course": {
+      "units": 1,
+      "days": 5,
+      "prescribed": 65,
+      "cheapest": 31.62,
+      "basis": "one 100 ml bottle"
+     },
+     "forEn": "Helps relieve cough and clear respiratory congestion.",
+     "forBn": "কাশির উপশম এবং শ্লেষ্মা বের করতে সাহায্য করে।"
+    },
+    {
+     "line": 4,
+     "med": {
+      "id": 11915,
+      "brand": "Alatrol",
+      "form": "Syrup",
+      "generic": "Cetirizine Hydrochloride",
+      "strength": "5 mg/5 ml",
+      "company": "Square Pharmaceuticals Ltd.",
+      "unitPrice": 30.1,
+      "unitLabel": "60 ml bottle"
+     },
+     "why": "Brand Alatrol 5mg/5ml syrup matches id 11915",
+     "drugClass": "Sedating Anti-histamine",
+     "equivalents": 46,
+     "cheaper": [
+      {
+       "id": 12018,
+       "brand": "Allercet",
+       "form": "Syrup",
+       "generic": "Cetirizine Hydrochloride",
+       "strength": "5 mg/5 ml",
+       "company": "Marksman Pharmaceuticals Ltd.",
+       "unitPrice": 14.8,
+       "unitLabel": "60 ml bottle"
+      },
+      {
+       "id": 11954,
+       "brand": "Cizin",
+       "form": "Syrup",
+       "generic": "Cetirizine Hydrochloride",
+       "strength": "5 mg/5 ml",
+       "company": "Nipa Pharmaceuticals Ltd.",
+       "unitPrice": 15.17,
+       "unitLabel": "60 ml bottle"
+      },
+      {
+       "id": 11912,
+       "brand": "Actizen",
+       "form": "Syrup",
+       "generic": "Cetirizine Hydrochloride",
+       "strength": "5 mg/5 ml",
+       "company": "Ambee Pharmaceuticals Ltd.",
+       "unitPrice": 16,
+       "unitLabel": "60 ml bottle"
+      },
+      {
+       "id": 19159,
+       "brand": "Alermet",
+       "form": "Syrup",
+       "generic": "Cetirizine Hydrochloride",
+       "strength": "5 mg/5 ml",
+       "company": "Orbit Pharmaceuticals Ltd.",
+       "unitPrice": 16,
+       "unitLabel": "60 ml bottle"
+      },
+      {
+       "id": 11932,
+       "brand": "Cesil",
+       "form": "Syrup",
+       "generic": "Cetirizine Hydrochloride",
+       "strength": "5 mg/5 ml",
+       "company": "Silva Pharmaceuticals Ltd.",
+       "unitPrice": 16,
+       "unitLabel": "60 ml bottle"
+      }
+     ],
+     "course": {
+      "units": 1,
+      "days": 7,
+      "prescribed": 30.1,
+      "cheapest": 14.8,
+      "basis": "one 60 ml bottle"
+     },
+     "forEn": "Relieves allergy symptoms like runny nose and sneezing.",
+     "forBn": "সর্দি, হাঁচি ও অ্যালার্জির লক্ষণ কমানোর জন্য দেওয়া হয়।"
+    }
+   ],
+   "totals": {
+    "prescribed": 225.1,
+    "cheapest": 142.55,
+    "priced": 4,
+    "basis": "for the days written; medicines to continue are counted for 30 days"
+   },
+   "summary": {
+    "en": "This prescription is for treating fever, cough, runny nose, and respiratory infection. No harmful interactions were found between these medicines. Please ensure the full antibiotic course is completed as prescribed. The same medicines cost ৳143 at the lowest price instead of ৳225.",
+    "bn": "এই ব্যবস্থাপত্রে সর্দি-কাশি, জ্বর ও শ্বাসতন্ত্রের সংক্রমণের চিকিৎসার জন্য ওষুধ দেওয়া হয়েছে। ওষুধগুলোর মধ্যে কোনো ক্ষতিকর ইন্টারঅ্যাকশন বা প্রতিক্রিয়া পাওয়া যায়নি। ডাক্তারের পরামর্শ অনুযায়ী কোর্স শেষ করুন। একই ওষুধ সবচেয়ে কম দামে কিনলে খরচ ৳২২৫-এর বদলে ৳১৪৩।"
+   }
+  }
+ ]
+}

@@ -110,12 +110,31 @@ function sentences(text: string): string[] {
 }
 const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-/** Sentence from `text` containing `term` (whole word, case-insensitive), or null. */
+/** Leaflet sentences that name a drug only to say there is no interaction ("No clinically significant drug
+ *  interactions have been found with ... Azithromycin"). These are never warnings. */
+const NEGATED = new RegExp(
+  [
+    String.raw`\bno\s+(?:clinically\s+)?(?:significant|relevant|important|meaningful|known|major|notable)?\s*(?:drug[- ]drug\s+|drug\s+|pharmacokinetic\s+|pharmacodynamic\s+)?interactions?\b`,
+    String.raw`\b(?:has|have|had|was|were)\s+not\s+been\s+(?:found|observed|reported|seen|shown|demonstrated)`,
+    String.raw`\bnot\s+(?:expected|likely|known)\s+to\s+(?:interact|affect|alter)`,
+    String.raw`\b(?:did|does|do)\s+not\s+(?:interact|alter|affect|change|influence|modify)`,
+    String.raw`\bwithout\s+(?:any\s+)?(?:clinically\s+)?(?:significant\s+)?(?:interaction|effect|change)`,
+    String.raw`\bno\s+(?:dose|dosage)\s+adjustment`,
+    String.raw`\bno\s+(?:significant\s+|clinically\s+significant\s+)?(?:effect|change|alteration)s?\s+(?:on|in|of)\b`,
+    String.raw`\bcan\s+be\s+(?:safely\s+)?(?:co-?administered|given\s+together|used\s+together)`,
+  ].join("|"),
+  "i",
+);
+export const isNegatedMention = (sentence: string) => NEGATED.test(sentence);
+
+/** Sentence from `text` containing `term` (whole word, case-insensitive), or null.
+ *  Sentences that say there is no interaction are skipped. */
 function snippetFor(text: string, term: string): string | null {
   const re = new RegExp(`(^|[^\\p{L}\\p{N}])${escapeRe(term)}`, "iu");
   for (const s of sentences(text)) {
     const m = re.exec(s);
     if (!m) continue;
+    if (isNegatedMention(s)) continue;
     if (s.length <= SNIPPET_MAX) return s;
     // Long sentence: keep a window around the mention (still verbatim text).
     const at = m.index + m[1].length;
