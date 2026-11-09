@@ -16,6 +16,17 @@ describe("searchWithPrices", () => {
     expect(searchWithPrices("napa extnd")[0].brand).toBe("Napa Extend");
   });
 
+  it("shows a repeated entry in the medicine list once (Motodon)", () => {
+    const motodon = searchWithPrices("Motodon").filter((r) => r.brand === "Motodon" && r.strength === "10 mg");
+    expect(motodon).toHaveLength(1);
+  });
+
+  it("still names the cheapest brands for a brand with no listed price (Paramol 500 mg)", () => {
+    const tab = searchWithPrices("Paramol").find((r) => r.brand === "Paramol" && r.unitPrice === null)!;
+    expect(tab.cheapest.length).toBeGreaterThan(0);
+    expect(tab.cheapest.every((c) => c.unitPrice !== null && c.brand !== "Paramol")).toBe(true);
+  });
+
   it("returns at most 8 results", () => {
     expect(searchWithPrices("napa").length).toBeLessThanOrEqual(8);
   });
