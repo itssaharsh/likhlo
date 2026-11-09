@@ -11,6 +11,7 @@ import MedSheet from "./MedSheet";
 import { SlipIcon, SlipSheet } from "./PharmacySlip";
 import { bnDigits, type Lang } from "./format";
 import { SAMPLE_TITLES, t } from "./i18n";
+import { reminderRows, remindersIcs, whenNeededRows } from "@/lib/reminders";
 
 type Source =
   | { kind: "sample"; id: string; image: string; size: [number, number] }
@@ -333,6 +334,19 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
   const readAt = mode !== "live" && sample ? sample.recordedAt : liveAt;
   const canSlip = run.status === "done" && run.lines.length > 0;
   const openSlip = () => setSlipOpen(true);
+  const canRemind = canSlip && reminderRows(run).length > 0;
+  const leftOut = canRemind ? whenNeededRows(run) : [];
+  const addReminders = () => {
+    const ics = remindersIcs(run, { start: new Date(), lang });
+    const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "likhlo-reminders.ics";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
 
   const matchOpen = openLine !== null ? run.matches[openLine] ?? null : null;
   const lineOpen = openLine !== null ? run.lines.find((l) => l.n === openLine) ?? null : null;
@@ -448,8 +462,21 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
                 <SlipIcon />
                 Save for the pharmacy
               </button>
+              {canRemind && (
+                <button type="button" className="btn btn-quiet" onClick={addReminders}>
+                  <BellIcon />
+                  Add reminders to my phone · <span lang="bn">ফোনে রিমাইন্ডার</span>
+                </button>
+              )}
               <span>Each medicine, its dose, the lowest price and every warning on one card for the pharmacy counter or WhatsApp.</span>
             </div>
+          )}
+          {leftOut.length > 0 && (
+            <p className="plan-note" lang={lang}>
+              {lang === "bn"
+                ? `রিমাইন্ডারে নেই (দরকার হলে খাওয়ার ওষুধ): ${leftOut.map((r) => r.name).join(", ")}।`
+                : `Left out of the reminders because they are taken only when needed: ${leftOut.map((r) => r.name).join(", ")}.`}
+            </p>
           )}
         </div>
       </section>
@@ -467,5 +494,14 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
       <SlipSheet open={slipOpen} run={run} readAt={readAt} lang={lang} setLang={setLang} onClose={() => setSlipOpen(false)} />
       <MedSheet match={matchOpen} line={lineOpen} lang={lang} clashes={run.clashes} matches={run.matches} onClose={() => setOpenLine(null)} />
     </>
+  );
+}
+
+function BellIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+      <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+    </svg>
   );
 }

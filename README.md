@@ -73,10 +73,11 @@ npm run dev                  # http://localhost:3000
 
 ## How Devin was used
 
-Devin built one pull request on top of the existing app:
+Devin built these pull requests on top of the existing app:
 
 - **Save for the pharmacy slip:** `src/lib/slip.ts` (`slipFromRun`, a pure function from the `RunState` to the slip's rows, totals and warnings) and `src/components/PharmacySlip.tsx` (a 1080x1350 card in English or Bangla, shared as a PNG on phones, downloaded otherwise, or printed with a print-only stylesheet). Buttons sit in the summary actions and under "Your day". Tests in `src/lib/slip.test.ts`.
 - **Verdict animation:** the lowest total in the verdict counts down from the prescribed total with `@number-flow/react` when a reading finishes, and stays still with reduced motion.
+- **Reminders on the phone (no AI call):** `src/lib/reminders.ts` (`remindersIcs`, a pure function from the `RunState` to an RFC 5545 calendar file: one daily reminder per medicine and part of the day at 08:00, 14:00 or 21:00 local time, for the prescribed days or 30 days when the line says continue, with "when needed" lines left out). The "Add reminders to my phone" button under "Your day" downloads `likhlo-reminders.ics` and names the lines it left out. Tests in `src/lib/reminders.test.ts`.
 
 ## What's real
 
