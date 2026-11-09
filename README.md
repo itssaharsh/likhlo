@@ -4,7 +4,7 @@
 
 **ডাক্তার কী লিখলো?** Snap a Bangladeshi prescription. Likhlo's agent reads every handwritten line, tells you what each medicine is for and when to take it, warns you when two medicines clash, and finds the same medicine for less among 21,714 Bangladeshi brands.
 
-**Live:** https://likhlo-bd.vercel.app · **Code:** this repository · **Video:** a 2-minute walkthrough is on the Devpost entry
+**Live:** https://likhlo-bd.vercel.app · **Code:** this repository · **Video:** a 3-minute walkthrough is linked from the Devpost entry
 
 ![Likhlo reading Rahima Khatun's prescription: five lines marked up on the photo, a double dose of paracetamol caught, and the same medicines for ৳409 instead of ৳612](public/og.png)
 
