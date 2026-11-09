@@ -8,6 +8,7 @@ import Results, { Verdict } from "./Results";
 import DayPlan from "./DayPlan";
 import StepLog from "./StepLog";
 import MedSheet from "./MedSheet";
+import { SlipIcon, SlipSheet } from "./PharmacySlip";
 import type { Lang } from "./format";
 
 type Source =
@@ -59,6 +60,8 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
   const [dragging, setDragging] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [listening, setListening] = useState(false);
+  const [slipOpen, setSlipOpen] = useState(false);
+  const [liveAt, setLiveAt] = useState<string | undefined>(undefined);
   const timers = useRef<number[]>([]);
   const abort = useRef<AbortController | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
@@ -77,6 +80,7 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
     abort.current = null;
     audio.current?.pause();
     setListening(false);
+    setSlipOpen(false);
   }, []);
 
   const replay = useCallback(
@@ -121,6 +125,7 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
       setSource(next);
       setRun({ ...emptyRun(), status: "reading" });
       setMode("live");
+      setLiveAt(new Date().toISOString());
       setLanded(false);
       setNotice(null);
       const ctrl = new AbortController();
@@ -322,6 +327,10 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
     return null;
   })();
 
+  const readAt = mode !== "live" && sample ? sample.recordedAt : liveAt;
+  const canSlip = run.status === "done" && run.lines.length > 0;
+  const openSlip = () => setSlipOpen(true);
+
   const matchOpen = openLine !== null ? run.matches[openLine] ?? null : null;
   const lineOpen = openLine !== null ? run.lines.find((l) => l.n === openLine) ?? null : null;
 
@@ -409,6 +418,7 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
             onOpenLine={setOpenLine}
             onListen={run.summary ? listen : undefined}
             listening={listening}
+            onSlip={canSlip ? openSlip : undefined}
           />
           {run.status === "error" && (
             <div className="try" style={{ marginTop: 14 }}>
@@ -426,6 +436,15 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
             <small>Every medicine, placed where it goes in the day. Show it to whoever gives the medicines.</small>
           </h2>
           {run.lines.length ? <DayPlan run={run} lang={lang} /> : <p className="intro">Your plan appears after a reading.</p>}
+          {canSlip && (
+            <div className="plan-actions">
+              <button type="button" className="btn btn-primary" onClick={openSlip}>
+                <SlipIcon />
+                Save for the pharmacy
+              </button>
+              <span>Each medicine, its dose, the lowest price and every warning on one card for the pharmacy counter or WhatsApp.</span>
+            </div>
+          )}
         </div>
       </section>
 
@@ -440,6 +459,7 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
         <StepLog run={run} onFocusLine={setFocusLine} />
       </section>
 
+      <SlipSheet open={slipOpen} run={run} readAt={readAt} lang={lang} setLang={setLang} onClose={() => setSlipOpen(false)} />
       <MedSheet match={matchOpen} line={lineOpen} lang={lang} clashes={run.clashes} matches={run.matches} onClose={() => setOpenLine(null)} />
     </>
   );

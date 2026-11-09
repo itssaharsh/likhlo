@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.114",
+    "@number-flow/react": "^0.6.2",
     "ai": "^7.0.165",
+    "html-to-image": "^1.11.13",
     "next": "16.4.5",
     "react": "19.3.0",
     "react-dom": "19.3.0",
