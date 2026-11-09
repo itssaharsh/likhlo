@@ -69,7 +69,7 @@ describe("pharmacy slip: lines without a match", () => {
   it("keep the strength as written", () => {
     const run = replayState(load("rahima").events);
     const n = run.lines[2].n;
-    const unmatched = { ...run, matches: { ...run.matches, [n]: { line: n, med: null } } };
+    const unmatched = { ...run, matches: { ...run.matches, [n]: { ...run.matches[n], med: null, cheaper: undefined } } };
     const r = slipFromRun(unmatched).rows[2];
     expect(r.found).toBe(false);
     expect(r.name).toContain("20mg");
