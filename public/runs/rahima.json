@@ -1,0 +1,1335 @@
+{
+ "id": "rahima",
+ "title": "Rahima's fever and heart prescription",
+ "recordedAt": "2026-11-09T00:17:05.799Z",
+ "model": "gemini-3.5-flash",
+ "image": "/samples/rahima.jpg",
+ "imageSize": [
+  1200,
+  1600
+ ],
+ "events": [
+  {
+   "t": "status",
+   "at": 1,
+   "status": "reading",
+   "model": "gemini-3.5-flash"
+  },
+  {
+   "t": "lines",
+   "at": 7722,
+   "lines": [
+    {
+     "n": 1,
+     "raw": "1. Tab. Napa Extend 665mg 1+0+1 (খাবার পর) — ৫ দিন",
+     "form": "Tab",
+     "name": "Napa Extend",
+     "strength": "665mg",
+     "doseText": "1+0+1",
+     "slots": {
+      "morning": 1,
+      "noon": 0,
+      "night": 1
+     },
+     "perDay": 2,
+     "days": 5,
+     "continuing": false,
+     "asNeeded": false,
+     "timing": "after_food",
+     "box": [
+      307,
+      405,
+      364,
+      746
+     ]
+    },
+    {
+     "n": 2,
+     "raw": "2. Tab. Ace Plus ব্যথা হলে ১টা — ৩ দিন",
+     "form": "Tab",
+     "name": "Ace Plus",
+     "strength": "",
+     "doseText": "1 when in pain",
+     "slots": {
+      "morning": 0,
+      "noon": 0,
+      "night": 0
+     },
+     "perDay": 0,
+     "days": 3,
+     "continuing": false,
+     "asNeeded": true,
+     "timing": "unspecified",
+     "box": [
+      390,
+      405,
+      445,
+      685
+     ]
+    },
+    {
+     "n": 3,
+     "raw": "3. Cap. Seclo 20mg 1+0+1 (খাবার আগে) — ১৪ দিন",
+     "form": "Cap",
+     "name": "Seclo",
+     "strength": "20mg",
+     "doseText": "1+0+1",
+     "slots": {
+      "morning": 1,
+      "noon": 0,
+      "night": 1
+     },
+     "perDay": 2,
+     "days": 14,
+     "continuing": false,
+     "asNeeded": false,
+     "timing": "before_food",
+     "box": [
+      465,
+      405,
+      520,
+      770
+     ]
+    },
+    {
+     "n": 4,
+     "raw": "4. Tab. Fexo 120mg 0+0+1 — ৭ দিন",
+     "form": "Tab",
+     "name": "Fexo",
+     "strength": "120mg",
+     "doseText": "0+0+1",
+     "slots": {
+      "morning": 0,
+      "noon": 0,
+      "night": 1
+     },
+     "perDay": 1,
+     "days": 7,
+     "continuing": false,
+     "asNeeded": false,
+     "timing": "unspecified",
+     "box": [
+      540,
+      405,
+      595,
+      660
+     ]
+    },
+    {
+     "n": 5,
+     "raw": "5. Tab. Clopid 75mg 0+1+0 — চলবে",
+     "form": "Tab",
+     "name": "Clopid",
+     "strength": "75mg",
+     "doseText": "0+1+0",
+     "slots": {
+      "morning": 0,
+      "noon": 1,
+      "night": 0
+     },
+     "perDay": 1,
+     "days": null,
+     "continuing": true,
+     "asNeeded": false,
+     "timing": "unspecified",
+     "box": [
+      615,
+      405,
+      670,
+      666
+     ]
+    }
+   ],
+   "patient": "Rahima Khatun, 58y",
+   "doctor": "Dr. Farhana Islam"
+  },
+  {
+   "t": "status",
+   "at": 7722,
+   "status": "working",
+   "model": "gemini-3.5-flash"
+  },
+  {
+   "t": "step",
+   "at": 7722,
+   "step": {
+    "id": 1,
+    "tool": "record_lines",
+    "title": "Read 5 medicine lines from the photo",
+    "detail": "1. 1. Tab. Napa Extend 665mg 1+0+1 (খাবার পর) — ৫ দিন\n2. 2. Tab. Ace Plus ব্যথা হলে ১টা — ৩ দিন\n3. 3. Cap. Seclo 20mg 1+0+1 (খাবার আগে) — ১৪ দিন\n4. 4. Tab. Fexo 120mg 0+0+1 — ৭ দিন\n5. 5. Tab. Clopid 75mg 0+1+0 — চলবে",
+    "lines": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "step",
+   "at": 7840,
+   "step": {
+    "id": 2,
+    "tool": "search_medicine",
+    "title": "Searched “Napa Extend 665mg”",
+    "detail": "6 candidates; closest: Napa Extend 665 mg (Tablet (Extended Release))",
+    "lines": [
+     1
+    ],
+    "ms": 118
+   }
+  },
+  {
+   "t": "step",
+   "at": 7841,
+   "step": {
+    "id": 3,
+    "tool": "search_medicine",
+    "title": "Searched “Ace Plus”",
+    "detail": "6 candidates; closest: Ace Plus 500 mg+65 mg (Tablet)",
+    "lines": [
+     2
+    ],
+    "ms": 84
+   }
+  },
+  {
+   "t": "step",
+   "at": 7841,
+   "step": {
+    "id": 4,
+    "tool": "search_medicine",
+    "title": "Searched “Seclo 20mg”",
+    "detail": "6 candidates; closest: Seclo 20 mg (Capsule (Delayed Release))",
+    "lines": [
+     3
+    ],
+    "ms": 41
+   }
+  },
+  {
+   "t": "step",
+   "at": 7841,
+   "step": {
+    "id": 5,
+    "tool": "search_medicine",
+    "title": "Searched “Fexo 120mg”",
+    "detail": "6 candidates; closest: Fexo 120 mg (Tablet)",
+    "lines": [
+     4
+    ],
+    "ms": 31
+   }
+  },
+  {
+   "t": "step",
+   "at": 7841,
+   "step": {
+    "id": 6,
+    "tool": "search_medicine",
+    "title": "Searched “Clopid 75mg”",
+    "detail": "6 candidates; closest: Clopid 75 mg (Tablet)",
+    "lines": [
+     5
+    ],
+    "ms": 26
+   }
+  },
+  {
+   "t": "match",
+   "at": 12445,
+   "match": {
+    "line": 1,
+    "med": {
+     "id": 10454,
+     "brand": "Napa Extend",
+     "form": "Tablet (Extended Release)",
+     "generic": "Paracetamol",
+     "strength": "665 mg",
+     "company": "Beximco Pharmaceuticals Ltd.",
+     "unitPrice": 2,
+     "unitLabel": "tablet"
+    },
+    "why": "Brand Napa Extend, 665 mg tablet matches",
+    "drugClass": "Non opioid analgesics"
+   }
+  },
+  {
+   "t": "step",
+   "at": 12445,
+   "step": {
+    "id": 7,
+    "tool": "choose_medicine",
+    "title": "Line 1 is Napa Extend 665 mg",
+    "detail": "Paracetamol · Tablet (Extended Release) · Beximco Pharmaceuticals Ltd.. Brand Napa Extend, 665 mg tablet matches",
+    "lines": [
+     1
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "match",
+   "at": 12446,
+   "match": {
+    "line": 1,
+    "med": {
+     "id": 10454,
+     "brand": "Napa Extend",
+     "form": "Tablet (Extended Release)",
+     "generic": "Paracetamol",
+     "strength": "665 mg",
+     "company": "Beximco Pharmaceuticals Ltd.",
+     "unitPrice": 2,
+     "unitLabel": "tablet"
+    },
+    "why": "Brand Napa Extend, 665 mg tablet matches",
+    "drugClass": "Non opioid analgesics",
+    "equivalents": 24,
+    "cheaper": [
+     {
+      "id": 23437,
+      "brand": "Aceta Extend",
+      "form": "Tablet (Extended Release)",
+      "generic": "Paracetamol",
+      "strength": "665 mg",
+      "company": "Biopharma Laboratories Ltd.",
+      "unitPrice": 1.5,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 32794,
+      "brand": "Ampol XR",
+      "form": "Tablet (Extended Release)",
+      "generic": "Paracetamol",
+      "strength": "665 mg",
+      "company": "Al-Madina Pharmaceuticals Ltd.",
+      "unitPrice": 1.5,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 33001,
+      "brand": "Asta XR",
+      "form": "Tablet (Extended Release)",
+      "generic": "Paracetamol",
+      "strength": "665 mg",
+      "company": "Rephco Pharmaceuticals Ltd.",
+      "unitPrice": 1.5,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 28882,
+      "brand": "Atopen Extend",
+      "form": "Tablet (Extended Release)",
+      "generic": "Paracetamol",
+      "strength": "665 mg",
+      "company": "Kemiko Pharmaceuticals Ltd.",
+      "unitPrice": 1.5,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 23401,
+      "brand": "Benalgin XR",
+      "form": "Tablet (Extended Release)",
+      "generic": "Paracetamol",
+      "strength": "665 mg",
+      "company": "Benham Pharmaceuticals Ltd.",
+      "unitPrice": 1.5,
+      "unitLabel": "tablet"
+     }
+    ],
+    "course": {
+     "units": 10,
+     "days": 5,
+     "prescribed": 20,
+     "cheapest": 15,
+     "basis": "2 a day for 5 days"
+    }
+   }
+  },
+  {
+   "t": "step",
+   "at": 12446,
+   "step": {
+    "id": 8,
+    "tool": "find_cheaper",
+    "title": "Compared 24 brands of Paracetamol 665 mg",
+    "detail": "Napa Extend ৳2 per tablet; Aceta Extend ৳1.5",
+    "lines": [
+     1
+    ],
+    "ms": 1
+   }
+  },
+  {
+   "t": "match",
+   "at": 12446,
+   "match": {
+    "line": 2,
+    "med": {
+     "id": 10557,
+     "brand": "Ace Plus",
+     "form": "Tablet",
+     "generic": "Paracetamol + Caffeine",
+     "strength": "500 mg+65 mg",
+     "company": "Square Pharmaceuticals Ltd.",
+     "unitPrice": 2.51,
+     "unitLabel": "tablet"
+    },
+    "why": "Brand Ace Plus tablet matches",
+    "drugClass": "Non opioid analgesics"
+   }
+  },
+  {
+   "t": "step",
+   "at": 12446,
+   "step": {
+    "id": 9,
+    "tool": "choose_medicine",
+    "title": "Line 2 is Ace Plus 500 mg+65 mg",
+    "detail": "Paracetamol + Caffeine · Tablet · Square Pharmaceuticals Ltd.. Brand Ace Plus tablet matches",
+    "lines": [
+     2
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "match",
+   "at": 12447,
+   "match": {
+    "line": 2,
+    "med": {
+     "id": 10557,
+     "brand": "Ace Plus",
+     "form": "Tablet",
+     "generic": "Paracetamol + Caffeine",
+     "strength": "500 mg+65 mg",
+     "company": "Square Pharmaceuticals Ltd.",
+     "unitPrice": 2.51,
+     "unitLabel": "tablet"
+    },
+    "why": "Brand Ace Plus tablet matches",
+    "drugClass": "Non opioid analgesics",
+    "equivalents": 105,
+    "cheaper": [
+     {
+      "id": 27176,
+      "brand": "A-One Plus",
+      "form": "Tablet",
+      "generic": "Paracetamol + Caffeine",
+      "strength": "500 mg+65 mg",
+      "company": "Apex Pharmaceuticals Ltd.",
+      "unitPrice": 1.5,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 10558,
+      "brand": "Acep Plus",
+      "form": "Tablet",
+      "generic": "Paracetamol + Caffeine",
+      "strength": "500 mg+65 mg",
+      "company": "Zenith Pharmaceuticals Ltd.",
+      "unitPrice": 1.5,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 10561,
+      "brand": "Archi Extra",
+      "form": "Tablet",
+      "generic": "Paracetamol + Caffeine",
+      "strength": "500 mg+65 mg",
+      "company": "Aexim Pharmaceuticals Ltd.",
+      "unitPrice": 1.5,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 10565,
+      "brand": "Bepol Plus",
+      "form": "Tablet",
+      "generic": "Paracetamol + Caffeine",
+      "strength": "500 mg+65 mg",
+      "company": "Bengal drugs Ltd.",
+      "unitPrice": 1.5,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 10566,
+      "brand": "Cafceta",
+      "form": "Tablet",
+      "generic": "Paracetamol + Caffeine",
+      "strength": "500 mg+65 mg",
+      "company": "Peoples Pharma Ltd.",
+      "unitPrice": 1.5,
+      "unitLabel": "tablet"
+     }
+    ],
+    "course": {
+     "units": 3,
+     "days": 3,
+     "prescribed": 7.53,
+     "cheapest": 4.5,
+     "basis": "up to 1 a day for 3 days"
+    }
+   }
+  },
+  {
+   "t": "step",
+   "at": 12447,
+   "step": {
+    "id": 10,
+    "tool": "find_cheaper",
+    "title": "Compared 105 brands of Paracetamol + Caffeine 500 mg+65 mg",
+    "detail": "Ace Plus ৳2.51 per tablet; A-One Plus ৳1.5",
+    "lines": [
+     2
+    ],
+    "ms": 1
+   }
+  },
+  {
+   "t": "match",
+   "at": 12447,
+   "match": {
+    "line": 4,
+    "med": {
+     "id": 12095,
+     "brand": "Fexo",
+     "form": "Tablet",
+     "generic": "Fexofenadine Hydrochloride",
+     "strength": "120 mg",
+     "company": "Square Pharmaceuticals Ltd.",
+     "unitPrice": 8,
+     "unitLabel": "tablet"
+    },
+    "why": "Brand Fexo 120 mg tablet matches",
+    "drugClass": "Non-sedating antihistamines"
+   }
+  },
+  {
+   "t": "step",
+   "at": 12447,
+   "step": {
+    "id": 11,
+    "tool": "choose_medicine",
+    "title": "Line 4 is Fexo 120 mg",
+    "detail": "Fexofenadine Hydrochloride · Tablet · Square Pharmaceuticals Ltd.. Brand Fexo 120 mg tablet matches",
+    "lines": [
+     4
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "match",
+   "at": 12448,
+   "match": {
+    "line": 4,
+    "med": {
+     "id": 12095,
+     "brand": "Fexo",
+     "form": "Tablet",
+     "generic": "Fexofenadine Hydrochloride",
+     "strength": "120 mg",
+     "company": "Square Pharmaceuticals Ltd.",
+     "unitPrice": 8,
+     "unitLabel": "tablet"
+    },
+    "why": "Brand Fexo 120 mg tablet matches",
+    "drugClass": "Non-sedating antihistamines",
+    "equivalents": 77,
+    "cheaper": [
+     {
+      "id": 20342,
+      "brand": "Delfex",
+      "form": "Tablet",
+      "generic": "Fexofenadine Hydrochloride",
+      "strength": "120 mg",
+      "company": "Delta Pharma Ltd.",
+      "unitPrice": 5,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 20396,
+      "brand": "Fexirin",
+      "form": "Tablet",
+      "generic": "Fexofenadine Hydrochloride",
+      "strength": "120 mg",
+      "company": "Virgo Pharmaceuticals Ltd.",
+      "unitPrice": 6,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 12150,
+      "brand": "Xofast",
+      "form": "Tablet",
+      "generic": "Fexofenadine Hydrochloride",
+      "strength": "120 mg",
+      "company": "Ad-din Pharmaceuticals Ltd.",
+      "unitPrice": 6,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 12059,
+      "brand": "Alagra",
+      "form": "Tablet",
+      "generic": "Fexofenadine Hydrochloride",
+      "strength": "120 mg",
+      "company": "Alco Pharma Ltd.",
+      "unitPrice": 6.02,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 12068,
+      "brand": "Alfex",
+      "form": "Tablet",
+      "generic": "Fexofenadine Hydrochloride",
+      "strength": "120 mg",
+      "company": "Medicon Pharmaceuticals Ltd.",
+      "unitPrice": 6.44,
+      "unitLabel": "tablet"
+     }
+    ],
+    "course": {
+     "units": 7,
+     "days": 7,
+     "prescribed": 56,
+     "cheapest": 35,
+     "basis": "1 a day for 7 days"
+    }
+   }
+  },
+  {
+   "t": "step",
+   "at": 12448,
+   "step": {
+    "id": 12,
+    "tool": "find_cheaper",
+    "title": "Compared 77 brands of Fexofenadine Hydrochloride 120 mg",
+    "detail": "Fexo ৳8 per tablet; Delfex ৳5",
+    "lines": [
+     4
+    ],
+    "ms": 1
+   }
+  },
+  {
+   "t": "match",
+   "at": 12448,
+   "match": {
+    "line": 5,
+    "med": {
+     "id": 3227,
+     "brand": "Clopid",
+     "form": "Tablet",
+     "generic": "Clopidogrel Bisulphate",
+     "strength": "75 mg",
+     "company": "Drug International Ltd.",
+     "unitPrice": 12,
+     "unitLabel": "tablet"
+    },
+    "why": "Brand Clopid 75 mg tablet matches",
+    "drugClass": "Anti-platelet drugs"
+   }
+  },
+  {
+   "t": "step",
+   "at": 12448,
+   "step": {
+    "id": 13,
+    "tool": "choose_medicine",
+    "title": "Line 5 is Clopid 75 mg",
+    "detail": "Clopidogrel Bisulphate · Tablet · Drug International Ltd.. Brand Clopid 75 mg tablet matches",
+    "lines": [
+     5
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "match",
+   "at": 12448,
+   "match": {
+    "line": 5,
+    "med": {
+     "id": 3227,
+     "brand": "Clopid",
+     "form": "Tablet",
+     "generic": "Clopidogrel Bisulphate",
+     "strength": "75 mg",
+     "company": "Drug International Ltd.",
+     "unitPrice": 12,
+     "unitLabel": "tablet"
+    },
+    "why": "Brand Clopid 75 mg tablet matches",
+    "drugClass": "Anti-platelet drugs",
+    "equivalents": 40,
+    "cheaper": [
+     {
+      "id": 3225,
+      "brand": "Clogrel",
+      "form": "Tablet",
+      "generic": "Clopidogrel Bisulphate",
+      "strength": "75 mg",
+      "company": "Ad-din Pharmaceuticals Ltd.",
+      "unitPrice": 9,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 28516,
+      "brand": "Clopigel",
+      "form": "Tablet",
+      "generic": "Clopidogrel Bisulphate",
+      "strength": "75 mg",
+      "company": "Pacific Pharmaceuticals Ltd.",
+      "unitPrice": 9.1,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 27974,
+      "brand": "Anplat",
+      "form": "Tablet",
+      "generic": "Clopidogrel Bisulphate",
+      "strength": "75 mg",
+      "company": "Jenphar Bangladesh Ltd.",
+      "unitPrice": 10,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 26173,
+      "brand": "Carceva",
+      "form": "Tablet",
+      "generic": "Clopidogrel Bisulphate",
+      "strength": "75 mg",
+      "company": "NIPRO JMI Pharma Ltd.",
+      "unitPrice": 10,
+      "unitLabel": "tablet"
+     },
+     {
+      "id": 3231,
+      "brand": "Clopirel",
+      "form": "Tablet",
+      "generic": "Clopidogrel Bisulphate",
+      "strength": "75 mg",
+      "company": "Novo Healthcare and Pharma Ltd.",
+      "unitPrice": 10,
+      "unitLabel": "tablet"
+     }
+    ],
+    "course": {
+     "units": 30,
+     "days": 30,
+     "prescribed": 360,
+     "cheapest": 270,
+     "basis": "1 a day for 30 days (continuing)"
+    }
+   }
+  },
+  {
+   "t": "step",
+   "at": 12448,
+   "step": {
+    "id": 14,
+    "tool": "find_cheaper",
+    "title": "Compared 40 brands of Clopidogrel Bisulphate 75 mg",
+    "detail": "Clopid ৳12 per tablet; Clogrel ৳9",
+    "lines": [
+     5
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "match",
+   "at": 15844,
+   "match": {
+    "line": 3,
+    "med": {
+     "id": 1958,
+     "brand": "Seclo",
+     "form": "Capsule (Delayed Release)",
+     "generic": "Omeprazole",
+     "strength": "20 mg",
+     "company": "Square Pharmaceuticals Ltd.",
+     "unitPrice": 6,
+     "unitLabel": "capsule"
+    },
+    "why": "Brand Seclo 20 mg capsule matches",
+    "drugClass": "Proton Pump Inhibitor"
+   }
+  },
+  {
+   "t": "step",
+   "at": 15844,
+   "step": {
+    "id": 15,
+    "tool": "choose_medicine",
+    "title": "Line 3 is Seclo 20 mg",
+    "detail": "Omeprazole · Capsule (Delayed Release) · Square Pharmaceuticals Ltd.. Brand Seclo 20 mg capsule matches",
+    "lines": [
+     3
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "match",
+   "at": 15845,
+   "match": {
+    "line": 3,
+    "med": {
+     "id": 1958,
+     "brand": "Seclo",
+     "form": "Capsule (Delayed Release)",
+     "generic": "Omeprazole",
+     "strength": "20 mg",
+     "company": "Square Pharmaceuticals Ltd.",
+     "unitPrice": 6,
+     "unitLabel": "capsule"
+    },
+    "why": "Brand Seclo 20 mg capsule matches",
+    "drugClass": "Proton Pump Inhibitor",
+    "equivalents": 123,
+    "cheaper": [
+     {
+      "id": 23042,
+      "brand": "G-Omeprazole",
+      "form": "Capsule (Delayed Release)",
+      "generic": "Omeprazole",
+      "strength": "20 mg",
+      "company": "Gonoshasthaya Pharma Ltd.",
+      "unitPrice": 3,
+      "unitLabel": "capsule"
+     },
+     {
+      "id": 1826,
+      "brand": "Lomesec",
+      "form": "Capsule (Delayed Release)",
+      "generic": "Omeprazole",
+      "strength": "20 mg",
+      "company": "Aexim Pharmaceuticals Ltd.",
+      "unitPrice": 3,
+      "unitLabel": "capsule"
+     },
+     {
+      "id": 1843,
+      "brand": "OM",
+      "form": "Capsule (Delayed Release)",
+      "generic": "Omeprazole",
+      "strength": "20 mg",
+      "company": "Ambee Pharmaceuticals Ltd.",
+      "unitPrice": 3.02,
+      "unitLabel": "capsule"
+     },
+     {
+      "id": 1881,
+      "brand": "Omet",
+      "form": "Capsule (Delayed Release)",
+      "generic": "Omeprazole",
+      "strength": "20 mg",
+      "company": "Pharmadesh Laboratories Ltd.",
+      "unitPrice": 3.5,
+      "unitLabel": "capsule"
+     },
+     {
+      "id": 23093,
+      "brand": "Osecton",
+      "form": "Capsule (Delayed Release)",
+      "generic": "Omeprazole",
+      "strength": "20 mg",
+      "company": "Salton Pharmaceuticals Ltd.",
+      "unitPrice": 3.5,
+      "unitLabel": "capsule"
+     }
+    ],
+    "course": {
+     "units": 28,
+     "days": 14,
+     "prescribed": 168,
+     "cheapest": 84,
+     "basis": "2 a day for 14 days"
+    }
+   }
+  },
+  {
+   "t": "step",
+   "at": 15845,
+   "step": {
+    "id": 16,
+    "tool": "find_cheaper",
+    "title": "Compared 123 brands of Omeprazole 20 mg",
+    "detail": "Seclo ৳6 per capsule; G-Omeprazole ৳3",
+    "lines": [
+     3
+    ],
+    "ms": 1
+   }
+  },
+  {
+   "t": "clashes",
+   "at": 15847,
+   "clashes": [
+    {
+     "kind": "duplicate",
+     "lines": [
+      1,
+      2
+     ],
+     "ingredient": "paracetamol",
+     "en": "Napa Extend and Ace Plus both contain paracetamol.",
+     "bn": "Napa Extend আর Ace Plus, দুটোতেই paracetamol আছে।"
+    },
+    {
+     "kind": "interaction",
+     "lines": [
+      5,
+      3
+     ],
+     "ingredient": "omeprazole",
+     "en": "The Clopidogrel Bisulphate leaflet warns about omeprazole, which is in Seclo.",
+     "bn": "Clopid-এর লিফলেটে omeprazole নিয়ে সতর্কতা আছে, যা Seclo-এ আছে।",
+     "quote": "CYP2C19 inhibitors (omeprazole or esomeprazole): Avoid concomitant use of omeprazole or esomeprazole",
+     "source": "Clopidogrel Bisulphate monograph"
+    }
+   ]
+  },
+  {
+   "t": "step",
+   "at": 15847,
+   "step": {
+    "id": 17,
+    "tool": "check_clashes",
+    "title": "Checked 10 pairs for clashes",
+    "detail": "Napa Extend and Ace Plus both contain paracetamol.\nThe Clopidogrel Bisulphate leaflet warns about omeprazole, which is in Seclo.",
+    "lines": [
+     1,
+     2,
+     5,
+     3
+    ],
+    "ms": 2
+   }
+  },
+  {
+   "t": "step",
+   "at": 23860,
+   "step": {
+    "id": 18,
+    "tool": "finish",
+    "title": "Wrote the plan and the summary",
+    "detail": "This prescription includes medicines for fever, body ache, acidity, itching, and blood clot prevention. Please note that Napa Extend and Ace Plus both contain paracetamol, so taking them together can cause an unintended double dose. Additionally, Seclo (omeprazole) may interact with Clopid (clopidogrel). Please discuss these potential clashes with your doctor or pharmacist. The same medicines cost ৳409 at the lowest price instead of ৳612.",
+    "lines": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "ms": 0
+   }
+  },
+  {
+   "t": "done",
+   "at": 23861,
+   "matches": [
+    {
+     "line": 1,
+     "med": {
+      "id": 10454,
+      "brand": "Napa Extend",
+      "form": "Tablet (Extended Release)",
+      "generic": "Paracetamol",
+      "strength": "665 mg",
+      "company": "Beximco Pharmaceuticals Ltd.",
+      "unitPrice": 2,
+      "unitLabel": "tablet"
+     },
+     "why": "Brand Napa Extend, 665 mg tablet matches",
+     "drugClass": "Non opioid analgesics",
+     "equivalents": 24,
+     "cheaper": [
+      {
+       "id": 23437,
+       "brand": "Aceta Extend",
+       "form": "Tablet (Extended Release)",
+       "generic": "Paracetamol",
+       "strength": "665 mg",
+       "company": "Biopharma Laboratories Ltd.",
+       "unitPrice": 1.5,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 32794,
+       "brand": "Ampol XR",
+       "form": "Tablet (Extended Release)",
+       "generic": "Paracetamol",
+       "strength": "665 mg",
+       "company": "Al-Madina Pharmaceuticals Ltd.",
+       "unitPrice": 1.5,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 33001,
+       "brand": "Asta XR",
+       "form": "Tablet (Extended Release)",
+       "generic": "Paracetamol",
+       "strength": "665 mg",
+       "company": "Rephco Pharmaceuticals Ltd.",
+       "unitPrice": 1.5,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 28882,
+       "brand": "Atopen Extend",
+       "form": "Tablet (Extended Release)",
+       "generic": "Paracetamol",
+       "strength": "665 mg",
+       "company": "Kemiko Pharmaceuticals Ltd.",
+       "unitPrice": 1.5,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 23401,
+       "brand": "Benalgin XR",
+       "form": "Tablet (Extended Release)",
+       "generic": "Paracetamol",
+       "strength": "665 mg",
+       "company": "Benham Pharmaceuticals Ltd.",
+       "unitPrice": 1.5,
+       "unitLabel": "tablet"
+      }
+     ],
+     "course": {
+      "units": 10,
+      "days": 5,
+      "prescribed": 20,
+      "cheapest": 15,
+      "basis": "2 a day for 5 days"
+     },
+     "forEn": "Reduces fever, body aches, and general pain.",
+     "forBn": "জ্বর, শরীরে ব্যথা ও সাধারণ যন্ত্রণা উপশমে কাজ করে।"
+    },
+    {
+     "line": 2,
+     "med": {
+      "id": 10557,
+      "brand": "Ace Plus",
+      "form": "Tablet",
+      "generic": "Paracetamol + Caffeine",
+      "strength": "500 mg+65 mg",
+      "company": "Square Pharmaceuticals Ltd.",
+      "unitPrice": 2.51,
+      "unitLabel": "tablet"
+     },
+     "why": "Brand Ace Plus tablet matches",
+     "drugClass": "Non opioid analgesics",
+     "equivalents": 105,
+     "cheaper": [
+      {
+       "id": 27176,
+       "brand": "A-One Plus",
+       "form": "Tablet",
+       "generic": "Paracetamol + Caffeine",
+       "strength": "500 mg+65 mg",
+       "company": "Apex Pharmaceuticals Ltd.",
+       "unitPrice": 1.5,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 10558,
+       "brand": "Acep Plus",
+       "form": "Tablet",
+       "generic": "Paracetamol + Caffeine",
+       "strength": "500 mg+65 mg",
+       "company": "Zenith Pharmaceuticals Ltd.",
+       "unitPrice": 1.5,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 10561,
+       "brand": "Archi Extra",
+       "form": "Tablet",
+       "generic": "Paracetamol + Caffeine",
+       "strength": "500 mg+65 mg",
+       "company": "Aexim Pharmaceuticals Ltd.",
+       "unitPrice": 1.5,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 10565,
+       "brand": "Bepol Plus",
+       "form": "Tablet",
+       "generic": "Paracetamol + Caffeine",
+       "strength": "500 mg+65 mg",
+       "company": "Bengal drugs Ltd.",
+       "unitPrice": 1.5,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 10566,
+       "brand": "Cafceta",
+       "form": "Tablet",
+       "generic": "Paracetamol + Caffeine",
+       "strength": "500 mg+65 mg",
+       "company": "Peoples Pharma Ltd.",
+       "unitPrice": 1.5,
+       "unitLabel": "tablet"
+      }
+     ],
+     "course": {
+      "units": 3,
+      "days": 3,
+      "prescribed": 7.53,
+      "cheapest": 4.5,
+      "basis": "up to 1 a day for 3 days"
+     },
+     "forEn": "Relieves severe pain, headaches, or body ache when needed.",
+     "forBn": "তীব্র ব্যথা বা শরীর ব্যথার চিকিৎসায় ব্যবহৃত হয়।"
+    },
+    {
+     "line": 3,
+     "med": {
+      "id": 1958,
+      "brand": "Seclo",
+      "form": "Capsule (Delayed Release)",
+      "generic": "Omeprazole",
+      "strength": "20 mg",
+      "company": "Square Pharmaceuticals Ltd.",
+      "unitPrice": 6,
+      "unitLabel": "capsule"
+     },
+     "why": "Brand Seclo 20 mg capsule matches",
+     "drugClass": "Proton Pump Inhibitor",
+     "equivalents": 123,
+     "cheaper": [
+      {
+       "id": 23042,
+       "brand": "G-Omeprazole",
+       "form": "Capsule (Delayed Release)",
+       "generic": "Omeprazole",
+       "strength": "20 mg",
+       "company": "Gonoshasthaya Pharma Ltd.",
+       "unitPrice": 3,
+       "unitLabel": "capsule"
+      },
+      {
+       "id": 1826,
+       "brand": "Lomesec",
+       "form": "Capsule (Delayed Release)",
+       "generic": "Omeprazole",
+       "strength": "20 mg",
+       "company": "Aexim Pharmaceuticals Ltd.",
+       "unitPrice": 3,
+       "unitLabel": "capsule"
+      },
+      {
+       "id": 1843,
+       "brand": "OM",
+       "form": "Capsule (Delayed Release)",
+       "generic": "Omeprazole",
+       "strength": "20 mg",
+       "company": "Ambee Pharmaceuticals Ltd.",
+       "unitPrice": 3.02,
+       "unitLabel": "capsule"
+      },
+      {
+       "id": 1881,
+       "brand": "Omet",
+       "form": "Capsule (Delayed Release)",
+       "generic": "Omeprazole",
+       "strength": "20 mg",
+       "company": "Pharmadesh Laboratories Ltd.",
+       "unitPrice": 3.5,
+       "unitLabel": "capsule"
+      },
+      {
+       "id": 23093,
+       "brand": "Osecton",
+       "form": "Capsule (Delayed Release)",
+       "generic": "Omeprazole",
+       "strength": "20 mg",
+       "company": "Salton Pharmaceuticals Ltd.",
+       "unitPrice": 3.5,
+       "unitLabel": "capsule"
+      }
+     ],
+     "course": {
+      "units": 28,
+      "days": 14,
+      "prescribed": 168,
+      "cheapest": 84,
+      "basis": "2 a day for 14 days"
+     },
+     "forEn": "Treats acidity, heartburn, and stomach ulcer problems.",
+     "forBn": "অ্যাসিডিটি, বুক জ্বালা ও গ্যাস্ট্রিকের চিকিৎসায় কাজ করে।"
+    },
+    {
+     "line": 4,
+     "med": {
+      "id": 12095,
+      "brand": "Fexo",
+      "form": "Tablet",
+      "generic": "Fexofenadine Hydrochloride",
+      "strength": "120 mg",
+      "company": "Square Pharmaceuticals Ltd.",
+      "unitPrice": 8,
+      "unitLabel": "tablet"
+     },
+     "why": "Brand Fexo 120 mg tablet matches",
+     "drugClass": "Non-sedating antihistamines",
+     "equivalents": 77,
+     "cheaper": [
+      {
+       "id": 20342,
+       "brand": "Delfex",
+       "form": "Tablet",
+       "generic": "Fexofenadine Hydrochloride",
+       "strength": "120 mg",
+       "company": "Delta Pharma Ltd.",
+       "unitPrice": 5,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 20396,
+       "brand": "Fexirin",
+       "form": "Tablet",
+       "generic": "Fexofenadine Hydrochloride",
+       "strength": "120 mg",
+       "company": "Virgo Pharmaceuticals Ltd.",
+       "unitPrice": 6,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 12150,
+       "brand": "Xofast",
+       "form": "Tablet",
+       "generic": "Fexofenadine Hydrochloride",
+       "strength": "120 mg",
+       "company": "Ad-din Pharmaceuticals Ltd.",
+       "unitPrice": 6,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 12059,
+       "brand": "Alagra",
+       "form": "Tablet",
+       "generic": "Fexofenadine Hydrochloride",
+       "strength": "120 mg",
+       "company": "Alco Pharma Ltd.",
+       "unitPrice": 6.02,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 12068,
+       "brand": "Alfex",
+       "form": "Tablet",
+       "generic": "Fexofenadine Hydrochloride",
+       "strength": "120 mg",
+       "company": "Medicon Pharmaceuticals Ltd.",
+       "unitPrice": 6.44,
+       "unitLabel": "tablet"
+      }
+     ],
+     "course": {
+      "units": 7,
+      "days": 7,
+      "prescribed": 56,
+      "cheapest": 35,
+      "basis": "1 a day for 7 days"
+     },
+     "forEn": "Relieves itching, allergies, and skin hives.",
+     "forBn": "চুলকানি, অ্যালার্জি ও ত্বকের অ্যালার্জির সমস্যা দূর করে।"
+    },
+    {
+     "line": 5,
+     "med": {
+      "id": 3227,
+      "brand": "Clopid",
+      "form": "Tablet",
+      "generic": "Clopidogrel Bisulphate",
+      "strength": "75 mg",
+      "company": "Drug International Ltd.",
+      "unitPrice": 12,
+      "unitLabel": "tablet"
+     },
+     "why": "Brand Clopid 75 mg tablet matches",
+     "drugClass": "Anti-platelet drugs",
+     "equivalents": 40,
+     "cheaper": [
+      {
+       "id": 3225,
+       "brand": "Clogrel",
+       "form": "Tablet",
+       "generic": "Clopidogrel Bisulphate",
+       "strength": "75 mg",
+       "company": "Ad-din Pharmaceuticals Ltd.",
+       "unitPrice": 9,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 28516,
+       "brand": "Clopigel",
+       "form": "Tablet",
+       "generic": "Clopidogrel Bisulphate",
+       "strength": "75 mg",
+       "company": "Pacific Pharmaceuticals Ltd.",
+       "unitPrice": 9.1,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 27974,
+       "brand": "Anplat",
+       "form": "Tablet",
+       "generic": "Clopidogrel Bisulphate",
+       "strength": "75 mg",
+       "company": "Jenphar Bangladesh Ltd.",
+       "unitPrice": 10,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 26173,
+       "brand": "Carceva",
+       "form": "Tablet",
+       "generic": "Clopidogrel Bisulphate",
+       "strength": "75 mg",
+       "company": "NIPRO JMI Pharma Ltd.",
+       "unitPrice": 10,
+       "unitLabel": "tablet"
+      },
+      {
+       "id": 3231,
+       "brand": "Clopirel",
+       "form": "Tablet",
+       "generic": "Clopidogrel Bisulphate",
+       "strength": "75 mg",
+       "company": "Novo Healthcare and Pharma Ltd.",
+       "unitPrice": 10,
+       "unitLabel": "tablet"
+      }
+     ],
+     "course": {
+      "units": 30,
+      "days": 30,
+      "prescribed": 360,
+      "cheapest": 270,
+      "basis": "1 a day for 30 days (continuing)"
+     },
+     "forEn": "Prevents blood clots and reduces risk of heart issues.",
+     "forBn": "রক্ত জমাট বাঁধা প্রতিরোধ করতে সাহায্য করে।"
+    }
+   ],
+   "totals": {
+    "prescribed": 611.53,
+    "cheapest": 408.5,
+    "priced": 5,
+    "basis": "for the days written; medicines to continue are counted for 30 days"
+   },
+   "summary": {
+    "en": "This prescription includes medicines for fever, body ache, acidity, itching, and blood clot prevention. Please note that Napa Extend and Ace Plus both contain paracetamol, so taking them together can cause an unintended double dose. Additionally, Seclo (omeprazole) may interact with Clopid (clopidogrel). Please discuss these potential clashes with your doctor or pharmacist. The same medicines cost ৳409 at the lowest price instead of ৳612.",
+    "bn": "এই প্রেসক্রিপশনে জ্বর, ব্যথা, গ্যাস্ট্রিক, চুলকানি এবং হৃদযন্ত্রের সুরক্ষার ওষুধ দেওয়া হয়েছে। খেয়াল রাখুন, Napa Extend এবং Ace Plus দুটিতেই প্যারাসিটামল রয়েছে, যা একসাথে খেলে প্যারাসিটামলের মাত্রা অতিরিক্ত হয়ে যেতে পারে। এছাড়া Seclo (ওমেপ্রাজল) ওষুধটি Clopid (ক্লোপিডোগ্রেলে)-এর কার্যকারিতায় প্রভাব ফেলতে পারে। ওষুধগুলো নিয়ে আপনার চিকিৎসক বা ফার্মাসিস্টের সাথে পরামর্শ করুন। একই ওষুধ সবচেয়ে কম দামে কিনলে খরচ ৳৬১২-এর বদলে ৳৪০৯।"
+   }
+  }
+ ]
+}
