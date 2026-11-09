@@ -1,6 +1,6 @@
 {
  "id": "karim",
- "title": "Diabetes and blood pressure, every month",
+ "title": "Diabetes and BP, monthly",
  "recordedAt": "2026-11-09T00:23:16.263Z",
  "model": "gemini-3.5-flash",
  "image": "/samples/karim.jpg",

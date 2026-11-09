@@ -430,3 +430,6 @@ export function parseDose(s: string): Dose | null {
   if (v.length === 3) return { morning: v[0], noon: v[1], evening: 0, night: v[2], perDay, slots: v };
   return { morning: v[0], noon: 0, evening: 0, night: v[1], perDay, slots: v };
 }
+
+const BY_ID = new Map(MEDS.map((m) => [m.id, m]));
+export const medicineById = (id: number): Medicine | null => BY_ID.get(id) ?? null;
