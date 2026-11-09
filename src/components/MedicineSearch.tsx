@@ -121,13 +121,15 @@ export default function MedicineSearch({ lang }: { lang: Lang }) {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
           </button>
         )}
-        <button type="submit" className="btn btn-primary btn-sm">Search</button>
+        <button type="submit" className="btn btn-primary btn-sm">{lang === "bn" ? "খুঁজুন" : "Search"}</button>
       </form>
 
       <div id={hintId} className="msearch-status" aria-live="polite">
         {found.status === "idle" && (
           <p className="msearch-hint">
-            Searches 21,714 Bangladeshi brands by name, with no photo and no AI. Try{" "}
+            {lang === "bn"
+              ? `${bnDigits("21,714")}টি বাংলাদেশি ব্র্যান্ডে নাম দিয়ে খোঁজে, ছবি ছাড়া, AI ছাড়া। দেখুন `
+              : "Searches 21,714 Bangladeshi brands by name, with no photo and no AI. Try "}
             {EXAMPLES.map((x, i) => (
               <span key={x}>
                 <button type="button" className="chip msearch-eg" onClick={() => tryExample(x)}>
@@ -140,20 +142,22 @@ export default function MedicineSearch({ lang }: { lang: Lang }) {
         )}
         {found.status === "done" && !found.results.length && (
           <p className="msearch-empty">
-            No brand called “{found.q}”. Check the spelling or try the generic name.
+            {lang === "bn"
+              ? `“${found.q}” নামে কোনো ব্র্যান্ড নেই। বানান দেখুন বা জেনেরিক নাম লিখুন।`
+              : `No brand called “${found.q}”. Check the spelling or try the generic name.`}
           </p>
         )}
         {found.status === "error" && (
           <p className="msearch-error">
-            Search is busy. Try again.{" "}
+            {lang === "bn" ? "খোঁজা এখন ব্যস্ত। আবার চেষ্টা করুন।" : "Search is busy. Try again."}{" "}
             <button type="button" className="btn btn-quiet btn-sm" onClick={() => search(q)}>
-              Try again
+              {lang === "bn" ? "আবার" : "Try again"}
             </button>
           </p>
         )}
         {found.status === "done" && found.results.length > 0 && (
           <span className="sr-only">
-            {found.results.length} brands found for {found.q}
+            {lang === "bn" ? `“${found.q}”: ${bnDigits(found.results.length)}টি ব্র্যান্ড` : `${found.results.length} brands found for ${found.q}`}
           </span>
         )}
       </div>
@@ -201,7 +205,9 @@ function ResultRow({ r, lang, open, onToggle }: { r: SearchResult; lang: Lang; o
           </div>
           <div className="msearch-chips">
             <span className="chip msearch-count">
-              {count(r.equivalents, lang)} {r.equivalents === 1 ? "brand makes" : "brands make"} this same medicine
+              {lang === "bn"
+                ? `${count(r.equivalents, lang)}টি ব্র্যান্ড এই একই ওষুধ বানায়`
+                : `${count(r.equivalents, lang)} ${r.equivalents === 1 ? "brand makes" : "brands make"} this same medicine`}
             </span>
             {best && (
               <span className="chip msearch-best">
@@ -236,7 +242,9 @@ function Equivalents({ id, r, lang }: { id: string; r: SearchResult; lang: Lang 
   return (
     <div id={id} className="msearch-alts" role="region" aria-label={`Every brand of ${r.generic} ${r.strength}, ${r.form}`}>
       <h4>
-        Every brand of the same medicine ({r.generic} {r.strength}, {r.form.toLowerCase()}), lowest price first
+        {lang === "bn"
+          ? `একই ওষুধের সব ব্র্যান্ড (${r.generic} ${r.strength}, ${r.form.toLowerCase()}), কম দাম আগে`
+          : `Every brand of the same medicine (${r.generic} ${r.strength}, ${r.form.toLowerCase()}), lowest price first`}
       </h4>
       {state.status === "loading" && (
         <ul className="alts" aria-busy="true">
@@ -250,7 +258,7 @@ function Equivalents({ id, r, lang }: { id: string; r: SearchResult; lang: Lang 
       )}
       {state.status === "error" && (
         <p className="msearch-error">
-          Search is busy. Try again.{" "}
+          {lang === "bn" ? "খোঁজা এখন ব্যস্ত। আবার চেষ্টা করুন।" : "Search is busy. Try again."}{" "}
           <button
             type="button"
             className="btn btn-quiet btn-sm"
@@ -259,7 +267,7 @@ function Equivalents({ id, r, lang }: { id: string; r: SearchResult; lang: Lang 
               setAttempt((a) => a + 1);
             }}
           >
-            Try again
+            {lang === "bn" ? "আবার" : "Try again"}
           </button>
         </p>
       )}
@@ -268,7 +276,7 @@ function Equivalents({ id, r, lang }: { id: string; r: SearchResult; lang: Lang 
           {state.brands.map((b) => (
             <li key={b.id} className={b.id === r.id ? "rx" : ""}>
               <span>
-                {b.brand} {b.id === r.id && <small>· the one you searched</small>}
+                {b.brand} {b.id === r.id && <small>· {lang === "bn" ? "যেটি খুঁজেছেন" : "the one you searched"}</small>}
                 <br />
                 <small>{b.company}</small>
               </span>
@@ -277,7 +285,11 @@ function Equivalents({ id, r, lang }: { id: string; r: SearchResult; lang: Lang 
           ))}
         </ul>
       )}
-      <p className="realnote">Same generic, strength and form. Ask your pharmacist before switching brands.</p>
+      <p className="realnote">
+        {lang === "bn"
+          ? "একই জেনেরিক, শক্তি ও ধরন। ব্র্যান্ড বদলানোর আগে ফার্মাসিস্টকে জিজ্ঞেস করুন।"
+          : "Same generic, strength and form. Ask your pharmacist before switching brands."}
+      </p>
     </div>
   );
 }
