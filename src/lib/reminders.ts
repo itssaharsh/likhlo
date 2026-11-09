@@ -93,7 +93,7 @@ export function remindersIcs(run: RunState, opts: { start: Date; lang: Lang }): 
       const title = `${lang === "bn" ? s.bn : s.en}: ${r.name}${when ? `, ${when}` : ""}`;
       lines.push(
         "BEGIN:VEVENT",
-        `UID:likhlo-${day}-${r.n}-${s.slot}-${hash([run.patient, run.doctor, r.name, count, dose, r.timing].join("|"))}@likhlo-bd.vercel.app`,
+        `UID:likhlo-${day}-${r.n}-${s.slot}-${hash([run.patient, run.doctor, r.name].join("|"))}@likhlo-bd.vercel.app`,
         `DTSTAMP:${stamp}`,
         `DTSTART:${firstDay(start, s.hour)}T${pad(s.hour)}0000`,
         "DURATION:PT15M",

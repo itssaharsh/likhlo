@@ -74,6 +74,12 @@ describe("phone reminders: Rahima's prescription from 10 November 2026", () => {
     expect(field(at("Night medicine: Napa"), "DTSTART")).toBe("20261110T210000");
   });
 
+  it("keeps the UIDs when a dose or duration is corrected, so a re-import updates the reminders", () => {
+    const uids = evs.map((e) => field(e, "UID"));
+    const fixed = { ...run, lines: run.lines.map((l) => (l.n === 3 ? { ...l, days: 10, timing: "after_food" as const } : l)) };
+    expect(events(remindersIcs(fixed, { start, lang: "en" })).map((e) => field(e, "UID"))).toEqual(uids);
+  });
+
   it("gives another patient's prescription different UIDs", () => {
     const uids = evs.map((e) => field(e, "UID"));
     const other = events(remindersIcs({ ...run, patient: "Someone else" }, { start, lang: "en" })).map((e) => field(e, "UID"));
