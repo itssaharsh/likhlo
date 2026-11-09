@@ -68,7 +68,20 @@ const Logo = () => (
 );
 
 /** The 1080 x 1350 "For the pharmacy" card. Everything on it comes from the slip (and so from the run). */
-export default function PharmacySlip({ slip, lang, ref }: { slip: SlipData; lang: Lang; ref?: Ref<HTMLElement> }) {
+export default function PharmacySlip({
+  slip,
+  lang,
+  ref,
+  typeSize,
+  onFit,
+}: {
+  slip: SlipData;
+  lang: Lang;
+  ref?: Ref<HTMLElement>;
+  /** Use this type size instead of measuring (for a copy that is not laid out, like the print one). */
+  typeSize?: number;
+  onFit?: (size: number) => void;
+}) {
   const t = T[lang];
   const d = (x: number) => (lang === "bn" ? bnDigits(x) : String(x));
   const own = useRef<HTMLElement>(null);
@@ -82,6 +95,10 @@ export default function PharmacySlip({ slip, lang, ref }: { slip: SlipData; lang
   useLayoutEffect(() => {
     const el = own.current;
     if (!el) return;
+    if (typeSize) {
+      el.style.fontSize = `${typeSize}px`;
+      return;
+    }
     const fit = () => {
       let size = MAX_TYPE;
       el.style.fontSize = `${size}px`;
@@ -89,6 +106,7 @@ export default function PharmacySlip({ slip, lang, ref }: { slip: SlipData; lang
         size -= 0.5;
         el.style.fontSize = `${size}px`;
       }
+      onFit?.(size);
     };
     fit();
     let alive = true;
@@ -96,7 +114,7 @@ export default function PharmacySlip({ slip, lang, ref }: { slip: SlipData; lang
     return () => {
       alive = false;
     };
-  }, [slip, lang]);
+  }, [slip, lang, typeSize, onFit]);
   const date = slipDate(slip.readAt, lang);
   const basis = slip.totals && (lang === "en" ? slip.totals.basis : slip.totals.basis === STANDARD_BASIS ? "লেখা দিনের হিসাবে; চলমান ওষুধ ৩০ দিনের" : "");
 
@@ -259,6 +277,7 @@ export function SlipSheet({ open, run, readAt, lang, setLang, onClose }: SheetPr
   const [png, setPng] = useState<{ slip: SlipData; lang: Lang; blob: Blob } | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [typeSize, setTypeSize] = useState<number | undefined>(undefined);
   const slip = useMemo(() => slipFromRun(run, readAt), [run, readAt]);
   const phone = useSyncExternalStore(subscribeCoarse, isCoarse, () => false);
   const ready = png && png.slip === slip && png.lang === lang ? png.blob : null;
@@ -348,7 +367,7 @@ export function SlipSheet({ open, run, readAt, lang, setLang, onClose }: SheetPr
             <div className="slip-sheet-body">
               <div className="slip-frame" ref={frame} style={{ height: 1350 * scale }}>
                 <div className="slip-scale" style={{ transform: `scale(${scale})` }}>
-                  <PharmacySlip ref={card} slip={slip} lang={lang} />
+                  <PharmacySlip ref={card} slip={slip} lang={lang} onFit={setTypeSize} />
                 </div>
               </div>
             </div>
@@ -379,7 +398,7 @@ export function SlipSheet({ open, run, readAt, lang, setLang, onClose }: SheetPr
       {open &&
         createPortal(
           <div className="slip-print" aria-hidden="true">
-            <PharmacySlip slip={slip} lang={lang} />
+            <PharmacySlip slip={slip} lang={lang} typeSize={typeSize ?? MIN_TYPE} />
           </div>,
           document.body,
         )}
