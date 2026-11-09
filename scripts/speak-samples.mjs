@@ -1,9 +1,10 @@
 // Pre-renders the Bangla summary of each recorded sample run to public/runs/<id>-bn.<ext>, so "Listen in Bangla"
-// works on the samples with no live call. Usage: node scripts/speak-samples.mjs [server=http://localhost:3007]
+// works on the samples with no live call. Usage: node scripts/speak-samples.mjs [server=http://localhost:3007] [ids...]
 import { readFile, writeFile } from "node:fs/promises";
 
 const server = process.argv[2] ?? "http://localhost:3007";
-for (const id of ["rahima", "karim", "arif"]) {
+const ids = process.argv.slice(3).length ? process.argv.slice(3) : ["rahima", "karim", "arif"];
+for (const id of ids) {
   const run = JSON.parse(await readFile(`public/runs/${id}.json`, "utf8"));
   const done = run.events.find((e) => e.t === "done");
   const res = await fetch(`${server}/api/speak`, {

@@ -1,31 +1,31 @@
 {
  "id": "karim",
  "title": "Diabetes and BP, monthly",
- "recordedAt": "2026-11-09T00:23:16.263Z",
- "model": "gemini-3.5-flash",
+ "recordedAt": "2026-11-09T00:51:35.307Z",
+ "model": "gemini-3-flash-preview",
  "image": "/samples/karim.jpg",
  "imageSize": [
-  1200,
-  1600
+  1040,
+  1440
  ],
  "events": [
   {
    "t": "status",
    "at": 1,
    "status": "reading",
-   "model": "gemini-3.5-flash"
+   "model": "gemini-3-flash-preview"
   },
   {
    "t": "lines",
-   "at": 8135,
+   "at": 4828,
    "lines": [
     {
      "n": 1,
      "raw": "1. Tab. Comet 500mg 1+0+1 (খাবার পর) - চলবে",
-     "form": "Tab",
+     "form": "Tab.",
      "name": "Comet",
      "strength": "500mg",
-     "doseText": "1+0+1",
+     "doseText": "1+0+1 (খাবার পর) - চলবে",
      "slots": {
       "morning": 1,
       "noon": 0,
@@ -37,19 +37,19 @@
      "asNeeded": false,
      "timing": "after_food",
      "box": [
-      315,
-      410,
-      370,
-      713
+      295,
+      394,
+      361,
+      745
      ]
     },
     {
      "n": 2,
      "raw": "2. Tab. Osartil 50mg 1+0+0 - চলবে",
-     "form": "Tab",
+     "form": "Tab.",
      "name": "Osartil",
-     "strength": "50mg",
-     "doseText": "1+0+0",
+     "strength": "500mg",
+     "doseText": "1+0+0 - চলবে",
      "slots": {
       "morning": 1,
       "noon": 0,
@@ -61,19 +61,19 @@
      "asNeeded": false,
      "timing": "unspecified",
      "box": [
-      390,
-      410,
-      446,
-      698
+      385,
+      398,
+      442,
+      735
      ]
     },
     {
      "n": 3,
      "raw": "3. Tab. Rosuva 10mg 0+0+1 - চলবে",
-     "form": "Tab",
+     "form": "Tab.",
      "name": "Rosuva",
      "strength": "10mg",
-     "doseText": "0+0+1",
+     "doseText": "0+0+1 - চলবে",
      "slots": {
       "morning": 0,
       "noon": 0,
@@ -85,19 +85,19 @@
      "asNeeded": false,
      "timing": "unspecified",
      "box": [
-      470,
-      410,
-      523,
-      690
+      464,
+      394,
+      528,
+      730
      ]
     },
     {
      "n": 4,
      "raw": "4. Tab. Ecosprin 75mg 0+1+0 (খাবার পর) - চলবে",
-     "form": "Tab",
+     "form": "Tab.",
      "name": "Ecosprin",
      "strength": "75mg",
-     "doseText": "0+1+0",
+     "doseText": "0+1+0 (খাবার পর) - চলবে",
      "slots": {
       "morning": 0,
       "noon": 1,
@@ -109,19 +109,19 @@
      "asNeeded": false,
      "timing": "after_food",
      "box": [
-      545,
-      410,
-      600,
-      740
+      552,
+      394,
+      617,
+      787
      ]
     },
     {
      "n": 5,
      "raw": "5. Cap. Maxpro 20mg 1+0+0 (খাবার আগে) - চলবে",
-     "form": "Cap",
+     "form": "Cap.",
      "name": "Maxpro",
      "strength": "20mg",
-     "doseText": "1+0+0",
+     "doseText": "1+0+0 (খাবার আগে) - চলবে",
      "slots": {
       "morning": 1,
       "noon": 0,
@@ -133,19 +133,19 @@
      "asNeeded": false,
      "timing": "before_food",
      "box": [
-      625,
-      410,
-      680,
-      740
+      638,
+      396,
+      703,
+      795
      ]
     },
     {
      "n": 6,
      "raw": "6. Tab. Anclog 75mg 0+1+0 - চলবে",
-     "form": "Tab",
+     "form": "Tab.",
      "name": "Anclog",
      "strength": "75mg",
-     "doseText": "0+1+0",
+     "doseText": "0+1+0 - চলবে",
      "slots": {
       "morning": 0,
       "noon": 1,
@@ -157,25 +157,25 @@
      "asNeeded": false,
      "timing": "unspecified",
      "box": [
-      700,
-      410,
-      758,
-      705
+      725,
+      396,
+      787,
+      748
      ]
     }
    ],
-   "patient": "Abdul Karim, 64y",
+   "patient": "Abdul Karim, 64 y",
    "doctor": "Prof. Dr. Nasreen Akter"
   },
   {
    "t": "status",
-   "at": 8136,
+   "at": 4828,
    "status": "working",
-   "model": "gemini-3.5-flash"
+   "model": "gemini-3-flash-preview"
   },
   {
    "t": "step",
-   "at": 8136,
+   "at": 4828,
    "step": {
     "id": 1,
     "tool": "record_lines",
@@ -194,7 +194,7 @@
   },
   {
    "t": "step",
-   "at": 8265,
+   "at": 4983,
    "step": {
     "id": 2,
     "tool": "search_medicine",
@@ -203,12 +203,12 @@
     "lines": [
      1
     ],
-    "ms": 129
+    "ms": 155
    }
   },
   {
    "t": "step",
-   "at": 8265,
+   "at": 4983,
    "step": {
     "id": 3,
     "tool": "search_medicine",
@@ -217,12 +217,12 @@
     "lines": [
      2
     ],
-    "ms": 115
+    "ms": 141
    }
   },
   {
    "t": "step",
-   "at": 8265,
+   "at": 4983,
    "step": {
     "id": 4,
     "tool": "search_medicine",
@@ -231,12 +231,12 @@
     "lines": [
      3
     ],
-    "ms": 82
+    "ms": 111
    }
   },
   {
    "t": "step",
-   "at": 8265,
+   "at": 4983,
    "step": {
     "id": 5,
     "tool": "search_medicine",
@@ -245,12 +245,12 @@
     "lines": [
      4
     ],
-    "ms": 55
+    "ms": 84
    }
   },
   {
    "t": "step",
-   "at": 8265,
+   "at": 4983,
    "step": {
     "id": 6,
     "tool": "search_medicine",
@@ -259,12 +259,12 @@
     "lines": [
      5
     ],
-    "ms": 28
+    "ms": 55
    }
   },
   {
    "t": "step",
-   "at": 12549,
+   "at": 4983,
    "step": {
     "id": 7,
     "tool": "search_medicine",
@@ -273,12 +273,12 @@
     "lines": [
      6
     ],
-    "ms": 36
+    "ms": 27
    }
   },
   {
    "t": "match",
-   "at": 15572,
+   "at": 8017,
    "match": {
     "line": 1,
     "med": {
@@ -291,18 +291,18 @@
      "unitPrice": 4.02,
      "unitLabel": "tablet"
     },
-    "why": "brand Comet and 500mg tablet match",
+    "why": "brand and strength match",
     "drugClass": "Biguanides"
    }
   },
   {
    "t": "step",
-   "at": 15572,
+   "at": 8018,
    "step": {
     "id": 8,
     "tool": "choose_medicine",
     "title": "Line 1 is Comet 500 mg",
-    "detail": "Metformin Hydrochloride · Tablet · Square Pharmaceuticals Ltd.. brand Comet and 500mg tablet match",
+    "detail": "Metformin Hydrochloride · Tablet · Square Pharmaceuticals Ltd.. brand and strength match",
     "lines": [
      1
     ],
@@ -311,7 +311,7 @@
   },
   {
    "t": "match",
-   "at": 15573,
+   "at": 8018,
    "match": {
     "line": 1,
     "med": {
@@ -324,7 +324,7 @@
      "unitPrice": 4.02,
      "unitLabel": "tablet"
     },
-    "why": "brand Comet and 500mg tablet match",
+    "why": "brand and strength match",
     "drugClass": "Biguanides",
     "equivalents": 70,
     "cheaper": [
@@ -390,7 +390,7 @@
   },
   {
    "t": "step",
-   "at": 15573,
+   "at": 8018,
    "step": {
     "id": 9,
     "tool": "find_cheaper",
@@ -399,12 +399,12 @@
     "lines": [
      1
     ],
-    "ms": 1
+    "ms": 0
    }
   },
   {
    "t": "match",
-   "at": 15573,
+   "at": 8018,
    "match": {
     "line": 2,
     "med": {
@@ -417,18 +417,18 @@
      "unitPrice": 8,
      "unitLabel": "tablet"
     },
-    "why": "brand Osartil and 50mg tablet match",
+    "why": "brand and strength match",
     "drugClass": "Angiotensin-ll receptor blocker"
    }
   },
   {
    "t": "step",
-   "at": 15573,
+   "at": 8018,
    "step": {
     "id": 10,
     "tool": "choose_medicine",
     "title": "Line 2 is Osartil 50 mg",
-    "detail": "Losartan Potassium · Tablet · Incepta Pharmaceuticals Ltd.. brand Osartil and 50mg tablet match",
+    "detail": "Losartan Potassium · Tablet · Incepta Pharmaceuticals Ltd.. brand and strength match",
     "lines": [
      2
     ],
@@ -437,7 +437,7 @@
   },
   {
    "t": "match",
-   "at": 15573,
+   "at": 8018,
    "match": {
     "line": 2,
     "med": {
@@ -450,7 +450,7 @@
      "unitPrice": 8,
      "unitLabel": "tablet"
     },
-    "why": "brand Osartil and 50mg tablet match",
+    "why": "brand and strength match",
     "drugClass": "Angiotensin-ll receptor blocker",
     "equivalents": 59,
     "cheaper": [
@@ -516,7 +516,7 @@
   },
   {
    "t": "step",
-   "at": 15573,
+   "at": 8018,
    "step": {
     "id": 11,
     "tool": "find_cheaper",
@@ -530,7 +530,7 @@
   },
   {
    "t": "match",
-   "at": 15573,
+   "at": 8018,
    "match": {
     "line": 3,
     "med": {
@@ -543,18 +543,18 @@
      "unitPrice": 20.13,
      "unitLabel": "tablet"
     },
-    "why": "brand Rosuva and 10mg tablet match",
+    "why": "brand and strength match",
     "drugClass": "Other Anti-anginal & Anti-ischaemic drugs"
    }
   },
   {
    "t": "step",
-   "at": 15573,
+   "at": 8018,
    "step": {
     "id": 12,
     "tool": "choose_medicine",
     "title": "Line 3 is Rosuva 10 mg",
-    "detail": "Rosuvastatin · Tablet · Square Pharmaceuticals Ltd.. brand Rosuva and 10mg tablet match",
+    "detail": "Rosuvastatin · Tablet · Square Pharmaceuticals Ltd.. brand and strength match",
     "lines": [
      3
     ],
@@ -563,7 +563,7 @@
   },
   {
    "t": "match",
-   "at": 15574,
+   "at": 8019,
    "match": {
     "line": 3,
     "med": {
@@ -576,7 +576,7 @@
      "unitPrice": 20.13,
      "unitLabel": "tablet"
     },
-    "why": "brand Rosuva and 10mg tablet match",
+    "why": "brand and strength match",
     "drugClass": "Other Anti-anginal & Anti-ischaemic drugs",
     "equivalents": 40,
     "cheaper": [
@@ -642,7 +642,7 @@
   },
   {
    "t": "step",
-   "at": 15574,
+   "at": 8019,
    "step": {
     "id": 13,
     "tool": "find_cheaper",
@@ -656,7 +656,7 @@
   },
   {
    "t": "match",
-   "at": 15574,
+   "at": 8019,
    "match": {
     "line": 4,
     "med": {
@@ -669,18 +669,18 @@
      "unitPrice": 0.63,
      "unitLabel": "tablet"
     },
-    "why": "brand Ecosprin and 75mg tablet match",
+    "why": "brand and strength match",
     "drugClass": "Anti-platelet drugs"
    }
   },
   {
    "t": "step",
-   "at": 15574,
+   "at": 8019,
    "step": {
     "id": 14,
     "tool": "choose_medicine",
     "title": "Line 4 is Ecosprin 75 mg",
-    "detail": "Aspirin · Tablet (Enteric Coated) · ACME Laboratories Ltd.. brand Ecosprin and 75mg tablet match",
+    "detail": "Aspirin · Tablet (Enteric Coated) · ACME Laboratories Ltd.. brand and strength match",
     "lines": [
      4
     ],
@@ -689,7 +689,7 @@
   },
   {
    "t": "match",
-   "at": 15574,
+   "at": 8019,
    "match": {
     "line": 4,
     "med": {
@@ -702,7 +702,7 @@
      "unitPrice": 0.63,
      "unitLabel": "tablet"
     },
-    "why": "brand Ecosprin and 75mg tablet match",
+    "why": "brand and strength match",
     "drugClass": "Anti-platelet drugs",
     "equivalents": 11,
     "cheaper": [
@@ -768,7 +768,7 @@
   },
   {
    "t": "step",
-   "at": 15574,
+   "at": 8019,
    "step": {
     "id": 15,
     "tool": "find_cheaper",
@@ -782,7 +782,7 @@
   },
   {
    "t": "match",
-   "at": 18096,
+   "at": 8019,
    "match": {
     "line": 5,
     "med": {
@@ -795,18 +795,18 @@
      "unitPrice": 7,
      "unitLabel": "capsule"
     },
-    "why": "brand Maxpro and 20mg capsule match",
+    "why": "brand, strength and form match",
     "drugClass": ""
    }
   },
   {
    "t": "step",
-   "at": 18096,
+   "at": 8019,
    "step": {
     "id": 16,
     "tool": "choose_medicine",
     "title": "Line 5 is Maxpro 20 mg",
-    "detail": "Esomeprazole · Capsule (Delayed Release) · Renata Limited. brand Maxpro and 20mg capsule match",
+    "detail": "Esomeprazole · Capsule (Delayed Release) · Renata Limited. brand, strength and form match",
     "lines": [
      5
     ],
@@ -815,7 +815,7 @@
   },
   {
    "t": "match",
-   "at": 18096,
+   "at": 8019,
    "match": {
     "line": 5,
     "med": {
@@ -828,7 +828,7 @@
      "unitPrice": 7,
      "unitLabel": "capsule"
     },
-    "why": "brand Maxpro and 20mg capsule match",
+    "why": "brand, strength and form match",
     "drugClass": "",
     "equivalents": 73,
     "cheaper": [
@@ -894,7 +894,7 @@
   },
   {
    "t": "step",
-   "at": 18096,
+   "at": 8019,
    "step": {
     "id": 17,
     "tool": "find_cheaper",
@@ -908,7 +908,7 @@
   },
   {
    "t": "match",
-   "at": 18097,
+   "at": 8020,
    "match": {
     "line": 6,
     "med": {
@@ -921,18 +921,18 @@
      "unitPrice": 12.03,
      "unitLabel": "tablet"
     },
-    "why": "brand Anclog and 75mg tablet match",
+    "why": "brand and strength match",
     "drugClass": "Anti-platelet drugs"
    }
   },
   {
    "t": "step",
-   "at": 18097,
+   "at": 8020,
    "step": {
     "id": 18,
     "tool": "choose_medicine",
     "title": "Line 6 is Anclog 75 mg",
-    "detail": "Clopidogrel Bisulphate · Tablet · Square Pharmaceuticals Ltd.. brand Anclog and 75mg tablet match",
+    "detail": "Clopidogrel Bisulphate · Tablet · Square Pharmaceuticals Ltd.. brand and strength match",
     "lines": [
      6
     ],
@@ -941,7 +941,7 @@
   },
   {
    "t": "match",
-   "at": 18097,
+   "at": 8020,
    "match": {
     "line": 6,
     "med": {
@@ -954,7 +954,7 @@
      "unitPrice": 12.03,
      "unitLabel": "tablet"
     },
-    "why": "brand Anclog and 75mg tablet match",
+    "why": "brand and strength match",
     "drugClass": "Anti-platelet drugs",
     "equivalents": 40,
     "cheaper": [
@@ -1020,7 +1020,7 @@
   },
   {
    "t": "step",
-   "at": 18097,
+   "at": 8020,
    "step": {
     "id": 19,
     "tool": "find_cheaper",
@@ -1034,7 +1034,7 @@
   },
   {
    "t": "clashes",
-   "at": 18099,
+   "at": 8034,
    "clashes": [
     {
      "kind": "interaction",
@@ -1052,7 +1052,7 @@
   },
   {
    "t": "step",
-   "at": 18099,
+   "at": 8034,
    "step": {
     "id": 20,
     "tool": "check_clashes",
@@ -1062,17 +1062,17 @@
      6,
      5
     ],
-    "ms": 2
+    "ms": 14
    }
   },
   {
    "t": "step",
-   "at": 27537,
+   "at": 15078,
    "step": {
     "id": 21,
     "tool": "finish",
     "title": "Wrote the plan and the summary",
-    "detail": "These medicines are prescribed to manage diabetes, high blood pressure, elevated cholesterol, prevent blood clots, and control stomach acidity. A potential interaction was found between Maxpro (esomeprazole) and Anclog (clopidogrel), as esomeprazole may reduce the effectiveness of clopidogrel. Please consult your doctor or pharmacist regarding this interaction. The same medicines cost ৳798 at the lowest price instead of ৳1,675.",
+    "detail": "These medicines are prescribed for managing diabetes, high blood pressure, cholesterol, and heart conditions. According to the leaflets, using Anclog and Maxpro together may reduce their effectiveness; please discuss this with your doctor. Walk regularly and avoid sweets as advised. The same medicines cost ৳798 at the lowest price instead of ৳1,675.",
     "lines": [
      1,
      2,
@@ -1086,7 +1086,7 @@
   },
   {
    "t": "done",
-   "at": 27537,
+   "at": 15078,
    "matches": [
     {
      "line": 1,
@@ -1100,7 +1100,7 @@
       "unitPrice": 4.02,
       "unitLabel": "tablet"
      },
-     "why": "brand Comet and 500mg tablet match",
+     "why": "brand and strength match",
      "drugClass": "Biguanides",
      "equivalents": 70,
      "cheaper": [
@@ -1162,8 +1162,8 @@
       "cheapest": 66,
       "basis": "2 a day for 30 days (continuing)"
      },
-     "forEn": "Helps control blood sugar levels in type 2 diabetes.",
-     "forBn": "টাইপ ২ ডায়াবেটিসে রক্তের শর্করা নিয়ন্ত্রণে ব্যবহৃত হয়।"
+     "forEn": "Used to treat type 2 diabetes mellitus and control blood sugar.",
+     "forBn": "এটি টাইপ ২ ডায়াবেটিস নিয়ন্ত্রণে ব্যবহৃত হয়।"
     },
     {
      "line": 2,
@@ -1177,7 +1177,7 @@
       "unitPrice": 8,
       "unitLabel": "tablet"
      },
-     "why": "brand Osartil and 50mg tablet match",
+     "why": "brand and strength match",
      "drugClass": "Angiotensin-ll receptor blocker",
      "equivalents": 59,
      "cheaper": [
@@ -1239,8 +1239,8 @@
       "cheapest": 120.9,
       "basis": "1 a day for 30 days (continuing)"
      },
-     "forEn": "Lowers high blood pressure and helps protect kidneys.",
-     "forBn": "উচ্চ রক্তচাপ কমাতে ও কিডনি সুরক্ষায় সাহায্য করে।"
+     "forEn": "Used for high blood pressure and to protect the kidneys in diabetics.",
+     "forBn": "এটি উচ্চ রক্তচাপ কমাতে এবং কিডনি সুরক্ষায় ব্যবহৃত হয়।"
     },
     {
      "line": 3,
@@ -1254,7 +1254,7 @@
       "unitPrice": 20.13,
       "unitLabel": "tablet"
      },
-     "why": "brand Rosuva and 10mg tablet match",
+     "why": "brand and strength match",
      "drugClass": "Other Anti-anginal & Anti-ischaemic drugs",
      "equivalents": 40,
      "cheaper": [
@@ -1316,8 +1316,8 @@
       "cheapest": 180,
       "basis": "1 a day for 30 days (continuing)"
      },
-     "forEn": "Lowers blood cholesterol and helps prevent heart disease.",
-     "forBn": "রক্তের ক্ষতিকর কোলেস্টেরল কমায় ও হৃদরোগ প্রতিরোধ করে।"
+     "forEn": "Used to lower cholesterol and prevent cardiovascular disease.",
+     "forBn": "এটি উচ্চ কোলেস্টেরল কমাতে এবং হৃদরোগের ঝুঁকি কমাতে ব্যবহৃত হয়।"
     },
     {
      "line": 4,
@@ -1331,7 +1331,7 @@
       "unitPrice": 0.63,
       "unitLabel": "tablet"
      },
-     "why": "brand Ecosprin and 75mg tablet match",
+     "why": "brand and strength match",
      "drugClass": "Anti-platelet drugs",
      "equivalents": 11,
      "cheaper": [
@@ -1393,8 +1393,8 @@
       "cheapest": 11.1,
       "basis": "1 a day for 30 days (continuing)"
      },
-     "forEn": "Helps prevent blood clots to protect against heart events.",
-     "forBn": "রক্ত জমাট বাঁধা রোধ করতে সাহায্য করে।"
+     "forEn": "Used as a blood thinner to prevent heart attack and stroke.",
+     "forBn": "এটি হার্ট অ্যাটাক এবং স্ট্রোক প্রতিরোধের জন্য রক্ত পাতলা করতে ব্যবহৃত হয়।"
     },
     {
      "line": 5,
@@ -1408,7 +1408,7 @@
       "unitPrice": 7,
       "unitLabel": "capsule"
      },
-     "why": "brand Maxpro and 20mg capsule match",
+     "why": "brand, strength and form match",
      "drugClass": "",
      "equivalents": 73,
      "cheaper": [
@@ -1470,8 +1470,8 @@
       "cheapest": 150,
       "basis": "1 a day for 30 days (continuing)"
      },
-     "forEn": "Reduces excess stomach acid and treats acidity symptoms.",
-     "forBn": "পাকস্থলীর অতিরিক্ত এসিড ও গ্যাস্ট্রিকের সমস্যা কমায়।"
+     "forEn": "Used for acidity, heartburn, and treating stomach ulcers.",
+     "forBn": "এটি অ্যাসিডিটি, বুক জ্বালাপোড়া এবং আলসারের চিকিৎসায় ব্যবহৃত হয়।"
     },
     {
      "line": 6,
@@ -1485,7 +1485,7 @@
       "unitPrice": 12.03,
       "unitLabel": "tablet"
      },
-     "why": "brand Anclog and 75mg tablet match",
+     "why": "brand and strength match",
      "drugClass": "Anti-platelet drugs",
      "equivalents": 40,
      "cheaper": [
@@ -1547,8 +1547,8 @@
       "cheapest": 270,
       "basis": "1 a day for 30 days (continuing)"
      },
-     "forEn": "Prevents blood clots to reduce risk of heart attack or stroke.",
-     "forBn": "রক্তনালীতে রক্ত জমাট বাঁধা রোধ করতে সাহায্য করে।"
+     "forEn": "Used to prevent blood clots, reducing risk of heart attack or stroke.",
+     "forBn": "এটি হার্ট অ্যাটাক এবং স্ট্রোকের ঝুঁকি কমাতে রক্ত পাতলা করতে ব্যবহৃত হয়।"
     }
    ],
    "totals": {
@@ -1558,8 +1558,8 @@
     "basis": "for the days written; medicines to continue are counted for 30 days"
    },
    "summary": {
-    "en": "These medicines are prescribed to manage diabetes, high blood pressure, elevated cholesterol, prevent blood clots, and control stomach acidity. A potential interaction was found between Maxpro (esomeprazole) and Anclog (clopidogrel), as esomeprazole may reduce the effectiveness of clopidogrel. Please consult your doctor or pharmacist regarding this interaction. The same medicines cost ৳798 at the lowest price instead of ৳1,675.",
-    "bn": "এই ওষুধগুলো ডায়াবেটিস, উচ্চ রক্তচাপ, উচ্চ কোলেস্টেরল, রক্ত জমাট বাঁধা রোধ এবং গ্যাস্ট্রিকের সমস্যা নিয়ন্ত্রণের জন্য প্রেসক্রাইব করা হয়েছে। এখানে Maxpro (এসোমিপ্রাজল) এবং Anclog (ক্লোপিডোগ্রেল) একসাথে রয়েছে, যা ক্লোপিডোগ্রেলের কার্যকারিতা প্রভাবিত করতে পারে। ওষুধ পরিবর্তনের প্রয়োজন আছে কিনা তা নিশ্চিত হতে আপনার ডাক্তার বা ফার্মাসিস্টের সাথে পরামর্শ করুন। একই ওষুধ সবচেয়ে কম দামে কিনলে খরচ ৳১,৬৭৫-এর বদলে ৳৭৯৮।"
+    "en": "These medicines are prescribed for managing diabetes, high blood pressure, cholesterol, and heart conditions. According to the leaflets, using Anclog and Maxpro together may reduce their effectiveness; please discuss this with your doctor. Walk regularly and avoid sweets as advised. The same medicines cost ৳798 at the lowest price instead of ৳1,675.",
+    "bn": "এই ওষুধগুলো ডায়াবেটিস, উচ্চ রক্তচাপ, কোলেস্টেরল এবং হৃদরোগের সমস্যার জন্য দেওয়া হয়েছে। লিফলেটে পাওয়া তথ্য অনুযায়ী, Anclog এবং Maxpro একসাথে ব্যবহারে প্রভাব কমতে পারে, তাই আপনার ডাক্তারের সাথে কথা বলুন। নিয়মিত হাঁটাহাঁটি করবেন এবং মিষ্টিজাতীয় খাবার পরিহার করবেন। একই ওষুধ সবচেয়ে কম দামে কিনলে খরচ ৳১,৬৭৫-এর বদলে ৳৭৯৮।"
    }
   }
  ]

@@ -1,31 +1,31 @@
 {
  "id": "arif",
  "title": "A child's cough syrups",
- "recordedAt": "2026-11-09T00:21:49.807Z",
- "model": "gemini-3.5-flash",
+ "recordedAt": "2026-11-09T00:52:25.556Z",
+ "model": "gemini-3-flash-preview",
  "image": "/samples/arif.jpg",
  "imageSize": [
-  1200,
-  1600
+  1040,
+  1440
  ],
  "events": [
   {
    "t": "status",
    "at": 1,
    "status": "reading",
-   "model": "gemini-3.5-flash"
+   "model": "gemini-3-flash-preview"
   },
   {
    "t": "lines",
-   "at": 7751,
+   "at": 2084,
    "lines": [
     {
      "n": 1,
-     "raw": "1. Syp. Napa 120mg/5ml, ২ চামচ, জ্বর হলে - ৩ দিন",
-     "form": "Syp",
+     "raw": "1. Syp. Napa 120mg/5ml ২ চামচ, জ্বর হলে - ৩ দিন",
+     "form": "Syp.",
      "name": "Napa",
      "strength": "120mg/5ml",
-     "doseText": "2 tsp when needed for fever",
+     "doseText": "২ চামচ, জ্বর হলে - ৩ দিন",
      "slots": {
       "morning": 0,
       "noon": 0,
@@ -37,19 +37,19 @@
      "asNeeded": true,
      "timing": "unspecified",
      "box": [
-      308,
-      410,
-      362,
-      796
+      295,
+      402,
+      348,
+      844
      ]
     },
     {
      "n": 2,
-     "raw": "2. Susp. Zimax 200mg/5ml, ১ চামচ ১+০+০ (খাবার পর) — ৫ দিন",
-     "form": "Susp",
+     "raw": "2. Susp. Zimax 200mg/5ml ১ চামচ ১+০+০ (খাবার পর) - ৫ দিন",
+     "form": "Susp.",
      "name": "Zimax",
      "strength": "200mg/5ml",
-     "doseText": "1+0+0",
+     "doseText": "১ চামচ ১+০+০ (খাবার পর) - ৫ দিন",
      "slots": {
       "morning": 1,
       "noon": 0,
@@ -61,19 +61,19 @@
      "asNeeded": false,
      "timing": "after_food",
      "box": [
-      386,
-      411,
-      442,
-      835
+      377,
+      402,
+      431,
+      885
      ]
     },
     {
      "n": 3,
-     "raw": "3. Syp. Tusca, ১ চামচ ১+১+১ — ৫ দিন",
-     "form": "Syp",
+     "raw": "3. Syp. Tusca ১ চামচ ১+১+১ - ৫ দিন",
+     "form": "Syp.",
      "name": "Tusca",
      "strength": "",
-     "doseText": "1+1+1",
+     "doseText": "১ চামচ ১+১+১ - ৫ দিন",
      "slots": {
       "morning": 1,
       "noon": 1,
@@ -85,19 +85,19 @@
      "asNeeded": false,
      "timing": "unspecified",
      "box": [
-      462,
-      411,
-      516,
-      693
+      460,
+      402,
+      514,
+      726
      ]
     },
     {
      "n": 4,
-     "raw": "4. Syp. Alatrol 5mg/5ml, ১ চামচ ০+০+১ — ৭ দিন",
-     "form": "Syp",
+     "raw": "4. Syp. Alatrol 5mg/5ml ১ চামচ ০+০+১ - ৭ দিন",
+     "form": "Syp.",
      "name": "Alatrol",
      "strength": "5mg/5ml",
-     "doseText": "0+0+1",
+     "doseText": "১ চামচ ০+০+১ - ৭ দিন",
      "slots": {
       "morning": 0,
       "noon": 0,
@@ -109,30 +109,30 @@
      "asNeeded": false,
      "timing": "unspecified",
      "box": [
-      537,
-      409,
-      588,
-      779
+      544,
+      402,
+      599,
+      822
      ]
     }
    ],
-   "patient": "Arif Hossain, Age: 6 y (18 kg)",
+   "patient": "Arif Hossain, 6y (18 kg)",
    "doctor": "Dr. Mahmudul Hasan"
   },
   {
    "t": "status",
-   "at": 7751,
+   "at": 2084,
    "status": "working",
-   "model": "gemini-3.5-flash"
+   "model": "gemini-3-flash-preview"
   },
   {
    "t": "step",
-   "at": 7751,
+   "at": 2084,
    "step": {
     "id": 1,
     "tool": "record_lines",
     "title": "Read 4 medicine lines from the photo",
-    "detail": "1. 1. Syp. Napa 120mg/5ml, ২ চামচ, জ্বর হলে - ৩ দিন\n2. 2. Susp. Zimax 200mg/5ml, ১ চামচ ১+০+০ (খাবার পর) — ৫ দিন\n3. 3. Syp. Tusca, ১ চামচ ১+১+১ — ৫ দিন\n4. 4. Syp. Alatrol 5mg/5ml, ১ চামচ ০+০+১ — ৭ দিন",
+    "detail": "1. 1. Syp. Napa 120mg/5ml ২ চামচ, জ্বর হলে - ৩ দিন\n2. 2. Susp. Zimax 200mg/5ml ১ চামচ ১+০+০ (খাবার পর) - ৫ দিন\n3. 3. Syp. Tusca ১ চামচ ১+১+১ - ৫ দিন\n4. 4. Syp. Alatrol 5mg/5ml ১ চামচ ০+০+১ - ৭ দিন",
     "lines": [
      1,
      2,
@@ -144,7 +144,7 @@
   },
   {
    "t": "step",
-   "at": 7851,
+   "at": 2141,
    "step": {
     "id": 2,
     "tool": "search_medicine",
@@ -153,12 +153,12 @@
     "lines": [
      1
     ],
-    "ms": 100
+    "ms": 56
    }
   },
   {
    "t": "step",
-   "at": 7851,
+   "at": 2142,
    "step": {
     "id": 3,
     "tool": "search_medicine",
@@ -167,12 +167,12 @@
     "lines": [
      2
     ],
-    "ms": 70
+    "ms": 49
    }
   },
   {
    "t": "step",
-   "at": 7851,
+   "at": 2142,
    "step": {
     "id": 4,
     "tool": "search_medicine",
@@ -181,12 +181,12 @@
     "lines": [
      3
     ],
-    "ms": 57
+    "ms": 39
    }
   },
   {
    "t": "step",
-   "at": 7851,
+   "at": 2142,
    "step": {
     "id": 5,
     "tool": "search_medicine",
@@ -195,12 +195,12 @@
     "lines": [
      4
     ],
-    "ms": 40
+    "ms": 29
    }
   },
   {
    "t": "match",
-   "at": 12661,
+   "at": 4364,
    "match": {
     "line": 1,
     "med": {
@@ -213,18 +213,18 @@
      "unitPrice": 35,
      "unitLabel": "60 ml bottle"
     },
-    "why": "Brand Napa 120mg/5ml syrup matches id 28439",
+    "why": "syrup and 120mg/5ml strength match exactly",
     "drugClass": "Non opioid analgesics"
    }
   },
   {
    "t": "step",
-   "at": 12661,
+   "at": 4364,
    "step": {
     "id": 6,
     "tool": "choose_medicine",
     "title": "Line 1 is Napa 120 mg/5 ml",
-    "detail": "Paracetamol · Syrup · Beximco Pharmaceuticals Ltd.. Brand Napa 120mg/5ml syrup matches id 28439",
+    "detail": "Paracetamol · Syrup · Beximco Pharmaceuticals Ltd.. syrup and 120mg/5ml strength match exactly",
     "lines": [
      1
     ],
@@ -233,7 +233,7 @@
   },
   {
    "t": "match",
-   "at": 12662,
+   "at": 4365,
    "match": {
     "line": 1,
     "med": {
@@ -246,7 +246,7 @@
      "unitPrice": 35,
      "unitLabel": "60 ml bottle"
     },
-    "why": "Brand Napa 120mg/5ml syrup matches id 28439",
+    "why": "syrup and 120mg/5ml strength match exactly",
     "drugClass": "Non opioid analgesics",
     "equivalents": 6,
     "cheaper": [
@@ -312,7 +312,7 @@
   },
   {
    "t": "step",
-   "at": 12662,
+   "at": 4365,
    "step": {
     "id": 7,
     "tool": "find_cheaper",
@@ -326,7 +326,7 @@
   },
   {
    "t": "match",
-   "at": 12662,
+   "at": 4365,
    "match": {
     "line": 2,
     "med": {
@@ -339,18 +339,18 @@
      "unitPrice": 95,
      "unitLabel": "15 ml bottle"
     },
-    "why": "Brand Zimax 200mg/5ml suspension matches id 8723",
+    "why": "suspension and 200mg/5ml strength match exactly",
     "drugClass": ""
    }
   },
   {
    "t": "step",
-   "at": 12662,
+   "at": 4365,
    "step": {
     "id": 8,
     "tool": "choose_medicine",
     "title": "Line 2 is Zimax 200 mg/5 ml",
-    "detail": "Azithromycin Dihydrate · Powder for Suspension · Square Pharmaceuticals Ltd.. Brand Zimax 200mg/5ml suspension matches id 8723",
+    "detail": "Azithromycin Dihydrate · Powder for Suspension · Square Pharmaceuticals Ltd.. suspension and 200mg/5ml strength match exactly",
     "lines": [
      2
     ],
@@ -359,7 +359,7 @@
   },
   {
    "t": "match",
-   "at": 12663,
+   "at": 4365,
    "match": {
     "line": 2,
     "med": {
@@ -372,7 +372,7 @@
      "unitPrice": 95,
      "unitLabel": "15 ml bottle"
     },
-    "why": "Brand Zimax 200mg/5ml suspension matches id 8723",
+    "why": "suspension and 200mg/5ml strength match exactly",
     "drugClass": "",
     "equivalents": 66,
     "cheaper": [
@@ -438,7 +438,7 @@
   },
   {
    "t": "step",
-   "at": 12663,
+   "at": 4365,
    "step": {
     "id": 9,
     "tool": "find_cheaper",
@@ -447,12 +447,12 @@
     "lines": [
      2
     ],
-    "ms": 1
+    "ms": 0
    }
   },
   {
    "t": "match",
-   "at": 12663,
+   "at": 4366,
    "match": {
     "line": 3,
     "med": {
@@ -465,18 +465,18 @@
      "unitPrice": 65,
      "unitLabel": "100 ml bottle"
     },
-    "why": "Brand Tusca syrup matches id 4159",
+    "why": "syrup brand match, patient has cough/cold symptoms typical for this combination",
     "drugClass": "Combined cough expectorants"
    }
   },
   {
    "t": "step",
-   "at": 12663,
+   "at": 4366,
    "step": {
     "id": 10,
     "tool": "choose_medicine",
     "title": "Line 3 is Tusca (30 mg+100 mg+1.25 mg)/5 ml",
-    "detail": "Pseudoephedrine + Guaiphenasine + Triprolidine · Syrup · Square Pharmaceuticals Ltd.. Brand Tusca syrup matches id 4159",
+    "detail": "Pseudoephedrine + Guaiphenasine + Triprolidine · Syrup · Square Pharmaceuticals Ltd.. syrup brand match, patient has cough/cold symptoms typical for this combination",
     "lines": [
      3
     ],
@@ -485,7 +485,7 @@
   },
   {
    "t": "match",
-   "at": 12663,
+   "at": 4366,
    "match": {
     "line": 3,
     "med": {
@@ -498,7 +498,7 @@
      "unitPrice": 65,
      "unitLabel": "100 ml bottle"
     },
-    "why": "Brand Tusca syrup matches id 4159",
+    "why": "syrup brand match, patient has cough/cold symptoms typical for this combination",
     "drugClass": "Combined cough expectorants",
     "equivalents": 21,
     "cheaper": [
@@ -564,7 +564,7 @@
   },
   {
    "t": "step",
-   "at": 12663,
+   "at": 4366,
    "step": {
     "id": 11,
     "tool": "find_cheaper",
@@ -578,7 +578,7 @@
   },
   {
    "t": "match",
-   "at": 12663,
+   "at": 4366,
    "match": {
     "line": 4,
     "med": {
@@ -591,18 +591,18 @@
      "unitPrice": 30.1,
      "unitLabel": "60 ml bottle"
     },
-    "why": "Brand Alatrol 5mg/5ml syrup matches id 11915",
+    "why": "syrup and 5mg/5ml strength match exactly",
     "drugClass": "Sedating Anti-histamine"
    }
   },
   {
    "t": "step",
-   "at": 12663,
+   "at": 4366,
    "step": {
     "id": 12,
     "tool": "choose_medicine",
     "title": "Line 4 is Alatrol 5 mg/5 ml",
-    "detail": "Cetirizine Hydrochloride · Syrup · Square Pharmaceuticals Ltd.. Brand Alatrol 5mg/5ml syrup matches id 11915",
+    "detail": "Cetirizine Hydrochloride · Syrup · Square Pharmaceuticals Ltd.. syrup and 5mg/5ml strength match exactly",
     "lines": [
      4
     ],
@@ -611,7 +611,7 @@
   },
   {
    "t": "match",
-   "at": 12663,
+   "at": 4366,
    "match": {
     "line": 4,
     "med": {
@@ -624,7 +624,7 @@
      "unitPrice": 30.1,
      "unitLabel": "60 ml bottle"
     },
-    "why": "Brand Alatrol 5mg/5ml syrup matches id 11915",
+    "why": "syrup and 5mg/5ml strength match exactly",
     "drugClass": "Sedating Anti-histamine",
     "equivalents": 46,
     "cheaper": [
@@ -690,7 +690,7 @@
   },
   {
    "t": "step",
-   "at": 12663,
+   "at": 4366,
    "step": {
     "id": 13,
     "tool": "find_cheaper",
@@ -704,29 +704,29 @@
   },
   {
    "t": "clashes",
-   "at": 12684,
+   "at": 4381,
    "clashes": []
   },
   {
    "t": "step",
-   "at": 12684,
+   "at": 4382,
    "step": {
     "id": 14,
     "tool": "check_clashes",
     "title": "Checked 6 pairs for clashes",
     "detail": "No shared ingredients; no leaflet names another medicine here.",
     "lines": [],
-    "ms": 20
+    "ms": 15
    }
   },
   {
    "t": "step",
-   "at": 16792,
+   "at": 9212,
    "step": {
     "id": 15,
     "tool": "finish",
     "title": "Wrote the plan and the summary",
-    "detail": "This prescription is for treating fever, cough, runny nose, and respiratory infection. No harmful interactions were found between these medicines. Please ensure the full antibiotic course is completed as prescribed. The same medicines cost ৳143 at the lowest price instead of ৳225.",
+    "detail": "These medicines are prescribed for fever, cough, and cold symptoms. No clashes were found between these medicines in their leaflets. Please consult the doctor if the fever persists after 3 days. The same medicines cost ৳143 at the lowest price instead of ৳225.",
     "lines": [
      1,
      2,
@@ -738,7 +738,7 @@
   },
   {
    "t": "done",
-   "at": 16792,
+   "at": 9212,
    "matches": [
     {
      "line": 1,
@@ -752,7 +752,7 @@
       "unitPrice": 35,
       "unitLabel": "60 ml bottle"
      },
-     "why": "Brand Napa 120mg/5ml syrup matches id 28439",
+     "why": "syrup and 120mg/5ml strength match exactly",
      "drugClass": "Non opioid analgesics",
      "equivalents": 6,
      "cheaper": [
@@ -814,8 +814,8 @@
       "cheapest": 20.63,
       "basis": "one 60 ml bottle"
      },
-     "forEn": "Used to treat fever and pain.",
-     "forBn": "জ্বর ও ব্যথা কমানোর জন্য ব্যবহার করা হয়।"
+     "forEn": "For fever, common cold, influenza, and body aches.",
+     "forBn": "জ্বর, সর্দি-কাশি এবং শরীরের ব্যথার জন্য।"
     },
     {
      "line": 2,
@@ -829,7 +829,7 @@
       "unitPrice": 95,
       "unitLabel": "15 ml bottle"
      },
-     "why": "Brand Zimax 200mg/5ml suspension matches id 8723",
+     "why": "suspension and 200mg/5ml strength match exactly",
      "drugClass": "",
      "equivalents": 66,
      "cheaper": [
@@ -891,8 +891,8 @@
       "cheapest": 75.5,
       "basis": "one 15 ml bottle"
      },
-     "forEn": "Antibiotic used to treat bacterial respiratory infections.",
-     "forBn": "শ্বাসতন্ত্রের ব্যাকটেরিয়াজনিত সংক্রমণের চিকিৎসায় ব্যবহৃত অ্যান্টিবায়োটিক।"
+     "forEn": "Used for respiratory tract infections and throat/tonsil issues.",
+     "forBn": "শ্বাসনালীর সংক্রমণ এবং টনসিলের সমস্যার চিকিৎসায় ব্যবহৃত হয়।"
     },
     {
      "line": 3,
@@ -906,7 +906,7 @@
       "unitPrice": 65,
       "unitLabel": "100 ml bottle"
      },
-     "why": "Brand Tusca syrup matches id 4159",
+     "why": "syrup brand match, patient has cough/cold symptoms typical for this combination",
      "drugClass": "Combined cough expectorants",
      "equivalents": 21,
      "cheaper": [
@@ -968,8 +968,8 @@
       "cheapest": 31.62,
       "basis": "one 100 ml bottle"
      },
-     "forEn": "Helps relieve cough and clear respiratory congestion.",
-     "forBn": "কাশির উপশম এবং শ্লেষ্মা বের করতে সাহায্য করে।"
+     "forEn": "Helps relieve nasal congestion and productive cough.",
+     "forBn": "নাক বন্ধ থাকা এবং কাশি উপশমে সাহায্য করে।"
     },
     {
      "line": 4,
@@ -983,7 +983,7 @@
       "unitPrice": 30.1,
       "unitLabel": "60 ml bottle"
      },
-     "why": "Brand Alatrol 5mg/5ml syrup matches id 11915",
+     "why": "syrup and 5mg/5ml strength match exactly",
      "drugClass": "Sedating Anti-histamine",
      "equivalents": 46,
      "cheaper": [
@@ -1045,8 +1045,8 @@
       "cheapest": 14.8,
       "basis": "one 60 ml bottle"
      },
-     "forEn": "Relieves allergy symptoms like runny nose and sneezing.",
-     "forBn": "সর্দি, হাঁচি ও অ্যালার্জির লক্ষণ কমানোর জন্য দেওয়া হয়।"
+     "forEn": "Used for relief from allergic sneezing and runny nose.",
+     "forBn": "অ্যালার্জিজনিত হাঁচি এবং সর্দির উপশমে ব্যবহৃত হয়।"
     }
    ],
    "totals": {
@@ -1056,8 +1056,8 @@
     "basis": "for the days written; medicines to continue are counted for 30 days"
    },
    "summary": {
-    "en": "This prescription is for treating fever, cough, runny nose, and respiratory infection. No harmful interactions were found between these medicines. Please ensure the full antibiotic course is completed as prescribed. The same medicines cost ৳143 at the lowest price instead of ৳225.",
-    "bn": "এই ব্যবস্থাপত্রে সর্দি-কাশি, জ্বর ও শ্বাসতন্ত্রের সংক্রমণের চিকিৎসার জন্য ওষুধ দেওয়া হয়েছে। ওষুধগুলোর মধ্যে কোনো ক্ষতিকর ইন্টারঅ্যাকশন বা প্রতিক্রিয়া পাওয়া যায়নি। ডাক্তারের পরামর্শ অনুযায়ী কোর্স শেষ করুন। একই ওষুধ সবচেয়ে কম দামে কিনলে খরচ ৳২২৫-এর বদলে ৳১৪৩।"
+    "en": "These medicines are prescribed for fever, cough, and cold symptoms. No clashes were found between these medicines in their leaflets. Please consult the doctor if the fever persists after 3 days. The same medicines cost ৳143 at the lowest price instead of ৳225.",
+    "bn": "এই ওষুধগুলো জ্বর, কাশি এবং ঠান্ডা উপশমের জন্য দেওয়া হয়েছে। লিফলেটে এই ওষুধগুলোর মধ্যে কোনো ক্ষতিকারক বিক্রিয়া পাওয়া যায়নি। ৩ দিন পর জ্বর না কমলে অবশ্যই ডাক্তার দেখাবেন। একই ওষুধ সবচেয়ে কম দামে কিনলে খরচ ৳২২৫-এর বদলে ৳১৪৩।"
    }
   }
  ]

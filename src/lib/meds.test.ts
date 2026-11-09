@@ -130,3 +130,15 @@ describe("interaction sentences that say there is no interaction", () => {
     expect(isNegatedMention("Avoid concomitant use of omeprazole or esomeprazole")).toBe(false);
   });
 });
+
+describe("dose notation inside a written line", () => {
+  it("takes only the a+b+c part", async () => {
+    const { doseNotation } = await import("./agent");
+    expect(doseNotation("1+0+1 (খাবার পর) - ৫ দিন")).toBe("1+0+1");
+    expect(doseNotation("১+০+১ — ১৪ দিন")).toBe("১+০+১");
+    expect(doseNotation("0+0+1 - ৭ দিন")).toBe("0+0+1");
+    expect(doseNotation("1-0-1 x 7 days")).toBe("1-0-1");
+    expect(doseNotation("½ + 0 + ½")).toBe("½ + 0 + ½");
+    expect(doseNotation("ব্যথা হলে ১টা - ৩ দিন")).toBeNull();
+  });
+});

@@ -91,6 +91,8 @@ export interface Totals {
 
 export type RunEvent =
   | { t: "status"; at: number; status: "reading" | "working"; model?: string }
+  /** The model in use was busy; the reading starts again on another one. */
+  | { t: "restart"; at: number; model: string }
   | { t: "lines"; at: number; lines: RxLine[]; patient?: string; doctor?: string }
   | { t: "step"; at: number; step: Step }
   | { t: "match"; at: number; match: Match }
@@ -130,6 +132,8 @@ export function applyEvent(s: RunState, e: RunEvent): RunState {
   switch (e.t) {
     case "status":
       return { ...next, status: e.status, model: e.model ?? s.model };
+    case "restart":
+      return { ...emptyRun(), status: "reading", model: e.model, elapsed: s.elapsed };
     case "lines":
       return { ...next, lines: e.lines, patient: e.patient, doctor: e.doctor };
     case "step":

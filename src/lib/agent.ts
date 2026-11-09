@@ -1,7 +1,7 @@
 // The Likhlo agent: one tool-calling loop over the prescription photo and the medicine data.
 // The model reads the photo and decides what to look up; every fact it shows (brand, generic,
 // price, clash, leaflet sentence) comes back from a tool over data/*.json.
-import { streamText, tool, isStepCount, hasToolCall, type ModelMessage } from "ai";
+import { streamText, tool, isStepCount, hasToolCall, gateway, type LanguageModel, type ModelMessage } from "ai";
 import { createGoogle } from "@ai-sdk/google";
 import { z } from "zod";
 import {
@@ -17,7 +17,9 @@ import {
 import type { Clash, Course, Match, MedRow, RunEvent, RxLine, Step, Timing, Totals } from "./run-types";
 
 export const PRIMARY_MODEL = "gemini-3.5-flash";
-export const FALLBACK_MODEL = "gemini-2.5-flash";
+/** Tried in order when a model is out of quota or busy: each Gemini model with each key, then Vercel AI Gateway. */
+const DIRECT_MODELS = ["gemini-3.5-flash", "gemini-3-flash-preview", "gemini-3.5-flash-lite"];
+const GATEWAY_MODEL = "google/gemini-2.5-flash";
 const MAX_STEPS = 14;
 const RUN_TIMEOUT_MS = 150_000;
 const CONTINUING_DAYS = 30;
@@ -37,7 +39,9 @@ Step 2: call choose_medicine for every line, all in this step. Handwriting is of
 Step 3 (only if needed): if the prescription shows a child, pregnancy, kidney or liver disease, call read_leaflet for what matters.
 Last step: call finish. For each line write what the medicine is for, in plain words (max 12 words) in English and in Bangla,
    using only the leaflet text the tools returned. Then a short summary for the family (2-3 sentences) in English and in Bangla:
-   what the medicines are for and any clash found. Do not write any money amounts: the screen shows the totals.
+   what the medicines are for and any clash found (if none, say no clash was found in the leaflets; never claim the medicines are safe together).
+   Do not write any money amounts: the screen shows the totals.
+Tone: calm and plain, like a kind pharmacist; no alarm words ("major", "immediately", "dangerous").
 Rules: never invent a medicine, price, dose, clash or leaflet sentence. Never tell anyone to stop or change a medicine;
 for any switch or clash say to ask their doctor or pharmacist. Keep Bangla simple and natural.`;
 
@@ -113,6 +117,14 @@ export function clashSentences(meds: Map<number, Medicine>): Clash[] {
   return out;
 }
 
+/** The a+b+c dose notation inside a line ("1+0+1 (খাবার পর) - ৫ দিন" -> "1+0+1"); a spaced dash before the
+ *  number of days is not part of it. */
+export function doseNotation(text: string): string | null {
+  const n = "[0-9০-৯½¼¾]+";
+  const m = text.match(new RegExp(`${n}(?:\\s*\\+\\s*${n}){1,3}`)) ?? text.match(new RegExp(`${n}(?:[-–]${n}){2,3}`));
+  return m ? m[0] : null;
+}
+
 const BN_DIGITS = "০১২৩৪৫৬৭৮৯";
 export const toBnDigits = (s: string) => s.replace(/\d/g, (d) => BN_DIGITS[Number(d)]);
 const taka = (x: number) => Math.round(x).toLocaleString("en-US");
@@ -155,30 +167,62 @@ const lineSchema = z.object({
 export interface RunOptions {
   image: Uint8Array;
   mediaType: string;
-  /** One or more Gemini keys; steps rotate across them to stay inside per-key rate limits. */
+  /** One or more Gemini keys; each is tried in turn when one runs out of quota. */
   apiKeys: string[];
   emit: (e: RunEvent) => void;
   signal?: AbortSignal;
 }
 
-/** Runs the agent once. Emits events as it goes; resolves when finished or failed. */
-let rotation = 0;
-export async function runAgent(opts: RunOptions): Promise<void> {
-  const offset = rotation++;
-  try {
-    await runWith(PRIMARY_MODEL, opts, offset);
-  } catch (err) {
-    if ((err as { likhloStarted?: boolean }).likhloStarted) throw err;
-    // the primary model was busy before anything was shown: try the fallback once
-    await runWith(FALLBACK_MODEL, opts, offset + 1);
-  }
+interface Candidate {
+  id: string;
+  name: string;
+  model: () => LanguageModel;
+  thinking: boolean;
 }
 
-async function runWith(modelId: string, { image, mediaType, apiKeys, emit, signal }: RunOptions, offset: number): Promise<void> {
+/** Models known to be out of quota or busy, until a time. */
+const cooldown = new Map<string, number>();
+
+function candidates(apiKeys: string[]): Candidate[] {
+  const out: Candidate[] = [];
+  for (const name of DIRECT_MODELS)
+    apiKeys.forEach((apiKey, i) =>
+      out.push({ id: `${name}#${i}`, name, model: () => createGoogle({ apiKey })(name), thinking: !name.includes("lite") }),
+    );
+  if (process.env.VERCEL || process.env.VERCEL_OIDC_TOKEN || process.env.AI_GATEWAY_API_KEY)
+    out.push({ id: `gw:${GATEWAY_MODEL}`, name: GATEWAY_MODEL.replace("google/", ""), model: () => gateway(GATEWAY_MODEL), thinking: false });
+  return out;
+}
+
+const isBusy = (err: unknown) =>
+  /429|503|quota|overload|high demand|UNAVAILABLE|RESOURCE_EXHAUSTED|rate limit|Free tier|timeout|timed out/i.test(String((err as Error)?.message ?? err));
+const isDaily = (err: unknown) => /per day|PerDay|free_tier_requests|limit: 20\b|Free tier/i.test(String((err as Error)?.message ?? err));
+
+/** Runs the agent once, moving to the next model when one is out of quota. Emits events as it goes. */
+export async function runAgent(opts: RunOptions): Promise<void> {
+  const now = Date.now();
+  const list = candidates(opts.apiKeys).filter((c) => (cooldown.get(c.id) ?? 0) < now);
+  if (!list.length) throw new Error("UNAVAILABLE: every model is cooling down");
+  let last: unknown;
+  for (const [i, c] of list.entries()) {
+    try {
+      if (i > 0) opts.emit({ t: "restart", at: 0, model: c.name });
+      await runWith(c, opts);
+      return;
+    } catch (err) {
+      last = err;
+      if (!isBusy(err) || opts.signal?.aborted) throw err;
+      cooldown.set(c.id, Date.now() + (isDaily(err) ? 60 * 60_000 : 70_000));
+      console.warn(`model ${c.id} busy, trying the next:`, String((err as Error)?.message ?? err).slice(0, 160));
+    }
+  }
+  throw last;
+}
+
+async function runWith(candidate: Candidate, { image, mediaType, emit, signal }: RunOptions): Promise<void> {
+  const modelId = candidate.name;
   const t0 = Date.now();
   const at = () => Date.now() - t0;
-  const providers = apiKeys.map((apiKey) => createGoogle({ apiKey }));
-  const modelFor = (stepNumber: number) => providers[(offset + stepNumber) % providers.length](modelId);
 
   const lines = new Map<number, RxLine>();
   const candidates = new Map<number, Set<number>>();
@@ -258,7 +302,8 @@ async function runWith(modelId: string, { image, mediaType, apiKeys, emit, signa
       execute: async ({ patient, doctor, lines: input }) => {
         started = true;
         const out: RxLine[] = input.map((l) => {
-          const parsed = /[+\-]/.test(l.dose_text) ? parseDose(l.dose_text.replace(/[^\d০-৯½¼¾+\-.\s]/g, "").trim()) : null;
+          const notation = doseNotation(l.dose_text) ?? doseNotation(l.raw);
+          const parsed = notation ? parseDose(notation) : null;
           const slots = parsed
             ? { morning: parsed.morning, noon: parsed.noon, night: parsed.night + parsed.evening }
             : l.as_needed
@@ -475,25 +520,19 @@ async function runWith(modelId: string, { image, mediaType, apiKeys, emit, signa
   ];
 
   const result = streamText({
-    model: modelFor(0),
-    prepareStep: ({ stepNumber }) => ({ model: modelFor(stepNumber) }),
+    model: candidate.model(),
     system: SYSTEM,
     messages,
     tools,
     stopWhen: [isStepCount(MAX_STEPS), hasToolCall("finish")],
-    maxRetries: 1,
+    maxRetries: 0,
     timeout: RUN_TIMEOUT_MS,
     abortSignal: signal,
-    providerOptions: { google: { thinkingConfig: { thinkingLevel: "low" } } },
+    ...(candidate.thinking ? { providerOptions: { google: { thinkingConfig: { thinkingLevel: "low" } } } } : {}),
   });
 
-  try {
-    for await (const part of result.stream) {
-      if (part.type === "error") throw part.error;
-    }
-  } catch (err) {
-    if (started) Object.assign(err as object, { likhloStarted: true });
-    throw err;
+  for await (const part of result.stream) {
+    if (part.type === "error") throw part.error;
   }
 
   if (!started) {

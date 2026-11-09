@@ -22,6 +22,8 @@ export default function Stage({ image, size, run, focusLine, onFocusLine, onOpen
   const clashCls = (n: number) => (dupLines.has(n) ? "warn" : intLines.has(n) ? "int" : "");
   const reading = run.status === "reading";
   const boxOf = (n: number) => run.lines.find((l) => l.n === n)?.box ?? null;
+  // the pharmacist's notes sit in one column to the right of the longest line
+  const noteLeft = Math.min(Math.max(0, ...run.lines.map((l) => l.box?.[3] ?? 0)) / 10 + 1.5, 79);
 
   return (
     <section className="stage" aria-label="The prescription, marked up by Likhlo">
@@ -83,6 +85,25 @@ export default function Stage({ image, size, run, focusLine, onFocusLine, onOpen
                 style={{ top: `${ymid / 10}%`, left: `${(x - bulge * 0.72) / 10}%` }}
               >
                 {label}
+              </div>
+            );
+          })}
+
+          {run.lines.map((l) => {
+            const m = run.matches[l.n];
+            if (!l.box || !m?.med || !m.course) return null;
+            const best = m.cheaper?.[0];
+            const generic = m.med.generic.split(" + ").map((g) => g.split(" ")[0]).join(" + ");
+            return (
+              <div key={`note-${l.n}`} className="note" style={{ top: `${(l.box[0] + l.box[2]) / 20}%`, left: `${noteLeft}%` }}>
+                <small>= {generic}</small>
+                {best ? (
+                  <>
+                    ৳{best.unitPrice} <span className="px">not</span> ৳{m.med.unitPrice}
+                  </>
+                ) : (
+                  <>lowest ✓</>
+                )}
               </div>
             );
           })}
