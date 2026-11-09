@@ -130,7 +130,7 @@ export const isNegatedMention = (sentence: string) => NEGATED.test(sentence);
 /** Sentence from `text` containing `term` (whole word, case-insensitive), or null.
  *  Sentences that say there is no interaction are skipped. */
 function snippetFor(text: string, term: string): string | null {
-  const re = new RegExp(`(^|[^\\p{L}\\p{N}])${escapeRe(term)}`, "iu");
+  const re = new RegExp(`(^|[^\\p{L}\\p{N}])${escapeRe(term)}(?![\\p{L}\\p{N}])`, "iu");
   for (const s of sentences(text)) {
     const m = re.exec(s);
     if (!m) continue;

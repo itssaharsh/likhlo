@@ -1,18 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { Match, MedRow, RxLine } from "@/lib/run-types";
-import { taka, type Lang } from "./format";
+import type { Clash, Match, MedRow, RxLine } from "@/lib/run-types";
+import { courseWords, taka, type Lang } from "./format";
 
 interface Props {
   match: Match | null;
   line: RxLine | null;
   lang: Lang;
+  clashes: Clash[];
+  matches: Record<number, Match>;
   onClose: () => void;
 }
 
 /** One medicine in full: what the doctor wrote, what it is, and every brand of the same medicine by price. */
-export default function MedSheet({ match, line, lang, onClose }: Props) {
+export default function MedSheet({ match, line, lang, clashes, onClose }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
   const [fetched, setFetched] = useState<{ id: number; brands: MedRow[] } | null>(null);
   const med = match?.med ?? null;
@@ -67,13 +69,29 @@ export default function MedSheet({ match, line, lang, onClose }: Props) {
                 <div lang={lang}>{lang === "bn" ? match.forBn : match.forEn}</div>
               </>
             )}
-            {match.course?.prescribed != null && (
+            {line && clashes.some((c) => c.lines.includes(line.n)) && (
+              <>
+                <h4>Warnings for this medicine</h4>
+                {clashes
+                  .filter((c) => c.lines.includes(line.n))
+                  .map((c, i) => (
+                    <div key={i} className={`clash${c.kind === "interaction" ? " int" : ""}`} style={{ animation: "none", marginBottom: 8, gridTemplateColumns: "1fr" }}>
+                      <div>
+                        <b lang={lang}>{lang === "bn" ? c.bn : c.en}</b>
+                        {c.quote && <q>{c.quote}</q>}
+                        <small>Don&apos;t stop or change a medicine on your own. Show this to your doctor or pharmacist.</small>
+                      </div>
+                    </div>
+                  ))}
+              </>
+            )}
+            {line && match.course?.prescribed != null && (
               <>
                 <h4>For this prescription</h4>
                 <div className="num">
-                  {match.course.basis}: {taka(match.course.prescribed, true)} as written
+                  {courseWords(line, med.unitLabel)}: {taka(match.course.prescribed, true)} as written
                   {match.course.cheapest != null && match.course.cheapest < match.course.prescribed
-                    ? `, ${taka(match.course.cheapest, true)} at the lowest price`
+                    ? `, ${taka(match.course.cheapest, true)} with the lowest-priced brand`
                     : ""}
                 </div>
               </>

@@ -63,10 +63,14 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
   const abort = useRef<AbortController | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
   const audio = useRef<HTMLAudioElement | null>(null);
+  /** Bumped by every new action, so a slower earlier action never overwrites a newer one. */
+  const token = useRef(0);
+  const uploadUrl = useRef<string | null>(null);
 
   const sample = useMemo(() => (source.kind === "sample" ? samples.find((s) => s.id === source.id) : undefined), [samples, source]);
 
   const stopAll = useCallback(() => {
+    token.current++;
     timers.current.forEach((t) => window.clearTimeout(t));
     timers.current = [];
     abort.current?.abort();
@@ -113,6 +117,7 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
   const readLive = useCallback(
     async (blob: Blob, next: Source) => {
       stopAll();
+      const mine = token.current;
       setSource(next);
       setRun({ ...emptyRun(), status: "reading" });
       setMode("live");
@@ -123,9 +128,16 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
       const form = new FormData();
       form.append("image", blob, "prescription.jpg");
       let gotBusy = false;
+      let finished = false;
+      const fail = (code: "failed" | "too_large", message: string) =>
+        setRun((r) => applyEvent(r, { t: "error", at: r.elapsed, code, message }));
       try {
         const res = await fetch("/api/read", { method: "POST", body: form, signal: ctrl.signal });
-        if (!res.body) throw new Error("no body");
+        if (!res.body || !(res.headers.get("content-type") ?? "").includes("ndjson")) {
+          if (res.status === 413) fail("too_large", "That photo is too large. Try one under 4 MB.");
+          else fail("failed", "Something went wrong while reading. Try again, or try a sample.");
+          return;
+        }
         const reader = res.body.getReader();
         const dec = new TextDecoder();
         let buf = "";
@@ -138,15 +150,23 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
             const line = buf.slice(0, i).trim();
             buf = buf.slice(i + 1);
             if (!line) continue;
-            const e = JSON.parse(line) as RunEvent;
+            let e: RunEvent;
+            try {
+              e = JSON.parse(line) as RunEvent;
+            } catch {
+              continue;
+            }
+            if (token.current !== mine) return;
+            if (e.t === "done" || e.t === "error") finished = true;
             if (e.t === "error" && (e.code === "busy" || e.code === "limit")) gotBusy = true;
             setRun((r) => applyEvent(r, e));
             if (e.t === "done") setLanded(true);
           }
         }
+        if (!finished && token.current === mine) fail("failed", "The reading stopped before it finished. Try again.");
       } catch (err) {
-        if ((err as Error).name === "AbortError") return;
-        setRun((r) => applyEvent(r, { t: "error", at: r.elapsed, code: "failed", message: "The connection dropped. Try again." }));
+        if ((err as Error).name === "AbortError" || token.current !== mine) return;
+        fail("failed", "The connection dropped. Try again.");
       }
       if (gotBusy && next.kind === "sample") {
         const s = samples.find((x) => x.id === next.id);
@@ -163,8 +183,12 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
         setNotice("That isn't a photo. Try a JPG or PNG of the prescription.");
         return;
       }
+      const mine = ++token.current;
       const { blob, size } = await prepareImage(file);
+      if (token.current !== mine) return;
+      if (uploadUrl.current) URL.revokeObjectURL(uploadUrl.current);
       const url = URL.createObjectURL(blob);
+      uploadUrl.current = url;
       readLive(blob, { kind: "upload", image: url, size, file: blob });
     },
     [readLive],
@@ -172,7 +196,9 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
 
   const runSampleLive = useCallback(async () => {
     if (!sample) return;
+    const mine = ++token.current;
     const blob = await (await fetch(sample.image)).blob();
+    if (token.current !== mine) return;
     readLive(blob, { kind: "sample", id: sample.id, image: sample.image, size: sample.imageSize });
   }, [readLive, sample]);
 
@@ -183,15 +209,21 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
       return;
     }
     let src: string | null = null;
-    if (source.kind === "sample" && mode !== "live") src = `/runs/${source.id}-bn.mp3`;
-    else if (run.summary) {
-      const res = await fetch("/api/speak", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ text: run.summary.bn }),
-      });
-      if (res.ok) src = URL.createObjectURL(await res.blob());
+    const mine = token.current;
+    try {
+      if (source.kind === "sample" && mode !== "live") src = `/runs/${source.id}-bn.mp3`;
+      else if (run.summary) {
+        const res = await fetch("/api/speak", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ text: run.summary.bn }),
+        });
+        if (res.ok) src = URL.createObjectURL(await res.blob());
+      }
+    } catch {
+      src = null;
     }
+    if (token.current !== mine) return;
     if (!src) {
       setNotice("Bangla audio is busy right now. Try again in a minute.");
       return;
@@ -264,7 +296,14 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
             {run.status === "reading" ? "Reading the photo…" : run.steps.at(-1)?.title ?? "Working…"}
             {mode === "replay" ? " · replay, sped up" : ""}
           </span>
-          <button type="button" onClick={() => (sample ? showRecorded(sample) : stopAll())}>
+          <button
+            type="button"
+            onClick={() => {
+              if (mode === "replay" && sample) return showRecorded(sample);
+              stopAll();
+              setRun((r) => applyEvent(r, { t: "error", at: r.elapsed, code: "failed", message: "You stopped the reading. Lines read so far are shown." }));
+            }}
+          >
             {mode === "replay" ? "Skip" : "Stop"}
           </button>
         </>
@@ -303,10 +342,6 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
           <a href="#plan" className="hide-sm">Your day</a>
           <a href="#steps" className="hide-sm">What the agent did</a>
           <a href="https://github.com/itssaharsh/likhlo" className="hide-sm">Code</a>
-          <button type="button" className="btn btn-primary" onClick={pick}>
-            {ICON_CAMERA}
-            Read my prescription
-          </button>
         </nav>
       </header>
 
@@ -314,7 +349,6 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
         ref={fileInput}
         type="file"
         accept="image/*"
-        capture="environment"
         className="sr-only"
         tabIndex={-1}
         aria-hidden="true"
@@ -341,11 +375,16 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
             <span className="q-en">What did the doctor write, and is there a cheaper same medicine?</span>
           </h1>
           <p className="lede">
-            Snap the prescription. Likhlo reads every line, tells you what each medicine is for and when to take it, warns you
-            when two medicines clash, and finds the same medicine for less.
+            Photo in: every medicine explained, double doses caught, the same medicine for less.
           </p>
-          <div className="try" role="group" aria-label="Try a prescription">
-            <span className="label">Try:</span>
+          <div className="actions">
+            <button type="button" className="btn btn-primary btn-lg" onClick={pick}>
+              {ICON_CAMERA}
+              Read my prescription
+            </button>
+            <span className="or">or try a sample</span>
+          </div>
+          <div className="try" role="group" aria-label="Try a sample prescription">
             {samples.map((s) => (
               <button
                 key={s.id}
@@ -401,12 +440,7 @@ export default function Reader({ samples }: { samples: RecordedRun[] }) {
         <StepLog run={run} onFocusLine={setFocusLine} />
       </section>
 
-      <MedSheet match={matchOpen} line={lineOpen} lang={lang} onClose={() => setOpenLine(null)} />
-
-      <button type="button" className="btn btn-primary sticky-cta" onClick={pick}>
-        {ICON_CAMERA}
-        Read my prescription
-      </button>
+      <MedSheet match={matchOpen} line={lineOpen} lang={lang} clashes={run.clashes} matches={run.matches} onClose={() => setOpenLine(null)} />
     </>
   );
 }

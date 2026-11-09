@@ -142,3 +142,26 @@ describe("dose notation inside a written line", () => {
     expect(doseNotation("ব্যথা হলে ১টা - ৩ দিন")).toBeNull();
   });
 });
+
+describe("review fixes", () => {
+  it("does not read a strength or a date as a dose", async () => {
+    const { doseNotation } = await import("./agent");
+    expect(doseNotation("Tab. Ace Plus 500+65 ব্যথা হলে")).toBeNull();
+    expect(doseNotation("Tab. Ace Plus 500+65 mg 1+0+1")).toBe("1+0+1");
+    expect(doseNotation("Date 12-05-2025")).toBeNull();
+  });
+  it("warns once per pair, including three brands of one ingredient and one brand written twice", async () => {
+    const { clashSentences } = await import("./agent");
+    const top = (q: string) => searchBrands(q)[0].med;
+    const three = clashSentences(new Map([[1, top("Napa Extend 665")], [2, top("Ace Plus")], [3, top("Napa 500")]]));
+    expect(three.filter((c) => c.kind === "duplicate").map((c) => c.lines)).toEqual([[1, 2], [1, 3], [2, 3]]);
+    const twice = clashSentences(new Map([[1, top("Seclo 20")], [2, top("Seclo 20")]]));
+    expect(twice.filter((c) => c.kind === "duplicate")).toHaveLength(1);
+  });
+  it("drops unsafe advice from the model's prose", async () => {
+    const { withTotals } = await import("./agent");
+    const t = { prescribed: 100, cheapest: 60, priced: 1, basis: "" };
+    const out = withTotals("These are for fever. These medicines are safe together. Stop taking Clopid.", "", t);
+    expect(out.en).toBe("These are for fever. The same medicines cost ৳60 at the lowest price instead of ৳100.");
+  });
+});

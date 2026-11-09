@@ -35,7 +35,15 @@ export async function POST(req: Request) {
   const enc = new TextEncoder();
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
-      const emit = (e: RunEvent) => controller.enqueue(enc.encode(JSON.stringify(e) + "\n"));
+      let open = true;
+      const emit = (e: RunEvent) => {
+        if (!open) return;
+        try {
+          controller.enqueue(enc.encode(JSON.stringify(e) + "\n"));
+        } catch {
+          open = false; // the visitor left
+        }
+      };
       try {
         await runAgent({ image, mediaType: file!.type, apiKeys, emit, signal: req.signal });
       } catch (err) {
@@ -51,7 +59,7 @@ export async function POST(req: Request) {
             : "Something went wrong while reading. Try again, or try a sample.",
         });
       } finally {
-        controller.close();
+        if (open) controller.close();
       }
     },
   });

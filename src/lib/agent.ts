@@ -85,18 +85,28 @@ export function courseFor(line: RxLine, med: Medicine, cheapest: Medicine | unde
 }
 
 export function clashSentences(meds: Map<number, Medicine>): Clash[] {
+  const entries = [...meds.entries()].sort((x, y) => x[0] - y[0]);
   const lineOf = new Map<number, number>();
-  for (const [line, m] of meds) lineOf.set(m.id, line);
-  const list = [...meds.values()];
+  for (const [line, m] of entries) if (!lineOf.has(m.id)) lineOf.set(m.id, line);
+  const list = entries.map(([, m]) => m);
   const out: Clash[] = [];
-  for (const d of findDuplicates(list)) {
-    const [a, b] = d.meds;
+  // shared ingredients, one warning per pair of lines (a pair sharing two ingredients names both)
+  const pairs = new Map<string, { a: [number, Medicine]; b: [number, Medicine]; ings: string[] }>();
+  for (let i = 0; i < entries.length; i++)
+    for (let j = i + 1; j < entries.length; j++) {
+      const [la, ma] = entries[i];
+      const [lb, mb] = entries[j];
+      const shared = findDuplicates([ma, { ...mb, id: mb.id === ma.id ? -mb.id : mb.id }]).map((d) => d.ingredient);
+      if (shared.length) pairs.set(`${la}-${lb}`, { a: [la, ma], b: [lb, mb], ings: shared });
+    }
+  for (const { a, b, ings } of pairs.values()) {
+    const ing = ings.join(" and ");
     out.push({
       kind: "duplicate",
-      lines: [lineOf.get(a.id)!, lineOf.get(b.id)!],
-      ingredient: d.ingredient,
-      en: `${a.brand} and ${b.brand} both contain ${d.ingredient}.`,
-      bn: `${a.brand} আর ${b.brand}, দুটোতেই ${d.ingredient} আছে।`,
+      lines: [a[0], b[0]],
+      ingredient: ing,
+      en: `${a[1].brand} and ${b[1].brand} both contain ${ing}.`,
+      bn: `${a[1].brand} আর ${b[1].brand}, দুটোতেই ${ing} আছে।`,
     });
   }
   const seen = new Set<string>();
@@ -108,8 +118,8 @@ export function clashSentences(meds: Map<number, Medicine>): Clash[] {
       kind: "interaction",
       lines: [lineOf.get(x.a.id)!, lineOf.get(x.b.id)!],
       ingredient: x.matched,
-      en: `The ${x.a.generic} leaflet warns about ${x.matched}, which is in ${x.b.brand}.`,
-      bn: `${x.a.brand}-এর লিফলেটে ${x.matched} নিয়ে সতর্কতা আছে, যা ${x.b.brand}-এ আছে।`,
+      en: `${x.a.brand}'s leaflet (${x.a.generic}) has a warning about ${x.matched}, which is in ${x.b.brand}.`,
+      bn: `${x.a.brand}-এর লিফলেটে (${x.a.generic}) ${x.matched} নিয়ে সতর্কতা আছে; ${x.matched} আছে ${x.b.brand}-এ।`,
       quote: x.snippet,
       source: x.source,
     });
@@ -121,25 +131,45 @@ export function clashSentences(meds: Map<number, Medicine>): Clash[] {
  *  number of days is not part of it. */
 export function doseNotation(text: string): string | null {
   const n = "[0-9০-৯½¼¾]+";
-  const m = text.match(new RegExp(`${n}(?:\\s*\\+\\s*${n}){1,3}`)) ?? text.match(new RegExp(`${n}(?:[-–]${n}){2,3}`));
-  return m ? m[0] : null;
+  const patterns = [new RegExp(`${n}(?:\\s*\\+\\s*${n}){1,3}`, "g"), new RegExp(`${n}(?:[-–]${n}){2,3}`, "g")];
+  for (const re of patterns) {
+    for (const m of text.matchAll(re)) {
+      const after = text.slice((m.index ?? 0) + m[0].length);
+      // "500+65 mg" is a strength, not a dose
+      if (/^\s*(mg|mcg|µg|ml|g|gm|iu|%|unit)/i.test(after)) continue;
+      const d = parseDose(m[0]);
+      // doses are a few tablets per slot; anything bigger is a date or a strength
+      if (!d || d.slots.some((x) => x > 4) || d.perDay > 12) continue;
+      return m[0];
+    }
+  }
+  return null;
 }
 
 const BN_DIGITS = "০১২৩৪৫৬৭৮৯";
 export const toBnDigits = (s: string) => s.replace(/\d/g, (d) => BN_DIGITS[Number(d)]);
 const taka = (x: number) => Math.round(x).toLocaleString("en-US");
 
+/** Advice the model must never give, even if text in the photo asks for it: calling medicines safe, or telling
+ *  someone to stop, skip or change a dose. Sentences with these are dropped. */
+const UNSAFE_ADVICE =
+  /\b(safe|harmless|no risk|risk-free|stop(ping)? (taking|using)?|discontinue|don'?t take|do not take|skip|no need to take|increase the dose|reduce the dose|double the dose|instead of your doctor)\b|নিরাপদ|বন্ধ কর|খাবেন না|খাওয়ার দরকার নেই|ডোজ বাড়া|ডোজ কমা/i;
+export const isUnsafeAdvice = (s: string) => UNSAFE_ADVICE.test(s);
+
 /** Drops any sentence where the model wrote money, then adds the totals computed from the data. */
 export function withTotals(en: string, bn: string, t: Totals): { en: string; bn: string } {
   const money = /৳|টাকা|\btk\b|\btaka\b|\bBDT\b/i;
+  const unsafe = (x: string) => money.test(x) || isUnsafeAdvice(x);
   const keep = (text: string, split: RegExp) =>
     text
       .split(split)
       .map((x) => x.trim())
-      .filter((x) => x && !money.test(x))
+      .filter((x) => x && !unsafe(x))
       .join(" ");
   let outEn = keep(en, /(?<=[.!?])\s+/);
   let outBn = keep(bn, /(?<=[।!?])\s+/);
+  if (!outEn) outEn = "Here is what each medicine on the prescription is for and when to take it.";
+  if (!outBn) outBn = "প্রেসক্রিপশনের প্রতিটি ওষুধ কীসের জন্য আর কখন খেতে হবে, তা নিচে দেওয়া হলো।";
   if (t.priced > 0 && t.cheapest < t.prescribed) {
     outEn += ` The same medicines cost ৳${taka(t.cheapest)} at the lowest price instead of ৳${taka(t.prescribed)}.`;
     outBn += ` একই ওষুধ সবচেয়ে কম দামে কিনলে খরচ ৳${toBnDigits(taka(t.prescribed))}-এর বদলে ৳${toBnDigits(taka(t.cheapest))}।`;
@@ -300,16 +330,21 @@ async function runWith(candidate: Candidate, { image, mediaType, emit, signal }:
         lines: z.array(lineSchema),
       }),
       execute: async ({ patient, doctor, lines: input }) => {
+        if (!input.length) return { recorded: [], note: "No medicine lines were found in this photo. Stop here." };
         started = true;
         const out: RxLine[] = input.map((l) => {
-          const notation = doseNotation(l.dose_text) ?? doseNotation(l.raw);
+          // the raw line is only a fallback when the dose field has no numbers at all
+          const notation = doseNotation(l.dose_text) ?? (/[0-9০-৯]/.test(l.dose_text) ? null : doseNotation(l.raw));
           const parsed = notation ? parseDose(notation) : null;
+          // model numbers are bounded: a slot holds 0 to 4, a course runs 1 to 365 days
+          const slot = (x: number) => (Number.isFinite(x) && x >= 0 && x <= 4 ? x : 0);
           const slots = parsed
             ? { morning: parsed.morning, noon: parsed.noon, night: parsed.night + parsed.evening }
             : l.as_needed
               ? { morning: 0, noon: 0, night: 0 }
-              : { morning: l.morning, noon: l.noon, night: l.night };
-          const perDay = parsed ? parsed.perDay : l.as_needed ? 0 : l.morning + l.noon + l.night;
+              : { morning: slot(l.morning), noon: slot(l.noon), night: slot(l.night) };
+          const perDay = parsed ? parsed.perDay : l.as_needed ? 0 : slots.morning + slots.noon + slots.night;
+          const days = l.days !== null && Number.isInteger(l.days) && l.days >= 1 && l.days <= 365 ? l.days : null;
           const b = l.box_2d;
           return {
             n: l.n,
@@ -320,7 +355,7 @@ async function runWith(candidate: Candidate, { image, mediaType, emit, signal }:
             doseText: l.dose_text,
             slots,
             perDay,
-            days: l.days,
+            days,
             continuing: l.continuing,
             asNeeded: l.as_needed,
             timing: l.timing as Timing,
@@ -467,13 +502,20 @@ async function runWith(candidate: Candidate, { image, mediaType, emit, signal }:
         summary_bn: z.string(),
       }),
       execute: async ({ lines: expl, summary_en, summary_bn }) => {
+        if (!lines.size) return { ok: false };
         if (clashes === null && chosen.size > 1) {
           clashes = clashSentences(chosen);
           emit({ t: "clashes", at: at(), clashes });
         }
         for (const e of expl) {
           const m = matches.get(e.line);
-          if (m) matches.set(e.line, { ...m, forEn: e.for_en.trim(), forBn: e.for_bn.trim() });
+          if (!m) continue;
+          // a line's "what it is for" falls back to the leaflet's own indication when the model's text is unfit
+          const info = m.med ? genericInfo(m.med.generic) : null;
+          const fit = (x: string) => x.trim().length > 0 && x.length < 160 && !isUnsafeAdvice(x);
+          const forEn = fit(e.for_en) ? e.for_en.trim() : info?.indication ? `Used for ${info.indication.toLowerCase()}.` : undefined;
+          const forBn = fit(e.for_bn) ? e.for_bn.trim() : undefined;
+          matches.set(e.line, { ...m, forEn, forBn });
         }
         // any line the agent forgot to price is priced here, from the data
         for (const [line, med] of chosen) {

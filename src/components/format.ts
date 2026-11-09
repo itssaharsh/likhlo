@@ -58,3 +58,16 @@ export const PILL = [
   "oklch(86% 0.09 100)",
   "oklch(74% 0.1 250)",
 ];
+
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : word.endsWith("s") ? "" : "s"}`;
+
+/** "2 tablets a day for 5 days", "1 capsule every day (ongoing, priced for 30 days)", "one 60 ml bottle". */
+export function courseWords(l: RxLine, unitLabel: string) {
+  const unit = /tablet|capsule|sachet|vial|suppositor/i.test(unitLabel) ? unitLabel.toLowerCase() : null;
+  if (!unit) return `one ${unitLabel || "pack"}`;
+  const per = l.asNeeded ? Math.max(1, l.perDay) : l.perDay;
+  const each = l.asNeeded ? `up to ${plural(per, unit)} a day when needed` : `${plural(per, unit)} a day`;
+  if (l.days !== null) return `${each} for ${plural(l.days, "day")}`;
+  if (l.continuing) return `${each}, ongoing (priced for 30 days)`;
+  return each;
+}

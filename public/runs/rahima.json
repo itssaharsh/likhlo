@@ -1,7 +1,7 @@
 {
  "id": "rahima",
  "title": "Rahima's prescription",
- "recordedAt": "2026-11-09T00:53:32.243Z",
+ "recordedAt": "2026-11-09T01:03:42.103Z",
  "model": "gemini-3-flash-preview",
  "image": "/samples/rahima.jpg",
  "imageSize": [
@@ -17,11 +17,11 @@
   },
   {
    "t": "lines",
-   "at": 4342,
+   "at": 4814,
    "lines": [
     {
      "n": 1,
-     "raw": "1. Tab. Napa Extend 665mg 1+0+1 (খাবার পর) - ৫ দিন",
+     "raw": "1. Tab. Napa Extend 665mg 1+0+1 (খাবার পর) — ৫ দিন",
      "form": "Tab.",
      "name": "Napa Extend",
      "strength": "665mg",
@@ -38,18 +38,18 @@
      "timing": "after_food",
      "box": [
       295,
-      389,
-      355,
-      785
+      387,
+      357,
+      786
      ]
     },
     {
      "n": 2,
-     "raw": "2. Tab. Ace Plus ব্যথা হলে ১টা - ৩ দিন",
+     "raw": "2. Tab. Ace Plus ব্যথা হলে ১টা — ৩ দিন",
      "form": "Tab.",
      "name": "Ace Plus",
      "strength": "",
-     "doseText": "ব্যথা হলে ১টা - ৩ দিন",
+     "doseText": "ব্যথা হলে ১টা — ৩ দিন",
      "slots": {
       "morning": 0,
       "noon": 0,
@@ -61,19 +61,19 @@
      "asNeeded": true,
      "timing": "unspecified",
      "box": [
-      378,
-      393,
-      441,
-      643
+      380,
+      392,
+      442,
+      652
      ]
     },
     {
      "n": 3,
-     "raw": "3. cap. Seclo 20mg 1+0+1 (খাবার আগে) - ১৪ দিন",
-     "form": "cap.",
+     "raw": "3. Cap. Seclo 20mg 1+0+1 (খাবার আগে) — ১৪ দিন",
+     "form": "Cap.",
      "name": "Seclo 20mg",
      "strength": "20mg",
-     "doseText": "1+0+1 (খাবার আগে) - ১৪ দিন",
+     "doseText": "1+0+1 (খাবার আগে) — ১৪ দিন",
      "slots": {
       "morning": 1,
       "noon": 0,
@@ -86,18 +86,18 @@
      "timing": "before_food",
      "box": [
       464,
-      395,
-      524,
-      785
+      401,
+      525,
+      813
      ]
     },
     {
      "n": 4,
-     "raw": "4. Tab. Fexo 120mg 0+0+1 - ৭ দিন",
+     "raw": "4. Tab. Fexo 120mg 0+0+1 — ৭ দিন",
      "form": "Tab.",
      "name": "Fexo 120mg",
      "strength": "120mg",
-     "doseText": "0+0+1 - ৭ দিন",
+     "doseText": "0+0+1 — ৭ দিন",
      "slots": {
       "morning": 0,
       "noon": 0,
@@ -109,19 +109,19 @@
      "asNeeded": false,
      "timing": "unspecified",
      "box": [
-      549,
-      400,
-      605,
+      548,
+      401,
+      607,
       688
      ]
     },
     {
      "n": 5,
-     "raw": "5. Tab. Clopid 75mg 0+1+0 - চলবে",
+     "raw": "5. Tab. Clopid 75mg 0+1+0 — চলবে",
      "form": "Tab.",
      "name": "Clopid 75mg",
      "strength": "75mg",
-     "doseText": "0+1+0 - চলবে",
+     "doseText": "0+1+0 — চলবে",
      "slots": {
       "morning": 0,
       "noon": 1,
@@ -134,9 +134,9 @@
      "timing": "unspecified",
      "box": [
       633,
-      401,
-      688,
-      698
+      404,
+      692,
+      699
      ]
     }
    ],
@@ -145,18 +145,18 @@
   },
   {
    "t": "status",
-   "at": 4342,
+   "at": 4814,
    "status": "working",
    "model": "gemini-3-flash-preview"
   },
   {
    "t": "step",
-   "at": 4342,
+   "at": 4814,
    "step": {
     "id": 1,
     "tool": "record_lines",
     "title": "Read 5 medicine lines from the photo",
-    "detail": "1. 1. Tab. Napa Extend 665mg 1+0+1 (খাবার পর) - ৫ দিন\n2. 2. Tab. Ace Plus ব্যথা হলে ১টা - ৩ দিন\n3. 3. cap. Seclo 20mg 1+0+1 (খাবার আগে) - ১৪ দিন\n4. 4. Tab. Fexo 120mg 0+0+1 - ৭ দিন\n5. 5. Tab. Clopid 75mg 0+1+0 - চলবে",
+    "detail": "1. 1. Tab. Napa Extend 665mg 1+0+1 (খাবার পর) — ৫ দিন\n2. 2. Tab. Ace Plus ব্যথা হলে ১টা — ৩ দিন\n3. 3. Cap. Seclo 20mg 1+0+1 (খাবার আগে) — ১৪ দিন\n4. 4. Tab. Fexo 120mg 0+0+1 — ৭ দিন\n5. 5. Tab. Clopid 75mg 0+1+0 — চলবে",
     "lines": [
      1,
      2,
@@ -169,7 +169,7 @@
   },
   {
    "t": "step",
-   "at": 4484,
+   "at": 4950,
    "step": {
     "id": 2,
     "tool": "search_medicine",
@@ -178,12 +178,12 @@
     "lines": [
      1
     ],
-    "ms": 141
+    "ms": 135
    }
   },
   {
    "t": "step",
-   "at": 4484,
+   "at": 4951,
    "step": {
     "id": 3,
     "tool": "search_medicine",
@@ -192,12 +192,12 @@
     "lines": [
      2
     ],
-    "ms": 96
+    "ms": 99
    }
   },
   {
    "t": "step",
-   "at": 4484,
+   "at": 4951,
    "step": {
     "id": 4,
     "tool": "search_medicine",
@@ -206,12 +206,12 @@
     "lines": [
      3
     ],
-    "ms": 48
+    "ms": 52
    }
   },
   {
    "t": "step",
-   "at": 4484,
+   "at": 4951,
    "step": {
     "id": 5,
     "tool": "search_medicine",
@@ -220,12 +220,12 @@
     "lines": [
      4
     ],
-    "ms": 38
+    "ms": 37
    }
   },
   {
    "t": "step",
-   "at": 4485,
+   "at": 4951,
    "step": {
     "id": 6,
     "tool": "search_medicine",
@@ -234,12 +234,12 @@
     "lines": [
      5
     ],
-    "ms": 27
+    "ms": 28
    }
   },
   {
    "t": "match",
-   "at": 6739,
+   "at": 7462,
    "match": {
     "line": 1,
     "med": {
@@ -252,18 +252,18 @@
      "unitPrice": 2,
      "unitLabel": "tablet"
     },
-    "why": "brand, strength, and form match exactly",
+    "why": "Matches brand, strength and form.",
     "drugClass": "Non opioid analgesics"
    }
   },
   {
    "t": "step",
-   "at": 6739,
+   "at": 7463,
    "step": {
     "id": 7,
     "tool": "choose_medicine",
     "title": "Line 1 is Napa Extend 665 mg",
-    "detail": "Paracetamol · Tablet (Extended Release) · Beximco Pharmaceuticals Ltd.. brand, strength, and form match exactly",
+    "detail": "Paracetamol · Tablet (Extended Release) · Beximco Pharmaceuticals Ltd.. Matches brand, strength and form.",
     "lines": [
      1
     ],
@@ -272,7 +272,7 @@
   },
   {
    "t": "match",
-   "at": 6740,
+   "at": 7464,
    "match": {
     "line": 1,
     "med": {
@@ -285,7 +285,7 @@
      "unitPrice": 2,
      "unitLabel": "tablet"
     },
-    "why": "brand, strength, and form match exactly",
+    "why": "Matches brand, strength and form.",
     "drugClass": "Non opioid analgesics",
     "equivalents": 24,
     "cheaper": [
@@ -351,7 +351,7 @@
   },
   {
    "t": "step",
-   "at": 6740,
+   "at": 7464,
    "step": {
     "id": 8,
     "tool": "find_cheaper",
@@ -365,7 +365,7 @@
   },
   {
    "t": "match",
-   "at": 6741,
+   "at": 7464,
    "match": {
     "line": 2,
     "med": {
@@ -378,18 +378,18 @@
      "unitPrice": 2.51,
      "unitLabel": "tablet"
     },
-    "why": "brand and form match; standard strength for this brand",
+    "why": "Matches brand and common form for Ace Plus.",
     "drugClass": "Non opioid analgesics"
    }
   },
   {
    "t": "step",
-   "at": 6741,
+   "at": 7464,
    "step": {
     "id": 9,
     "tool": "choose_medicine",
     "title": "Line 2 is Ace Plus 500 mg+65 mg",
-    "detail": "Paracetamol + Caffeine · Tablet · Square Pharmaceuticals Ltd.. brand and form match; standard strength for this brand",
+    "detail": "Paracetamol + Caffeine · Tablet · Square Pharmaceuticals Ltd.. Matches brand and common form for Ace Plus.",
     "lines": [
      2
     ],
@@ -398,7 +398,7 @@
   },
   {
    "t": "match",
-   "at": 6741,
+   "at": 7465,
    "match": {
     "line": 2,
     "med": {
@@ -411,7 +411,7 @@
      "unitPrice": 2.51,
      "unitLabel": "tablet"
     },
-    "why": "brand and form match; standard strength for this brand",
+    "why": "Matches brand and common form for Ace Plus.",
     "drugClass": "Non opioid analgesics",
     "equivalents": 105,
     "cheaper": [
@@ -477,7 +477,7 @@
   },
   {
    "t": "step",
-   "at": 6741,
+   "at": 7465,
    "step": {
     "id": 10,
     "tool": "find_cheaper",
@@ -486,12 +486,12 @@
     "lines": [
      2
     ],
-    "ms": 0
+    "ms": 1
    }
   },
   {
    "t": "match",
-   "at": 6741,
+   "at": 7465,
    "match": {
     "line": 3,
     "med": {
@@ -504,18 +504,18 @@
      "unitPrice": 6,
      "unitLabel": "capsule"
     },
-    "why": "brand, strength, and form match exactly",
+    "why": "Matches brand, strength and capsule form.",
     "drugClass": "Proton Pump Inhibitor"
    }
   },
   {
    "t": "step",
-   "at": 6741,
+   "at": 7465,
    "step": {
     "id": 11,
     "tool": "choose_medicine",
     "title": "Line 3 is Seclo 20 mg",
-    "detail": "Omeprazole · Capsule (Delayed Release) · Square Pharmaceuticals Ltd.. brand, strength, and form match exactly",
+    "detail": "Omeprazole · Capsule (Delayed Release) · Square Pharmaceuticals Ltd.. Matches brand, strength and capsule form.",
     "lines": [
      3
     ],
@@ -524,7 +524,7 @@
   },
   {
    "t": "match",
-   "at": 6742,
+   "at": 7466,
    "match": {
     "line": 3,
     "med": {
@@ -537,7 +537,7 @@
      "unitPrice": 6,
      "unitLabel": "capsule"
     },
-    "why": "brand, strength, and form match exactly",
+    "why": "Matches brand, strength and capsule form.",
     "drugClass": "Proton Pump Inhibitor",
     "equivalents": 123,
     "cheaper": [
@@ -603,7 +603,7 @@
   },
   {
    "t": "step",
-   "at": 6742,
+   "at": 7466,
    "step": {
     "id": 12,
     "tool": "find_cheaper",
@@ -617,7 +617,7 @@
   },
   {
    "t": "match",
-   "at": 6742,
+   "at": 7466,
    "match": {
     "line": 4,
     "med": {
@@ -630,18 +630,18 @@
      "unitPrice": 8,
      "unitLabel": "tablet"
     },
-    "why": "brand, strength, and form match exactly",
+    "why": "Matches brand, strength and form.",
     "drugClass": "Non-sedating antihistamines"
    }
   },
   {
    "t": "step",
-   "at": 6742,
+   "at": 7466,
    "step": {
     "id": 13,
     "tool": "choose_medicine",
     "title": "Line 4 is Fexo 120 mg",
-    "detail": "Fexofenadine Hydrochloride · Tablet · Square Pharmaceuticals Ltd.. brand, strength, and form match exactly",
+    "detail": "Fexofenadine Hydrochloride · Tablet · Square Pharmaceuticals Ltd.. Matches brand, strength and form.",
     "lines": [
      4
     ],
@@ -650,7 +650,7 @@
   },
   {
    "t": "match",
-   "at": 6742,
+   "at": 7466,
    "match": {
     "line": 4,
     "med": {
@@ -663,7 +663,7 @@
      "unitPrice": 8,
      "unitLabel": "tablet"
     },
-    "why": "brand, strength, and form match exactly",
+    "why": "Matches brand, strength and form.",
     "drugClass": "Non-sedating antihistamines",
     "equivalents": 77,
     "cheaper": [
@@ -729,7 +729,7 @@
   },
   {
    "t": "step",
-   "at": 6742,
+   "at": 7466,
    "step": {
     "id": 14,
     "tool": "find_cheaper",
@@ -743,7 +743,7 @@
   },
   {
    "t": "match",
-   "at": 6742,
+   "at": 7466,
    "match": {
     "line": 5,
     "med": {
@@ -756,18 +756,18 @@
      "unitPrice": 12,
      "unitLabel": "tablet"
     },
-    "why": "brand, strength, and form match exactly",
+    "why": "Matches brand, strength and form.",
     "drugClass": "Anti-platelet drugs"
    }
   },
   {
    "t": "step",
-   "at": 6742,
+   "at": 7466,
    "step": {
     "id": 15,
     "tool": "choose_medicine",
     "title": "Line 5 is Clopid 75 mg",
-    "detail": "Clopidogrel Bisulphate · Tablet · Drug International Ltd.. brand, strength, and form match exactly",
+    "detail": "Clopidogrel Bisulphate · Tablet · Drug International Ltd.. Matches brand, strength and form.",
     "lines": [
      5
     ],
@@ -776,7 +776,7 @@
   },
   {
    "t": "match",
-   "at": 6742,
+   "at": 7466,
    "match": {
     "line": 5,
     "med": {
@@ -789,7 +789,7 @@
      "unitPrice": 12,
      "unitLabel": "tablet"
     },
-    "why": "brand, strength, and form match exactly",
+    "why": "Matches brand, strength and form.",
     "drugClass": "Anti-platelet drugs",
     "equivalents": 40,
     "cheaper": [
@@ -855,7 +855,7 @@
   },
   {
    "t": "step",
-   "at": 6742,
+   "at": 7466,
    "step": {
     "id": 16,
     "tool": "find_cheaper",
@@ -869,7 +869,7 @@
   },
   {
    "t": "clashes",
-   "at": 6764,
+   "at": 7503,
    "clashes": [
     {
      "kind": "duplicate",
@@ -888,8 +888,8 @@
       3
      ],
      "ingredient": "omeprazole",
-     "en": "The Clopidogrel Bisulphate leaflet warns about omeprazole, which is in Seclo.",
-     "bn": "Clopid-এর লিফলেটে omeprazole নিয়ে সতর্কতা আছে, যা Seclo-এ আছে।",
+     "en": "Clopid's leaflet (Clopidogrel Bisulphate) has a warning about omeprazole, which is in Seclo.",
+     "bn": "Clopid-এর লিফলেটে (Clopidogrel Bisulphate) omeprazole নিয়ে সতর্কতা আছে; omeprazole আছে Seclo-এ।",
      "quote": "CYP2C19 inhibitors (omeprazole or esomeprazole): Avoid concomitant use of omeprazole or esomeprazole",
      "source": "Clopidogrel Bisulphate monograph"
     }
@@ -897,29 +897,29 @@
   },
   {
    "t": "step",
-   "at": 6764,
+   "at": 7503,
    "step": {
     "id": 17,
     "tool": "check_clashes",
     "title": "Checked 10 pairs for clashes",
-    "detail": "Napa Extend and Ace Plus both contain paracetamol.\nThe Clopidogrel Bisulphate leaflet warns about omeprazole, which is in Seclo.",
+    "detail": "Napa Extend and Ace Plus both contain paracetamol.\nClopid's leaflet (Clopidogrel Bisulphate) has a warning about omeprazole, which is in Seclo.",
     "lines": [
      1,
      2,
      5,
      3
     ],
-    "ms": 21
+    "ms": 36
    }
   },
   {
    "t": "step",
-   "at": 12538,
+   "at": 12729,
    "step": {
     "id": 18,
     "tool": "finish",
     "title": "Wrote the plan and the summary",
-    "detail": "These medicines are prescribed for fever, body ache, acidity, and allergy symptoms. Napa Extend and Ace Plus both contain paracetamol, so please consult your doctor before taking them together. Additionally, the leaflets warn about using Clopid and Seclo together; it's best to discuss this with your doctor. No other clashes were found. The same medicines cost ৳409 at the lowest price instead of ৳612.",
+    "detail": "These medicines are for fever, pain, gastric issues, and allergies. Both Napa Extend and Ace Plus contain paracetamol; please consult your doctor before using them together. Also, a potential interaction was noted in the leaflets for Clopid and Seclo, so you should discuss this with your doctor or pharmacist. No other clashes were found. The same medicines cost ৳409 at the lowest price instead of ৳612.",
     "lines": [
      1,
      2,
@@ -932,7 +932,7 @@
   },
   {
    "t": "done",
-   "at": 12538,
+   "at": 12730,
    "matches": [
     {
      "line": 1,
@@ -946,7 +946,7 @@
       "unitPrice": 2,
       "unitLabel": "tablet"
      },
-     "why": "brand, strength, and form match exactly",
+     "why": "Matches brand, strength and form.",
      "drugClass": "Non opioid analgesics",
      "equivalents": 24,
      "cheaper": [
@@ -1008,8 +1008,8 @@
       "cheapest": 15,
       "basis": "2 a day for 5 days"
      },
-     "forEn": "Used for fever and body ache.",
-     "forBn": "এটি জ্বর এবং শরীরে ব্যথার জন্য ব্যবহৃত হয়।"
+     "forEn": "For relief of fever and body aches.",
+     "forBn": "জ্বর ও শরীর ব্যথার জন্য।"
     },
     {
      "line": 2,
@@ -1023,7 +1023,7 @@
       "unitPrice": 2.51,
       "unitLabel": "tablet"
      },
-     "why": "brand and form match; standard strength for this brand",
+     "why": "Matches brand and common form for Ace Plus.",
      "drugClass": "Non opioid analgesics",
      "equivalents": 105,
      "cheaper": [
@@ -1085,8 +1085,8 @@
       "cheapest": 4.5,
       "basis": "up to 1 a day for 3 days"
      },
-     "forEn": "Used for headache and general body aches.",
-     "forBn": "মাথাব্যথা এবং সাধারণ ব্যথার জন্য ব্যবহৃত হয়।"
+     "forEn": "For relief of headache or pain as needed.",
+     "forBn": "মাথাব্যথা বা ব্যথার জন্য (প্রয়োজন হলে)।"
     },
     {
      "line": 3,
@@ -1100,7 +1100,7 @@
       "unitPrice": 6,
       "unitLabel": "capsule"
      },
-     "why": "brand, strength, and form match exactly",
+     "why": "Matches brand, strength and capsule form.",
      "drugClass": "Proton Pump Inhibitor",
      "equivalents": 123,
      "cheaper": [
@@ -1162,8 +1162,8 @@
       "cheapest": 84,
       "basis": "2 a day for 14 days"
      },
-     "forEn": "Used for gastric issues and to reduce acidity.",
-     "forBn": "এটি গ্যাস্ট্রিকের সমস্যা এবং এসিডিটি কমাতে ব্যবহৃত হয়।"
+     "forEn": "To reduce gastric acidity and stomach ulcers.",
+     "forBn": "গ্যাস্ট্রিক বা এসিডিটি কমানোর জন্য।"
     },
     {
      "line": 4,
@@ -1177,7 +1177,7 @@
       "unitPrice": 8,
       "unitLabel": "tablet"
      },
-     "why": "brand, strength, and form match exactly",
+     "why": "Matches brand, strength and form.",
      "drugClass": "Non-sedating antihistamines",
      "equivalents": 77,
      "cheaper": [
@@ -1239,8 +1239,8 @@
       "cheapest": 35,
       "basis": "1 a day for 7 days"
      },
-     "forEn": "Helps reduce allergy symptoms and itching.",
-     "forBn": "এটি অ্যালার্জি এবং চুলকানি কমাতে সাহায্য করে।"
+     "forEn": "For relief of allergy symptoms and itching.",
+     "forBn": "অ্যালার্জি বা চুলকানি কমানোর জন্য।"
     },
     {
      "line": 5,
@@ -1254,7 +1254,7 @@
       "unitPrice": 12,
       "unitLabel": "tablet"
      },
-     "why": "brand, strength, and form match exactly",
+     "why": "Matches brand, strength and form.",
      "drugClass": "Anti-platelet drugs",
      "equivalents": 40,
      "cheaper": [
@@ -1316,8 +1316,8 @@
       "cheapest": 270,
       "basis": "1 a day for 30 days (continuing)"
      },
-     "forEn": "Used to reduce the risk of heart attack or stroke.",
-     "forBn": "হার্টের সমস্যা বা স্ট্রোকের ঝুঁকি কমাতে এটি ব্যবহৃত হয়।"
+     "forEn": "To help prevent blood clots.",
+     "forBn": "রক্ত জমাট বাঁধা প্রতিরোধ করতে।"
     }
    ],
    "totals": {
@@ -1327,8 +1327,8 @@
     "basis": "for the days written; medicines to continue are counted for 30 days"
    },
    "summary": {
-    "en": "These medicines are prescribed for fever, body ache, acidity, and allergy symptoms. Napa Extend and Ace Plus both contain paracetamol, so please consult your doctor before taking them together. Additionally, the leaflets warn about using Clopid and Seclo together; it's best to discuss this with your doctor. No other clashes were found. The same medicines cost ৳409 at the lowest price instead of ৳612.",
-    "bn": "এই ওষুধগুলো জ্বর, শরীরের ব্যথা, এসিডিটি এবং অ্যালার্জির সমস্যার জন্য দেওয়া হয়েছে। নাপা এক্সটেন্ড এবং এস প্লাস দুটিতেই প্যারাসিটামল আছে, তাই এগুলো একসাথে খাওয়ার আগে আপনার ডাক্তারের সাথে কথা বলুন। এছাড়া ক্লোপিড এবং সেকলো একসাথে ব্যবহারের ক্ষেত্রে লিফলেটে সতর্কবার্তা দেওয়া আছে, এটিও ডাক্তারকে জানানো ভালো। একই ওষুধ সবচেয়ে কম দামে কিনলে খরচ ৳৬১২-এর বদলে ৳৪০৯।"
+    "en": "These medicines are for fever, pain, gastric issues, and allergies. Both Napa Extend and Ace Plus contain paracetamol; please consult your doctor before using them together. Also, a potential interaction was noted in the leaflets for Clopid and Seclo, so you should discuss this with your doctor or pharmacist. No other clashes were found. The same medicines cost ৳409 at the lowest price instead of ৳612.",
+    "bn": "এই ওষুধগুলো জ্বর, ব্যথা, গ্যাস্ট্রিক এবং অ্যালার্জির সমস্যার জন্য দেওয়া হয়েছে। নাপা এক্সটেন্ড এবং এস প্লাস দুটিতেই প্যারাসিটামল আছে, তাই এগুলো একসাথে ব্যবহারের আগে ডাক্তারের পরামর্শ নিন। এছাড়াও ক্লোপিড এবং সেকলো-র মধ্যে লিফলেটে সতর্কবার্তা দেখা গেছে, তাই এই বিষয়ে আপনার ডাক্তার বা ফার্মাসিস্টের সাথে কথা বলুন। একই ওষুধ সবচেয়ে কম দামে কিনলে খরচ ৳৬১২-এর বদলে ৳৪০৯।"
    }
   }
  ]

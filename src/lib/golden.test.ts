@@ -76,7 +76,7 @@ describe("the named example: Rahima Khatun's prescription", () => {
   it("finds the paracetamol double dose and the clopidogrel leaflet warning", () => {
     expect(state.clashes.map((c) => c.en)).toEqual([
       "Napa Extend and Ace Plus both contain paracetamol.",
-      "The Clopidogrel Bisulphate leaflet warns about omeprazole, which is in Seclo.",
+      "Clopid's leaflet (Clopidogrel Bisulphate) has a warning about omeprazole, which is in Seclo.",
     ]);
     expect(state.clashes[1].quote).toBe(
       "CYP2C19 inhibitors (omeprazole or esomeprazole): Avoid concomitant use of omeprazole or esomeprazole",

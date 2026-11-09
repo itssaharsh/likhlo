@@ -32,6 +32,7 @@ export default function Results({ run, lang, setLang, focusLine, onFocusLine, on
   const dupLines = new Set(run.clashes.filter((c) => c.kind === "duplicate").flatMap((c) => c.lines));
   const intLines = new Set(run.clashes.filter((c) => c.kind === "interaction").flatMap((c) => c.lines));
   const steps = run.steps.length;
+  const money = (x: number | null) => (lang === "bn" ? bnDigits(taka(x)) : taka(x));
   const expected = Math.max(run.lines.length * 3 + 3, 8);
 
   return (
@@ -62,6 +63,22 @@ export default function Results({ run, lang, setLang, focusLine, onFocusLine, on
           </div>
         )}
 
+        {run.status === "reading" && run.lines.length === 0 && (
+          <ul className="rows" aria-hidden="true">
+            {[0, 1, 2].map((i) => (
+              <li key={i}>
+                <div className="row" style={{ cursor: "default" }}>
+                  <span className="n" />
+                  <span>
+                    <span className="skeleton" style={{ display: "block", width: `${62 - i * 9}%` }} />
+                    <span className="skeleton" style={{ display: "block", width: `${44 + i * 6}%`, marginTop: 8 }} />
+                  </span>
+                  <span className="skeleton" style={{ display: "block", width: 70 }} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
         <ul className="rows">
           {run.lines.map((l, i) => {
             const m = run.matches[l.n];
@@ -119,15 +136,15 @@ export default function Results({ run, lang, setLang, focusLine, onFocusLine, on
                     {course?.prescribed != null && course.cheapest != null && best ? (
                       <>
                         <span>
-                          <span className="was">{taka(course.prescribed)}</span>
-                          <span className="now">{taka(course.cheapest)}</span>
+                          <span className="was">{money(course.prescribed)}</span>
+                          <span className="now">{money(course.cheapest)}</span>
                         </span>
                         <span className="alt" style={{ display: "block" }}>{best.brand}</span>
                       </>
                     ) : course?.prescribed != null ? (
                       <>
-                        <span className="now">{taka(course.prescribed)}</span>
-                        <span className="same" style={{ display: "block" }}>lowest price already</span>
+                        <span className="now">{money(course.prescribed)}</span>
+                        <span className="same" style={{ display: "block" }}>{lang === "bn" ? "এটিই সবচেয়ে কম" : "lowest price already"}</span>
                       </>
                     ) : med && m?.course ? (
                       <span className="same">{taka(med.unitPrice, true)} each</span>
@@ -153,8 +170,8 @@ export default function Results({ run, lang, setLang, focusLine, onFocusLine, on
                         ? "দুটো একসাথে খেলে মাত্রা বেশি হতে পারে। ডাক্তারকে দেখান।"
                         : "Taking both can double the dose. Show this to your doctor."
                       : lang === "bn"
-                        ? `সূত্র: ${c.source}। ডাক্তার বা ফার্মাসিস্টকে দেখান।`
-                        : `From the ${c.source}. Show this to your doctor or pharmacist.`}
+                        ? `সূত্র: ${c.source}। নিজে থেকে কোনো ওষুধ বন্ধ করবেন না; ডাক্তার বা ফার্মাসিস্টকে দেখান।`
+                        : `From the ${c.source}. Don't stop either medicine on your own; show this to your doctor or pharmacist.`}
                   </small>
                 </div>
               </div>
@@ -165,6 +182,11 @@ export default function Results({ run, lang, setLang, focusLine, onFocusLine, on
         {run.summary && (
           <div className="summary" lang={lang}>
             {lang === "bn" ? run.summary.bn : run.summary.en}
+            <span className="scope">
+              {lang === "bn"
+                ? "AI-এর লেখা সারাংশ। Likhlo একই উপাদান আর লিফলেটের সতর্কতা মিলিয়ে দেখে; এটি পূর্ণ নিরাপত্তা পরীক্ষা নয়।"
+                : "Written by the AI from the leaflets. Likhlo checks shared ingredients and leaflet warnings; it is not a full safety check."}
+            </span>
             {onListen && (
               <div className="summary-actions">
                 <button type="button" className="btn btn-quiet btn-sm" onClick={onListen} aria-pressed={listening}>
@@ -204,8 +226,11 @@ export function Verdict({ run, lang, landed }: { run: RunState; lang: Lang; land
             </div>
             <div className="sub">
               {lang === "bn"
-                ? "একই ওষুধ, সবচেয়ে কম দামে · লেখা দিনগুলোর হিসাবে, চলমান ওষুধ ৩০ দিন"
-                : "Same medicines at the lowest price · for the days written, ongoing ones for 30 days"}
+                ? "একই জেনেরিক, শক্তি ও ধরনের সবচেয়ে কম দামের ব্র্যান্ড · চলমান ওষুধ ৩০ দিন"
+                : "Lowest-priced brands of the same generic, strength and form · ongoing ones for 30 days"}
+            </div>
+            <div className="fine">
+              {lang === "bn" ? "ব্র্যান্ড বদলানোর আগে ফার্মাসিস্টকে জিজ্ঞেস করুন।" : "Ask your pharmacist before switching brands."}
             </div>
           </div>
           <div className="flags">
@@ -214,17 +239,25 @@ export function Verdict({ run, lang, landed }: { run: RunState; lang: Lang; land
                 {lang === "bn" ? `${taka(saved)} কম · ${bnDigits(pct)}%` : `${taka(saved)} less · ${pct}%`}
               </span>
             )}
-            {dups > 0 && <span className="flag dup">{lang === "bn" ? `${bnDigits(dups)}টি দ্বিগুণ ডোজ` : `${dups} double dose`}</span>}
+            {dups > 0 && (
+              <span className="flag dup">
+                {lang === "bn" ? `${bnDigits(dups)}টি সম্ভাব্য দ্বিগুণ ডোজ` : `${dups} possible double dose${dups > 1 ? "s" : ""}`}
+              </span>
+            )}
             {ints > 0 && <span className="flag int">{lang === "bn" ? `${bnDigits(ints)}টি লিফলেট সতর্কতা` : `${ints} leaflet warning${ints > 1 ? "s" : ""}`}</span>}
           </div>
         </div>
       ) : (
-        <div className="verdict empty" aria-hidden={!working}>
-          <div>
-            <div className="sub" style={{ opacity: 1 }}>
-              {working ? "The price check lands here when every line is matched." : "Prices appear after a reading."}
+        <div className="verdict empty" aria-hidden="true">
+          {working ? (
+            <div className="skel">
+              <i style={{ width: "46%", height: 30 }} />
+              <i style={{ width: "78%" }} />
+              <i style={{ width: "34%" }} />
             </div>
-          </div>
+          ) : (
+            <div className="sub" style={{ opacity: 1 }}>Prices appear after a reading.</div>
+          )}
         </div>
       )}
     </>
